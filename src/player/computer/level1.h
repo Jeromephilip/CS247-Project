@@ -6,7 +6,7 @@ class Level1: public Computer {
     public:
     Level1(string); 
     ~Level1(); 
-    bool turnMove(int, int, int , int, Piece, Board) override; 
+    Move turnMove(int, int, int , int, Piece, Board) override; 
 };
 
 #endif
