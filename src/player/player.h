@@ -6,18 +6,9 @@
 
 #include "../piece/piece.h"
 #include "../board/board.h"
+#include "../game/game.h"
 
 using namespace std; 
-
-struct Move {
-    int oldX; 
-    int oldY; 
-    int newX; 
-    int newY; 
-    bool valid; 
-    Piece* piece; 
-}; 
-
 
 class Player {
     string colour; 

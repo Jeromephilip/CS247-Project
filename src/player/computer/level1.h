@@ -1,12 +1,17 @@
 #ifndef _LEVELONE_H_
 #define _LEVELONE_H_
+
+#include <stdlib.h>
+
 #include "computer.h"
+
 
 class Level1: public Computer {
     public:
     Level1(string); 
     ~Level1(); 
-    Move turnMove(int, int, int , int, Piece, Board) override; 
+    // random moves
+    Move turnMove(int, int, int, int, Board&) override; 
 };
 
 #endif
