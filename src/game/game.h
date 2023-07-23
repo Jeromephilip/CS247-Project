@@ -25,8 +25,8 @@ class Game {
         Game();
         void play();
         void setup();
-        void move(Piece*, int, int, int, int);
-        bool isMoveValid(Piece*, int, int, int, int);
+        void move(int, int, int, int);
+        bool isMoveValid(int, int, int, int);
         bool isCheckmate();
         bool isCheck();
 };
