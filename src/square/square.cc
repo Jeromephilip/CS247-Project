@@ -12,12 +12,12 @@ bool Square::checkOccupied() {
 
 void Square::setPieceOnSquare(Piece* p) {
     this->p = p;
-    isOccupied = true;
+    this->isOccupied = true;
 }
 
 void Square::removePieceOnSquare() {
     this->p = nullptr;
-    isOccupied = false;
+    this->isOccupied = false;
 }
 
 int Square::getX() {

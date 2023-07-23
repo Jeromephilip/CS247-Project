@@ -1,21 +1,16 @@
-#ifndef KING_H
-#define KING_H
-#include "piece.h"
+#ifndef QUEEN_H
+#define QUEEN_H
 #include <string>
 #include <vector>
 #include <utility>
+#include "piece.h"
 
-using namespace std;
-
-class King : public Piece {
-    private:
-        bool canCastle;
+class Queen : public Piece {
     public:
-        King(string );
+        Queen(string );
         vector<pair<int, int>> getPossibleMoves(Piece* ,Board , int, int) override;
         bool isValidMove(int, int, int, int) override;
-        bool checkCanCastle();
-        ~King();
+        ~Queen();
 };
 
 #endif

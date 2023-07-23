@@ -1,4 +1,5 @@
 #ifndef _PLAYER_H
+#define _PLAYER_H
 #include <string>
 #include <vector>
 #include <utility>

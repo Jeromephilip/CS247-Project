@@ -10,13 +10,14 @@ using namespace std;
 class Board;
 
 class Piece {
-    private:
+    protected:
         string color;
-        string type;
+        char type;
     public:
+        Piece(string );
         virtual vector<pair<int, int>> getPossibleMoves(Piece* ,Board , int, int) = 0;
         virtual bool isValidMove(int, int, int, int) = 0; // check in getPossibleMoves if valid
-        string getType();
+        char getType();
         string getColor();
         virtual ~Piece();
 };
