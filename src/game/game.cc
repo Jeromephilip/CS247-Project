@@ -70,7 +70,7 @@ void Game::defaultSetup() {
 
 void Game::play() {
     setup();
-    move(0, 1, 0, 2);
+    //move(0, 1, 0, 2);
     b.printBoard();
     return;
 }

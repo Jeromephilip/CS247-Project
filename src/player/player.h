@@ -10,6 +10,15 @@
 
 using namespace std; 
 
+struct Move {
+    int oldX; 
+    int oldY; 
+    int newX; 
+    int newY; 
+    bool valid; 
+    Piece* piece; 
+}; 
+
 class Player {
     string colour; 
     public: 

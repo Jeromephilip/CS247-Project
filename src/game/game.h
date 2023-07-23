@@ -15,16 +15,16 @@
 
 using namespace std;
 
-struct Move {
+/*struct Move {
     int oldX; 
     int oldY; 
     int newX; 
     int newY; 
     bool valid; 
     Piece* piece; 
-}; 
+}; */
 
-
+class Player;
 
 class Game {
     private:
@@ -37,7 +37,7 @@ class Game {
         void play();
         void setup();
         void move(Player*, int, int, int, int);
-        bool isMoveValid(Piece*, int, int, int, int);
+        bool isMoveValid(int, int, int, int);
         bool isCheckmate(Player*);
         bool isCheck(Player*);
 };
