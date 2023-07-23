@@ -16,6 +16,8 @@ bool Game::isMoveValid(Piece* pc, int curX, int curY, int newX, int newY) {
 }
 
 void Game::setup() {
+    // initial setup code;
+    
     return;
 }
 
@@ -25,5 +27,6 @@ void Game::move(Player p, Piece* pc, int curX, int curY, int newX, int newY) {
 
 void Game::play() {
     cout << "Game started" << endl;
+    b.printBoard();
     return;
 }

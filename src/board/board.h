@@ -19,6 +19,7 @@ class Board {
     public:
         Board(int, int);
         Piece* getPiece(int, int);
+        void setPiece(Piece*, int, int);
         void movePiece(int, int, int, int);
         void removePiece(int, int);
         void printBoard();

@@ -1,5 +1,5 @@
-#ifndef KING_H
-#define KING_H
+#ifndef BISHOP_H
+#define BISHOP_H
 #include "piece.h"
 #include <string>
 #include <vector>
@@ -7,15 +7,13 @@
 
 using namespace std;
 
-class King : public Piece {
-    private:
-        bool canCastle;
+class Bishop : public Piece {
     public:
-        King(string );
+        Bishop(string color);
         vector<pair<int, int>> getPossibleMoves(Piece* ,Board , int, int) override;
         bool isValidMove(int, int, int, int) override;
         bool checkCanCastle();
-        ~King();
+        ~Bishop();
 };
 
 #endif

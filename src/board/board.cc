@@ -29,6 +29,10 @@ void Board::movePiece(int curX, int curY, int newX, int newY) {
     board[curY][curX]->removePieceOnSquare();
 } 
 
+void Board::setPiece(Piece *p, int x, int y) {
+    board[y][x]->setPieceOnSquare(p);
+}
+
 void Board::removePiece(int x, int y) {
     board[y][x]->removePieceOnSquare();
 }
