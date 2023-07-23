@@ -17,6 +17,7 @@ class Player {
         // eg. "move e2 e4" - Game should convert e2 to (4, 1) and then e4 to (4, 3), and check at e2 what the piece is 
         // eg. input would be Player.turnMove(4, 1, 4, 3, Bishop), and this should return a move 
         virtual bool turnMove(int, int, int , int, Piece, Board) = 0; 
+        string getName();
 
 }; 
 
