@@ -1,3 +1,5 @@
+#ifndef PIECE_H
+#define PIECE_H
 #include <string>
 #include <vector>
 #include <utility>
@@ -5,11 +7,19 @@
 
 using namespace std;
 
+class Board;
+
 class Piece {
     private:
         string color;
         string type;
     public:
-        virtual vector<pair<int, int>> getPossibleMoves(Piece , Board, int, int) = 0;
+        virtual vector<pair<int, int>> getPossibleMoves(Piece* ,Board , int, int) = 0;
         virtual bool isValidMove(int, int, int, int) = 0; // check in getPossibleMoves if valid
-}
+        string getType();
+        string getColor();
+        virtual ~Piece();
+};
+
+
+#endif

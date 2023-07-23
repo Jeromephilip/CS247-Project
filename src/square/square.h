@@ -1,20 +1,29 @@
+#ifndef SQUARE_H
+#define SQUARE_H
+
+
 #include "../piece/piece.h"
 #include <string>
 
 using namespace std;
 
+class Piece;
+
 class Square {
     private:
-        Piece p;
+        Piece* p;
         int x, y;
         string color;
-        bool isOccupied = false;
+        bool isOccupied;
     public:
-        Square();
-        Piece getPieceOnSquare();
+        Square(string, int, int);
+        Piece* getPieceOnSquare();
         bool checkOccupied();
-        void setPieceOnSquare(Piece p, int, int);
+        void setPieceOnSquare(Piece*);
+        void removePieceOnSquare();
         int getX();
         int getY();
         string getColor();
 };
+
+#endif

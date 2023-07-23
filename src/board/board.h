@@ -1,3 +1,6 @@
+#ifndef BOARD_H
+#define BOARD_H
+
 #include "../square/square.h"
 #include "../piece/piece.h"
 #include <vector>
@@ -5,14 +8,20 @@
 
 using namespace std;
 
+class Piece;
+class Square;
 
 class Board {
     private:
         vector<vector<Square*>> board;
+        int width;
+        int height;
     public:
-        Board();
-        void getPiece(int, int);
+        Board(int, int);
+        Piece* getPiece(int, int);
         void movePiece(int, int, int, int);
-        void removePiece(int, int, int, int);
+        void removePiece(int, int);
         void printBoard();
 };
+
+#endif
