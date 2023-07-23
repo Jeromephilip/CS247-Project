@@ -4,6 +4,13 @@
 
 #include "../board/board.h"
 #include "../player/player.h"
+#include "../piece/piece.h"
+#include "../piece/king.h"
+#include "../piece/queen.h"
+#include "../piece/rook.h"
+#include "../piece/knight.h"
+#include "../piece/bishop.h"
+#include "../piece/pawn.h"
 #include <iostream>
 
 using namespace std;
@@ -13,14 +20,15 @@ class Game {
         Board b;
         bool inCheck = false;
         bool inCheckmate = false;
+        void defaultSetup();
     public:
         Game();
         void play();
         void setup();
-        void move(Player, Piece*, int, int, int, int);
+        void move(Piece*, int, int, int, int);
         bool isMoveValid(Piece*, int, int, int, int);
-        bool isCheckmate(Player);
-        bool isCheck(Player);
+        bool isCheckmate();
+        bool isCheck();
 };
 
 #endif

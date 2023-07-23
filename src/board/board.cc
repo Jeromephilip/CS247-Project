@@ -46,7 +46,9 @@ void Board::printBoard() {
                 } else {
                     cout << "_";
                 }
-            } 
+            } else {
+                cout << board[i][j]->getPieceOnSquare()->getType();
+            }
         }
         cout << endl;
     }
