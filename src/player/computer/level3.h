@@ -9,7 +9,7 @@ class Level3: public Decorator {
  public:
   Level3( string colour, Computer *component );
   ~Level3(); 
-  bool turnMove(int, int, int , int, Piece, Board) override; 
+  Move turnMove(int, int, int , int, Piece, Board) override; 
 };
 
 #endif
