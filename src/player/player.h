@@ -6,7 +6,7 @@
 
 #include "../piece/piece.h"
 #include "../board/board.h"
-#include "../game/game.h"
+//#include "../game/game.h"
 
 using namespace std; 
 

@@ -3,7 +3,7 @@
 #include <vector>
 #include <utility>
 
-#include "../player.h"
+#include "player.h"
 
 using namespace std; 
 

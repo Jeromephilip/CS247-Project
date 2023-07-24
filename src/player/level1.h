@@ -9,7 +9,7 @@
 class Level1: public Computer {
     public:
     Level1(string); 
-    ~Level1(); 
+    //~Level1(); 
     // random moves
     Move turnMove(int, int, int, int, Board&) override; 
 };

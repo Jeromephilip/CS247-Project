@@ -10,6 +10,9 @@ SRCFILES=$(wildcard $(SRCDIR)/**/*.cc)
 # Add main.cc to the source files list
 SRCFILES+=$(wildcard $(SRCDIR)/main.cc)
 
+# Add player directory to the source files list
+SRCFILES+=$(wildcard $(SRCDIR)/player/**/*.cc)
+
 # Generate the corresponding .o file names in OBJDIR
 OBJECTS=$(patsubst $(SRCDIR)/%.cc,$(OBJDIR)/%.o,$(SRCFILES))
 
@@ -28,3 +31,4 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.cc
 
 clean:
 	rm -rf $(OBJDIR) $(EXEC)
+	

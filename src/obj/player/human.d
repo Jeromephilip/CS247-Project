@@ -1,4 +1,4 @@
-obj/player/player.o: player/player.cc player/player.h \
+obj/player/human.o: player/human.cc player/human.h player/player.h \
  player/../piece/piece.h player/../piece/../board/board.h \
  player/../piece/../board/../square/square.h \
  player/../piece/../board/../square/../piece/piece.h \

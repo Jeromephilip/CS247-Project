@@ -8,8 +8,8 @@ using namespace std;
 class Level3: public Decorator {
  public:
   Level3( string colour, Computer *component );
-  ~Level3(); 
-  Move turnMove(int, int, int , int, Piece, Board) override; 
+  //~Level3(); 
+  Move turnMove(int, int, int, int, Board&) override; 
 };
 
 #endif
