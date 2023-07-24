@@ -1,6 +1,6 @@
 #include "pawn.h"
 
-Pawn::Pawn(string color): Piece{color}, hasMoved{false} {
+Pawn::Pawn(string color): Piece{color} {
     if (color == "white") {
         this->type = 'P';
     } else {
@@ -9,13 +9,8 @@ Pawn::Pawn(string color): Piece{color}, hasMoved{false} {
 }
 
 vector<pair<int, int>> Pawn::getPossibleMoves(Piece* p, Board b, int x, int y) {
-    vector<pair<int, int>> possibleMoves;
-    if (color == "white") {
-        possibleMoves.push_back({x, y-1});
-    } else {
-        possibleMoves.push_back({x, y+1});
-    }
-    return possibleMoves;
+    vector<pair<int, int>> temp = {{1,2}};
+    return temp;
 }
 
 bool Pawn::isValidMove(int curX, int curY, int newX, int newY) {

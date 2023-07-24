@@ -11,7 +11,7 @@ bool Game::isCheckmate() {
     return inCheckmate;
 }
 
-bool Game::isMoveValid(int curX, int curY, int newX, int newY) {
+bool Game::isMoveValid(Piece* pc, int curX, int curY, int newX, int newY) {
     return false;
 }
 
@@ -58,20 +58,12 @@ void Game::defaultSetup() {
     b.setPiece(new Pawn("white"), 7, 6);
 }
 
-void Game::move(int curX, int curY, int newX, int newY) {
-    Piece* p = b.getPiece(curX, curY);
-    vector<pair<int, int>> possibleMoves = p->getPossibleMoves(p, b, curX, curY);
-    for (int i=0; (int)i<possibleMoves.size(); i++) {
-        if (possibleMoves[i].first== newX && possibleMoves[i].second == newY) {
-            b.movePiece(curX, curY, newX, newY);
-            break;
-        }
-    }
+void Game::move(Piece* pc, int curX, int curY, int newX, int newY) {
+    return;
 }
 
 void Game::play() {
     setup();
-    move(0, 1, 0, 2);
     b.printBoard();
     return;
 }

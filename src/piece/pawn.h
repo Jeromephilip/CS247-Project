@@ -8,8 +8,6 @@
 using namespace std;
 
 class Pawn : public Piece {
-    private:
-        bool hasMoved;
     public:
         Pawn(string color);
         vector<pair<int, int>> getPossibleMoves(Piece* ,Board , int, int) override;
