@@ -8,8 +8,8 @@
 class Queen : public Piece {
     public:
         Queen(string );
-        vector<pair<int, int>> getPossibleMoves(Piece* ,Board , int, int) override;
-        bool isValidMove(int, int, int, int) override;
+        vector<pair<int, int>> getPossibleMoves(Board , int, int) override;
+        bool isValidMove(Board b, int, int, int, int) override;
         ~Queen();
 };
 

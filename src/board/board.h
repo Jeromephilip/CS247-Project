@@ -23,6 +23,9 @@ class Board {
         void movePiece(int, int, int, int);
         void removePiece(int, int);
         void printBoard();
+        int getWidth();
+        int getHeight();
+        Square* getSquare(int, int);
 };
 
 #endif

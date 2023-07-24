@@ -8,12 +8,12 @@ Knight::Knight(string color): Piece{color} {
     }
 }
 
-vector<pair<int, int>> Knight::getPossibleMoves(Piece* p, Board b, int x, int y) {
+vector<pair<int, int>> Knight::getPossibleMoves(Board b, int x, int y) {
     vector<pair<int, int>> temp = {{1,2}};
     return temp;
 }
 
-bool Knight::isValidMove(int curX, int curY, int newX, int newY) {
+bool Knight::isValidMove(Board b, int curX, int curY, int newX, int newY) {
     return false;
 }
 

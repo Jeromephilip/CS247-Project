@@ -8,12 +8,12 @@ Queen::Queen(string color): Piece{color} {
     }
 }
 
-vector<pair<int, int>> Queen::getPossibleMoves(Piece* p, Board b, int x, int y) {
+vector<pair<int, int>> Queen::getPossibleMoves(Board b, int x, int y) {
     vector<pair<int, int>> temp = {{1,2}};
     return temp;
 }
 
-bool Queen::isValidMove(int curX, int curY, int newX, int newY) {
+bool Queen::isValidMove(Board b, int curX, int curY, int newX, int newY) {
     return false;
 }
 

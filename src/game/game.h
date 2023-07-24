@@ -12,6 +12,9 @@
 #include "../piece/bishop.h"
 #include "../piece/pawn.h"
 #include <iostream>
+#include <vector>
+#include <utility>
+#include <sstream>
 
 using namespace std;
 
@@ -25,7 +28,7 @@ class Game {
         Game();
         void play();
         void setup();
-        void move(Piece*, int, int, int, int);
+        void move(string, string);
         bool isMoveValid(Piece*, int, int, int, int);
         bool isCheckmate();
         bool isCheck();

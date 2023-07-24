@@ -24,9 +24,13 @@ Piece* Board::getPiece(int x, int y) {
 }
 
 void Board::movePiece(int curX, int curY, int newX, int newY) {
-    Piece *pieceToMove = board[curY][curY]->getPieceOnSquare();
-    board[newY][newX]->setPieceOnSquare(pieceToMove);
-    board[curY][curX]->removePieceOnSquare();
+    // Piece *pieceToMove = board[curY][curY]->getPieceOnSquare();
+    // cout << pieceToMove->getType() << endl;
+    // if (pieceToMove->isValidMove(board, curX, curY, newX, newY)) {
+    //     board[newY][newX]->setPieceOnSquare(pieceToMove);
+    //     board[curY][curX]->removePieceOnSquare();   
+    // }
+    return;
 } 
 
 void Board::setPiece(Piece *p, int x, int y) {
@@ -39,6 +43,7 @@ void Board::removePiece(int x, int y) {
 
 void Board::printBoard() {
     for (int i=0; i<height; i++) {
+        cout << 8-i << " ";
         for (int j=0; j<width; j++) {
             if (board[i][j]->checkOccupied() == false) {
                 if (board[i][j]->getColor() == "white") {
@@ -52,4 +57,18 @@ void Board::printBoard() {
         }
         cout << endl;
     }
+    cout << endl;
+    cout << "  abcdefgh" << endl << endl;
+}
+
+int Board::getHeight() {
+    return height;
+}
+
+int Board::getWidth() {
+    return width;
+}
+
+Square* Board::getSquare(int x, int y) {
+    return board[y][x];
 }
