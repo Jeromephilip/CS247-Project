@@ -18,6 +18,17 @@
 
 using namespace std;
 
+/*struct Move {
+    int oldX; 
+    int oldY; 
+    int newX; 
+    int newY; 
+    bool valid; 
+    Piece* piece; 
+}; */
+
+class Player;
+
 class Game {
     private:
         Board b;
@@ -30,8 +41,8 @@ class Game {
         void setup();
         void move(string, string);
         bool isMoveValid(Piece*, int, int, int, int);
-        bool isCheckmate();
-        bool isCheck();
+        bool isCheckmate(Player *p);
+        bool isCheck(Player *p);
 };
 
 #endif
