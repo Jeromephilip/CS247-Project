@@ -98,6 +98,12 @@ vector<pair<int, int>> King::getCheckableSquares(Board b, int x, int y) {
 }
 
 bool King::isValidMove(Board b, int curX, int curY, int newX, int newY) {
+    vector<pair<int, int>> posMoves = getPossibleMoves(b, curX, curY);
+    for (const auto& pair : posMoves) {
+        if (pair.first == newX && pair.second == newY) {
+            return true;
+        }
+    }
     return false;
 }
 
