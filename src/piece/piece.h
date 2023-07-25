@@ -14,6 +14,7 @@ class Piece {
         string color;
         char type;
         bool checkBounds(int, int, Board);
+        void printMoves(vector<pair<int, int>>); // for testing
         bool hasMoved = false;
     public:
         Piece(string );

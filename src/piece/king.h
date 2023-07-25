@@ -8,13 +8,14 @@
 using namespace std;
 
 class King : public Piece {
-    private:
-        bool canCastle;
+    private: 
+        bool findInMoves(vector<pair<int,int>>, int, int);
     public:
         King(string );
         vector<pair<int, int>> getPossibleMoves(Board , int, int) override;
         bool isValidMove(Board b, int, int, int, int) override;
         bool checkCanCastle();
+        vector<pair<int, int>> getCheckableSquares(Board, int, int);
         ~King();
 };
 

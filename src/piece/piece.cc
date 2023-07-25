@@ -25,4 +25,12 @@ void Piece::setHasMoved(bool b) {
     this->hasMoved = b;
 }
 
+void Piece::printMoves(vector<pair<int, int>> v) {
+    cout << "[";
+    for (size_t i=0; i<v.size(); i++) {
+        cout << "(" << v[i].first << ", " << v[i].second << "), ";
+    }
+    cout << "]" << endl;
+}
+
 Piece::~Piece() {}
