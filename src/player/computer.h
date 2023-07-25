@@ -4,9 +4,9 @@
 
 class Computer : public Player{
     public: 
-    Computer(string); 
+    Computer(string, bool);
     virtual ~Computer();
-    //virtual Move turnMove(int, int, int, int, Board&) = 0; 
+    virtual Move turnMove(int, int, int, int, Board&) = 0; 
 }; 
 
 #endif

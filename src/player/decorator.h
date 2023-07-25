@@ -6,7 +6,7 @@ class Decorator: public Computer {
  protected:
   Computer *component;
  public:
-  Decorator( string colour, Computer *component );
+  Decorator( string colour, bool, Computer *component );
   virtual ~Decorator();
 };
 
