@@ -1,6 +1,6 @@
 #include "level1.h"
 
-Level1::Level1(string colour) : Computer{colour} {} 
+Level1::Level1(string colour, bool isComputer) : Computer{colour, isComputer} {} 
 
 Move Level1::turnMove(int x, int y, int z, int w, Board& b) {
     int rstartX = rand() % 7; 
@@ -11,7 +11,7 @@ Move Level1::turnMove(int x, int y, int z, int w, Board& b) {
 
     while (true) {
         if (b.getPiece(rstartX, rstartY)->getColor() == getColour()) {
-            moves = b.getPiece(rstartX, rstartY)->getPossibleMoves(b.getPiece(rstartX, rstartY), b, rstartX, rstartY); 
+            moves = b.getPiece(rstartX, rstartY)->getPossibleMoves(b, rstartX, rstartY); 
             break; 
         }
         else {
@@ -24,6 +24,6 @@ Move Level1::turnMove(int x, int y, int z, int w, Board& b) {
     random = rand() % (moves.size()); 
     newMove = moves[random]; 
 
-    return Move{rstartX, rstartY, newMove.first, newMove.second, b.getPiece(rstartX, rstartY)->isValidMove(rstartX, rstartY, newMove.first, newMove.second), b.getPiece(rstartX, rstartY)}; 
+    return Move{rstartX, rstartY, newMove.first, newMove.second, b.getPiece(rstartX, rstartY)->isValidMove(b, rstartX, rstartY, newMove.first, newMove.second), b.getPiece(rstartX, rstartY)}; 
 
 }

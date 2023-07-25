@@ -73,6 +73,7 @@ void Game::move(string iPos, string fPos) {
     int newX = fPos[0] - 'a';
     int newY = fPos[1] - '0' - 1;
     Piece *pieceToMove = b.getPiece(curX, curY);
+    
     // cout << pieceToMove->getHasMoved() << endl;
     if (pieceToMove->isValidMove(b, curX, curY, newX, newY)) {
         b.getSquare(newX, newY)->setPieceOnSquare(pieceToMove);
