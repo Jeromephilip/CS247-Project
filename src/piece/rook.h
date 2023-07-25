@@ -4,6 +4,7 @@
 #include <vector>
 #include <utility>
 #include "piece.h"
+#include <cctype>
 
 using namespace std;
 

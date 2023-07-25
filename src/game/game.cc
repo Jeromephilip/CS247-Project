@@ -106,12 +106,12 @@ void Game::play() {
         }
         b.printBoard();
     }
-    // vector<pair<int, int>> test = b.getPiece(0, 6)->getPossibleMoves(b, 0, 6);
+    // cout <<  b.getPiece(1, 7)->getType() << endl;
+    // b.getPiece(1, 7)->getPossibleMoves(b, 1, 7);
     // cout << test.size() << endl;
     // for (const auto& pair : test) {
     //     cout << pair.first << ", " << pair.second << endl;
     // }
-    // cout <<  b.getPiece(0, 1)->getType() << endl;
 
     
 
