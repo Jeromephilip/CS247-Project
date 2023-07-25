@@ -10,7 +10,7 @@ using namespace std;
 class Human : public Player {
     string colour; 
     public: 
-        Human(string); 
+        Human(string, bool); 
         ~Human(); 
         // from Game, you get as input: two (x, y) points and then the piece you want to move 
         // eg. "move e2 e4" - Game should convert e2 to (4, 1) and then e4 to (4, 3), and check at e2 what the piece is 

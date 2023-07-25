@@ -1,6 +1,6 @@
 #include "player.h"
 
-Player::Player(string colour) : colour{colour} {}
+Player::Player(string colour, bool isComputer) : colour{colour, isComputer} {}
 
 Player::~Player() {}
 
