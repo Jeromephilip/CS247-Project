@@ -72,16 +72,23 @@ void Game::move(Player* p, string iPos, string fPos) {
     int curY = iPos[1] - '0' - 1;
     int newX = fPos[0] - 'a';
     int newY = fPos[1] - '0' - 1;
-    Piece *pieceToMove = b.getPiece(curX, curY);
-    if (pieceToMove == nullptr) {
+    //Piece *pieceToMove = b.getPiece(curX, curY);
+    Move m = p->turnMove(curX, curY, newX, newY, b); 
+    if (m.piece == nullptr) {
         return; 
     }
+    
+    cout << "The move coordinates are: (" << m.oldX << "," << m.oldY << ") -> (" << m.newX << "," << m.newY << ")" << endl;
+    if (m.valid) {
+        cout << "valid move" << endl;
+        cout << m.piece->getType() << endl;
+    }
     // cout << pieceToMove->getHasMoved() << endl;
-    if (pieceToMove->isValidMove(b, curX, curY, newX, newY)) {
-        b.getSquare(newX, newY)->setPieceOnSquare(pieceToMove);
-        b.getSquare(curX, curY)->removePieceOnSquare();   
-        if (pieceToMove->getHasMoved() == false) {
-            pieceToMove->setHasMoved(true);
+    if (m.valid) {
+        b.getSquare(m.newX, m.newY)->setPieceOnSquare(m.piece);
+        b.getSquare(m.oldX, m.oldY)->removePieceOnSquare();   
+        if (m.piece->getHasMoved() == false) {
+            m.piece->setHasMoved(true);
         }
     }
     //  cout << pieceToMove->getHasMoved() << endl;
