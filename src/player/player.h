@@ -21,6 +21,7 @@ struct Move {
 
 class Player {
     string colour; 
+    bool isComputer; 
     public: 
         Player(string, bool); 
         ~Player(); 
@@ -29,6 +30,7 @@ class Player {
         // eg. input would be Player.turnMove(4, 1, 4, 3, Bishop), and this should return a move 
         virtual Move turnMove(int, int, int, int, Board&) = 0; 
         string getColour();
+        bool getBool(); 
 
 }; 
 
