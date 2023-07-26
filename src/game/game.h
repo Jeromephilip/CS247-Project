@@ -11,6 +11,8 @@
 #include "../piece/knight.h"
 #include "../piece/bishop.h"
 #include "../piece/pawn.h"
+#include "../player/human.h"
+#include "../player/level1.h"
 #include <iostream>
 #include <vector>
 #include <utility>
@@ -31,6 +33,8 @@ class Player;
 
 class Game {
     private:
+        Player *pW, *pB; 
+        int turn; 
         Board b;
         bool inCheck = false;
         bool inCheckmate = false;
@@ -39,7 +43,7 @@ class Game {
         Game();
         void play();
         void setup();
-        void move(string, string);
+        void move(Player*, string, string);
         bool isMoveValid(Piece*, int, int, int, int);
         bool isCheckmate(Player *p);
         bool isCheck(Player *p);
