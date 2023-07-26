@@ -3,6 +3,9 @@
 Level1::Level1(string colour, bool isComputer) : Computer{colour, isComputer} {} 
 
 Move Level1::turnMove(int x, int y, int z, int w, Board& b) {
+    // Seed the random number generator with the current time
+    srand(time(NULL));
+    
     int rstartX = rand() % 7; 
     int rstartY = rand() % 7; 
     int random = 0; 
@@ -10,17 +13,17 @@ Move Level1::turnMove(int x, int y, int z, int w, Board& b) {
     vector<pair<int, int>> moves; 
 
     while (true) {
-         if (b.getPiece(rstartX, rstartY)->getColor() == getColour()) {
-             moves = b.getPiece(rstartX, rstartY)->getPossibleMoves(b, rstartX, rstartY); 
-             break; 
+         if (b.getPiece(rstartX, rstartY) != nullptr && b.getPiece(rstartX, rstartY)->getColor() == getColour() && b.getPiece(rstartX, rstartY)->getPossibleMoves(b, rstartX, rstartY).size() != 0) {
+            moves = b.getPiece(rstartX, rstartY)->getPossibleMoves(b, rstartX, rstartY); 
+            break; 
          }
          else {
-             rstartX = rand() % 7; 
-             rstartY = rand() % 7; 
+            rstartX = rand() % 7; 
+            rstartY = rand() % 7; 
          }
 
     }
-
+    cout << "Moving: " << b.getPiece(rstartX, rstartY)->getType() << endl;
     random = rand() % (moves.size()); 
     newMove = moves[random]; 
 
