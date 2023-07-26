@@ -28,47 +28,47 @@ vector<pair<int, int>> King::getPossibleMoves(Board b, int x, int y) {
     int incrNeg = -1;
 
    if (checkBounds(x + incrPos, y + incrPos, b)) {
-        if (!(findInMoves(checkableSquares, x + incrPos, y + incrPos))) {
+        if (!(findInMoves(checkableSquares, x + incrPos, y + incrPos)) && b.getSquare(x + incrPos, y + incrPos)->checkOccupied() == false) {
             possibleMoves.push_back({x + incrPos, y + incrPos});
         }
     }
 
     if (checkBounds(x + incrPos, y, b)) {
-        if (!(findInMoves(checkableSquares, x + incrPos, y))) {
+        if (!(findInMoves(checkableSquares, x + incrPos, y)) && b.getSquare(x + incrPos, y)->checkOccupied() == false) {
             possibleMoves.push_back({x + incrPos, y});
         }
     }
 
     if (checkBounds(x, y + incrPos, b)) {
-        if (!(findInMoves(checkableSquares, x, y + incrPos))) {
+        if (!(findInMoves(checkableSquares, x, y + incrPos)) && b.getSquare(x, y + incrPos)->checkOccupied() == false) {
             possibleMoves.push_back({x, y + incrPos});
         }
     }
     if (checkBounds(x + incrNeg, y + incrNeg, b)) {
-        if (!(findInMoves(checkableSquares, x + incrNeg, y + incrNeg))) {
+        if (!(findInMoves(checkableSquares, x + incrNeg, y + incrNeg)) && b.getSquare(x + incrNeg, y + incrNeg)->checkOccupied() == false) {
             possibleMoves.push_back({x + incrNeg, y + incrNeg});
         }
     }
     if (checkBounds(x, y + incrNeg, b)) {
-        if (!(findInMoves(checkableSquares, x, y + incrNeg))) {
+        if (!(findInMoves(checkableSquares, x, y + incrNeg)) && b.getSquare(x, y + incrNeg)->checkOccupied() == false) {
             possibleMoves.push_back({x, y + incrNeg});
         }
     }
       
     if (checkBounds(x + incrNeg, y, b)) {
-        if (!(findInMoves(checkableSquares, x + incrNeg, y))) {
+        if (!(findInMoves(checkableSquares, x + incrNeg, y)) && b.getSquare(x + incrNeg, y)->checkOccupied() == false) {
             possibleMoves.push_back({x + incrNeg, y});
         }
     }
 
     if (checkBounds(x + incrPos, y + incrNeg, b)) {
-        if (!(findInMoves(checkableSquares, x + incrPos, y + incrNeg))) {
+        if (!(findInMoves(checkableSquares, x + incrPos, y + incrNeg)) && b.getSquare(x + incrPos, y + incrNeg)->checkOccupied() == false) {
             possibleMoves.push_back({x + incrPos, y + incrNeg});
         }
     }
     
     if (checkBounds(x + incrNeg, y + incrPos, b)) {
-        if (!(findInMoves(checkableSquares, x + incrNeg, y + incrPos))) {
+        if (!(findInMoves(checkableSquares, x + incrNeg, y + incrPos)) && b.getSquare(x + incrNeg, y + incrPos)->checkOccupied() == false) {
             possibleMoves.push_back({x + incrNeg, y + incrPos});
         }
     } 
