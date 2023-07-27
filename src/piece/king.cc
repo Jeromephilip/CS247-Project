@@ -22,6 +22,9 @@ vector<pair<int, int>> King::getPossibleMoves(Board& b, int x, int y) {
     // check if in this array
     // if not, add to possible moves.
     vector<pair<int, int>> possibleMoves;
+    if (!checkBounds(x, y, b) || b.getPiece(x, y) == nullptr) {
+        return possibleMoves; // return empty set
+    }
     vector<pair<int, int>> checkableSquares = getCheckableSquares(b, x, y);
     // printMoves(checkableSquares);
     int incrPos = 1; 
@@ -72,10 +75,14 @@ vector<pair<int, int>> King::getPossibleMoves(Board& b, int x, int y) {
             possibleMoves.push_back({x + incrNeg, y + incrPos});
         }
     } 
+    // printMoves(possibleMoves);
+    return possibleMoves;
+}
 
 
-    printMoves(possibleMoves);
-
+vector<pair<int, int>> King::getPossibleCaptures(Board& b, int x, int y) {
+    // --------TODO--------
+    vector<pair<int, int>> possibleMoves;
     return possibleMoves;
 }
 

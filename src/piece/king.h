@@ -13,6 +13,7 @@ class King : public Piece {
     public:
         King(string );
         vector<pair<int, int>> getPossibleMoves(Board& , int, int) override;
+        vector<pair<int, int>> getPossibleCaptures(Board&, int, int) override;
         bool isValidMove(Board&, int, int, int, int) override;
         bool checkCanCastle();
         vector<pair<int, int>> getCheckableSquares(Board& b, int, int);

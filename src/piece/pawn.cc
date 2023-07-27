@@ -8,8 +8,36 @@ Pawn::Pawn(string color): Piece{color} {
     }
 }
 
+vector<pair<int, int>> Pawn::getPossibleCaptures(Board& b, int x, int y) {
+    vector<pair<int, int>> possibleMoves;
+    if (!checkBounds(x, y, b) || b.getPiece(x, y) == nullptr) {
+        return possibleMoves; // return empty set
+    }
+    if (this->color == "white") {
+        if (checkBounds(x-1, y-1, b) && b.getSquare(x-1, y-1)->checkOccupied() == true && b.getSquare(x-1, y-1)->getPieceOnSquare()->getColor() == "black" && tolower(b.getPiece(x-1, y-1)->getType() != 'k')) {
+            possibleMoves.push_back({x + 1, y + 1});
+        }
+
+        if (checkBounds(x-1, y-2, b) && b.getSquare(x-1, y-2)->checkOccupied() == true && b.getSquare(x-1, y-2)->getPieceOnSquare()->getColor() == "black" && tolower(b.getPiece(x-1, y-2)->getType() != 'k')) {
+            possibleMoves.push_back({x - 1, y + 1});
+        }
+    } else {
+        if (checkBounds(x+1, y+1, b) && b.getSquare(x+1, y+1)->checkOccupied() == true && b.getSquare(x+1, y+1)->getPieceOnSquare()->getColor() == "white" && tolower(b.getPiece(x+1, y+1)->getType() != 'k')) {
+            possibleMoves.push_back({x + 1, y + 1});
+        }
+
+        if (checkBounds(x-1, y+1, b) && b.getSquare(x-1, y+1)->checkOccupied() == true && b.getSquare(x-1, y+1)->getPieceOnSquare()->getColor() == "white" && tolower(b.getPiece(x-1, y+1)->getType() != 'k')) {
+            possibleMoves.push_back({x - 1, y + 1});
+        }
+    }
+    return possibleMoves;
+}
+
 vector<pair<int, int>> Pawn::getPossibleMoves(Board& b, int x, int y) {
     vector<pair<int, int>> possibleMoves;
+    if (!checkBounds(x, y, b) || b.getPiece(x, y) == nullptr) {
+        return possibleMoves; // return empty set
+    }
     // white color -> moves up the board. Y translation is negative
     if (this->color == "white") {
         // cout << "white" << endl;
@@ -24,11 +52,11 @@ vector<pair<int, int>> Pawn::getPossibleMoves(Board& b, int x, int y) {
             possibleMoves.push_back({x, y-1});
         }
         // captures
-        if (checkBounds(x-1, y-1, b) && b.getSquare(x-1, y-1)->checkOccupied() == true && b.getSquare(x-1, y-1)->getPieceOnSquare()->getColor() == "black") {
+        if (checkBounds(x-1, y-1, b) && b.getSquare(x-1, y-1)->checkOccupied() == true && b.getSquare(x-1, y-1)->getPieceOnSquare()->getColor() == "black" && tolower(b.getPiece(x-1, y-1)->getType() != 'k')) {
             possibleMoves.push_back({x + 1, y + 1});
         }
 
-        if (checkBounds(x-1, y-2, b) && b.getSquare(x-1, y-2)->checkOccupied() == true && b.getSquare(x-1, y-2)->getPieceOnSquare()->getColor() == "black") {
+        if (checkBounds(x-1, y-2, b) && b.getSquare(x-1, y-2)->checkOccupied() == true && b.getSquare(x-1, y-2)->getPieceOnSquare()->getColor() == "black" && tolower(b.getPiece(x-1, y-2)->getType() != 'k')) {
             possibleMoves.push_back({x - 1, y + 1});
         }
 
@@ -47,11 +75,11 @@ vector<pair<int, int>> Pawn::getPossibleMoves(Board& b, int x, int y) {
         }
         
         // captures
-        if (checkBounds(x+1, y+1, b) && b.getSquare(x+1, y+1)->checkOccupied() == true && b.getSquare(x+1, y+1)->getPieceOnSquare()->getColor() == "white") {
+        if (checkBounds(x+1, y+1, b) && b.getSquare(x+1, y+1)->checkOccupied() == true && b.getSquare(x+1, y+1)->getPieceOnSquare()->getColor() == "white" && tolower(b.getPiece(x+1, y+1)->getType() != 'k')) {
             possibleMoves.push_back({x + 1, y + 1});
         }
 
-        if (checkBounds(x-1, y+1, b) && b.getSquare(x-1, y+1)->checkOccupied() == true && b.getSquare(x-1, y+1)->getPieceOnSquare()->getColor() == "white") {
+        if (checkBounds(x-1, y+1, b) && b.getSquare(x-1, y+1)->checkOccupied() == true && b.getSquare(x-1, y+1)->getPieceOnSquare()->getColor() == "white" && tolower(b.getPiece(x-1, y+1)->getType() != 'k')) {
             possibleMoves.push_back({x - 1, y + 1});
         }
 

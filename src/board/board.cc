@@ -20,7 +20,6 @@ Board::Board(int width, int height): width{width}, height{height} {
 
 Piece* Board::getPiece(int x, int y) {
     if (board[y][x]->getPieceOnSquare() == nullptr) {
-        cout << "No Piece on this!!!" << endl;
         return nullptr;
     }
     Piece* outPiece = board[y][x]->getPieceOnSquare();

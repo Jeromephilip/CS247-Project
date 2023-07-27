@@ -186,7 +186,8 @@ void Game::move(Player* p, string iPos, string fPos) {
             m.piece->setHasMoved(true);
         }
     }
-    //  cout << pieceToMove->getHasMoved() << endl;
+
+    // check if the the move makes it a check with b.isCheck...
     return;
 }
 
@@ -224,8 +225,8 @@ void Game::gameType(stringstream& ss) {
 
 void Game::helpMenu() {
     cout << "Here are the list of commands:" << endl;
-    cout << "setup - You can setup your board" << endl;
-    cout << "game - You can initialize your players, i.e. who is black or white and if you want to face against a computer" << endl;
+    cout << "setup - You can setup your board. Use the 'default' command to get a basic chess board or make your custom moves!" << endl;
+    cout << "game - You can initialize your players, i.e. who is black or white and if you want to face against a computer. The command takes in 3 arguments as follows: <game> <player1> <player2> where player1 and player2 are either human or computer1, computer2, computer3, computer4 " << endl;
     cout << "move- Once you used both of these commands, you can move a piece to start your game" << endl;
     cout << "Note that you cannot go back to setup and game once initialized" << endl;
 }
