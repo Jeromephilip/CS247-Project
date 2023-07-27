@@ -26,16 +26,6 @@ Piece* Board::getPiece(int x, int y) {
     return outPiece;
 }
 
-void Board::movePiece(int curX, int curY, int newX, int newY) {
-    // Piece *pieceToMove = board[curY][curY]->getPieceOnSquare();
-    // cout << pieceToMove->getType() << endl;
-    // if (pieceToMove->isValidMove(board, curX, curY, newX, newY)) {
-    //     board[newY][newX]->setPieceOnSquare(pieceToMove);
-    //     board[curY][curX]->removePieceOnSquare();   
-    // }
-    return;
-} 
-
 void Board::setPiece(Piece *p, int x, int y) {
     removePiece(x, y);
     board[y][x]->setPieceOnSquare(p);
@@ -75,4 +65,12 @@ int Board::getWidth() {
 
 Square* Board::getSquare(int x, int y) {
     return board[y][x];
+}
+
+Board::~Board() {
+    for (int i=0; i<height; i++) {
+        for(int j=0; j<width; j++) {
+            delete board[i][j];
+        }
+    }
 }

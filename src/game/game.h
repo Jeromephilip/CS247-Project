@@ -50,6 +50,7 @@ class Game {
         bool isMoveValid(Piece*, int, int, int, int);
         bool isCheckmate(Player *p);
         bool isCheck(Player *p);
+        ~Game();
 };
 
 #endif

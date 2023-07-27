@@ -16,6 +16,7 @@ void Square::setPieceOnSquare(Piece* p) {
 }
 
 void Square::removePieceOnSquare() {
+    delete this->p;
     this->p = nullptr;
     this->isOccupied = false;
 }
@@ -30,4 +31,8 @@ int Square::getY() {
 
 string Square::getColor() {
     return color;
+}
+
+Square::~Square() {
+    delete p;
 }

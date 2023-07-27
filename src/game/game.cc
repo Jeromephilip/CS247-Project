@@ -161,7 +161,6 @@ void Game::setup() {
 
 }
 
-
 void Game::move(Player* p, string iPos, string fPos) {
     int curX = iPos[0] - 'a';
     int curY = abs(iPos[1] - '0' - 8);
@@ -296,6 +295,7 @@ void Game::play() {
             turn++;
             b.printBoard();
         } else if (cmd == "done") {
+            cout << "Thanks for playing!" << endl;
             break;
         } else {
             if (cmd == "setup" && isSetupDone) {
@@ -309,4 +309,10 @@ void Game::play() {
         }
     }
     return;
+}
+
+
+Game::~Game() {
+    delete pW;
+    delete pB;
 }

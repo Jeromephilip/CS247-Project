@@ -25,6 +25,7 @@ class Square {
         int getX();
         int getY();
         string getColor();
+        ~Square();
 };
 
 #endif
