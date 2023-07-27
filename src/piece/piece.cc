@@ -10,7 +10,7 @@ char Piece::getType() {
     return type;
 }
 
-bool Piece::checkBounds(int x, int y, Board b) {
+bool Piece::checkBounds(int x, int y, Board& b) {
     if ((0 <= x && x < b.getWidth()) && (0 <= y && y < b.getHeight())) {
         return true;
     }

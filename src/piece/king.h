@@ -12,10 +12,10 @@ class King : public Piece {
         bool findInMoves(vector<pair<int,int>>, int, int);
     public:
         King(string );
-        vector<pair<int, int>> getPossibleMoves(Board , int, int) override;
-        bool isValidMove(Board b, int, int, int, int) override;
+        vector<pair<int, int>> getPossibleMoves(Board& , int, int) override;
+        bool isValidMove(Board&, int, int, int, int) override;
         bool checkCanCastle();
-        vector<pair<int, int>> getCheckableSquares(Board, int, int);
+        vector<pair<int, int>> getCheckableSquares(Board& b, int, int);
         ~King();
 };
 

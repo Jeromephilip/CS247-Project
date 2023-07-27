@@ -12,8 +12,8 @@ class Pawn : public Piece {
         bool hasMoved = false;
     public:
         Pawn(string color);
-        vector<pair<int, int>> getPossibleMoves(Board , int, int) override;
-        bool isValidMove(Board b, int, int, int, int) override;
+        vector<pair<int, int>> getPossibleMoves(Board& , int, int) override;
+        bool isValidMove(Board&, int, int, int, int) override;
         ~Pawn();
 };
 

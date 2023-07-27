@@ -8,7 +8,7 @@ Pawn::Pawn(string color): Piece{color} {
     }
 }
 
-vector<pair<int, int>> Pawn::getPossibleMoves(Board b, int x, int y) {
+vector<pair<int, int>> Pawn::getPossibleMoves(Board& b, int x, int y) {
     vector<pair<int, int>> possibleMoves;
     // white color -> moves up the board. Y translation is negative
     if (this->color == "white") {
@@ -59,7 +59,7 @@ vector<pair<int, int>> Pawn::getPossibleMoves(Board b, int x, int y) {
     return possibleMoves;
 }
 
-bool Pawn::isValidMove(Board b, int curX, int curY, int newX, int newY) {
+bool Pawn::isValidMove(Board& b, int curX, int curY, int newX, int newY) {
     vector <pair<int, int>> possibleMoves = getPossibleMoves(b, curX, curY);
     for (const auto& pair : possibleMoves) {
         if (pair.first == newX && pair.second == newY) {

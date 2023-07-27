@@ -17,6 +17,7 @@
 #include <vector>
 #include <utility>
 #include <sstream>
+#include <limits>
 
 using namespace std;
 
@@ -39,11 +40,13 @@ class Game {
         bool inCheck = false;
         bool inCheckmate = false;
         void defaultSetup();
+        void gameType(stringstream& ss);
+        void move(Player*, string, string);
+        void helpMenu();
     public:
         Game();
         void play();
         void setup();
-        void move(Player*, string, string);
         bool isMoveValid(Piece*, int, int, int, int);
         bool isCheckmate(Player *p);
         bool isCheck(Player *p);

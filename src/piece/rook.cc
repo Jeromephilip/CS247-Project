@@ -8,7 +8,7 @@ Rook::Rook(string color): Piece{color} {
     }
 }
 
-vector<pair<int, int>> Rook::getPossibleMoves(Board b, int x, int y) {
+vector<pair<int, int>> Rook::getPossibleMoves(Board& b, int x, int y) {
     Piece* getCurPiece = b.getPiece(x, y);
     vector<pair<int, int>> possibleMoves;
     if (!checkBounds(x, y, b)) {
@@ -67,7 +67,7 @@ vector<pair<int, int>> Rook::getPossibleMoves(Board b, int x, int y) {
     return possibleMoves;
 }
 
-bool Rook::isValidMove(Board b, int curX, int curY, int newX, int newY) {
+bool Rook::isValidMove(Board& b, int curX, int curY, int newX, int newY) {
     vector<pair<int, int>> posMoves = getPossibleMoves(b, curX, curY);
     for (const auto& pair : posMoves) {
         if (pair.first == newX && pair.second == newY) {

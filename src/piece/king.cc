@@ -17,7 +17,7 @@ bool King::findInMoves(vector<pair<int,int>> v, int x, int y) {
     return false;
 }
 
-vector<pair<int, int>> King::getPossibleMoves(Board b, int x, int y) {
+vector<pair<int, int>> King::getPossibleMoves(Board& b, int x, int y) {
     // get all possible moves of opposite color
     // check if in this array
     // if not, add to possible moves.
@@ -79,7 +79,7 @@ vector<pair<int, int>> King::getPossibleMoves(Board b, int x, int y) {
     return possibleMoves;
 }
 
-vector<pair<int, int>> King::getCheckableSquares(Board b, int x, int y) {
+vector<pair<int, int>> King::getCheckableSquares(Board& b, int x, int y) {
     Piece* getKingPiece = b.getPiece(x, y);
     vector<pair<int, int>> checkableSquares;
 
@@ -97,7 +97,7 @@ vector<pair<int, int>> King::getCheckableSquares(Board b, int x, int y) {
     return checkableSquares;
 }
 
-bool King::isValidMove(Board b, int curX, int curY, int newX, int newY) {
+bool King::isValidMove(Board& b, int curX, int curY, int newX, int newY) {
     vector<pair<int, int>> posMoves = getPossibleMoves(b, curX, curY);
     for (const auto& pair : posMoves) {
         if (pair.first == newX && pair.second == newY) {
