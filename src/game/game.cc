@@ -179,8 +179,8 @@ void Game::move(Player* p, string iPos, string fPos) {
     }
     // cout << pieceToMove->getHasMoved() << endl;
     if (m.valid) {
-        b.getSquare(m.newX, m.newY)->setPieceOnSquare(m.piece);
-        b.getSquare(m.oldX, m.oldY)->removePieceOnSquare();   
+        b.setPiece(m.piece, m.newX, m.newY);
+        b.removePiece(m.oldX, m.oldY);   
         if (m.piece->getHasMoved() == false) {
             m.piece->setHasMoved(true);
         }

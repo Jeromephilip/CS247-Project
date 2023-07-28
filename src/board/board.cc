@@ -27,7 +27,9 @@ Piece* Board::getPiece(int x, int y) {
 }
 
 void Board::setPiece(Piece *p, int x, int y) {
-    removePiece(x, y);
+    if(board[y][x]->checkOccupied() == true) {
+        board[y][x]->capturePieceOnSquare();
+    }
     board[y][x]->setPieceOnSquare(p);
 }
 

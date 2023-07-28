@@ -1,9 +1,9 @@
 setup
-setup
 + K e1
 + k e2
-+ Q a3
-- a3
++ B a3
++ p b4
 done
 game human human
+move a3 b4
 done

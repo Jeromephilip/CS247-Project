@@ -22,6 +22,7 @@ class Square {
         bool checkOccupied();
         void setPieceOnSquare(Piece*);
         void removePieceOnSquare();
+        void capturePieceOnSquare();
         int getX();
         int getY();
         string getColor();

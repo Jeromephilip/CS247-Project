@@ -16,6 +16,11 @@ void Square::setPieceOnSquare(Piece* p) {
 }
 
 void Square::removePieceOnSquare() {
+    this->p = nullptr;
+    this->isOccupied = false;
+}
+
+void Square::capturePieceOnSquare() {
     delete this->p;
     this->p = nullptr;
     this->isOccupied = false;
