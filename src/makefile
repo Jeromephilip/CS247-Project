@@ -19,7 +19,7 @@ OBJECTS=$(patsubst $(SRCDIR)/%.cc,$(OBJDIR)/%.o,$(SRCFILES))
 DEPENDS=$(OBJECTS:.o=.d)
 
 $(EXEC): $(OBJECTS)
-	$(CXX) $(OBJECTS) -o $(EXEC)
+	$(CXX) $(OBJECTS) -o $(EXEC) -L/opt/X11/lib -lX11
 
 -include $(DEPENDS)
 
@@ -31,4 +31,3 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.cc
 
 clean:
 	rm -rf $(OBJDIR) $(EXEC)
-	

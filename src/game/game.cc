@@ -67,6 +67,7 @@ void Game::setup() {
         if (c == "default") {
             defaultSetup();
             b.printBoard();
+            notifyObservers(); 
             // hasSetup = true;
             // hasPickedBlackKing = true;
             // hasPickedWhiteKing = true;
@@ -171,6 +172,7 @@ void Game::setup() {
                 cout << "Invalid Command" << endl;
             }
             b.printBoard();
+            notifyObservers(); 
         }
     }
 
@@ -316,6 +318,7 @@ void Game::play() {
                 }
             }
             b.printBoard();
+            notifyObservers(); 
         } else if (cmd == "done") {
             cout << "Thanks for playing!" << endl;
             break;
@@ -333,6 +336,9 @@ void Game::play() {
     return;
 }
 
+Board& Game::getBoard() {
+    return b; 
+}
 
 Game::~Game() {
     delete pW;
