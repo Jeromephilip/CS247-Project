@@ -23,6 +23,7 @@ class Square {
         void setPieceOnSquare(Piece*);
         void removePieceOnSquare();
         void capturePieceOnSquare();
+        Square(const Square& other);
         int getX();
         int getY();
         string getColor();

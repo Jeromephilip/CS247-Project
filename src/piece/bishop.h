@@ -13,6 +13,7 @@ class Bishop : public Piece {
         vector<pair<int, int>> getPossibleMoves(Board& , int, int) override;
         bool isValidMove(Board&, int, int, int, int) override;
         vector<pair<int, int>> getPossibleCaptures(Board& , int, int) override;
+        virtual Piece* clone() const override;
         ~Bishop();
 };
 

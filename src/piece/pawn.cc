@@ -97,4 +97,8 @@ bool Pawn::isValidMove(Board& b, int curX, int curY, int newX, int newY) {
     return false;
 }
 
+Piece* Pawn::clone() const {
+    return new Pawn(*this);
+}
+
 Pawn::~Pawn() {}

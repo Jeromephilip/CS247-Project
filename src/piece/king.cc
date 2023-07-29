@@ -21,60 +21,32 @@ vector<pair<int, int>> King::getPossibleMoves(Board& b, int x, int y) {
     // get all possible moves of opposite color
     // check if in this array
     // if not, add to possible moves.
+
     vector<pair<int, int>> possibleMoves;
     if (!checkBounds(x, y, b) || b.getPiece(x, y) == nullptr) {
         return possibleMoves; // return empty set
     }
+    Piece *getCurPiece = b.getPiece(x, y);
     vector<pair<int, int>> checkableSquares = getCheckableSquares(b, x, y);
     // printMoves(checkableSquares);
-    int incrPos = 1; 
-    int incrNeg = -1;
 
-   if (checkBounds(x + incrPos, y + incrPos, b)) {
-        if (!(findInMoves(checkableSquares, x + incrPos, y + incrPos)) && b.getSquare(x + incrPos, y + incrPos)->checkOccupied() == false) {
-            possibleMoves.push_back({x + incrPos, y + incrPos});
-        }
-    }
+    vector<int> dx = {1, 1, 1, -1, -1, -1, 0, 0};
+    vector<int> dy = {1, -1, 0, 1, -1, 0, 1, -1};
 
-    if (checkBounds(x + incrPos, y, b)) {
-        if (!(findInMoves(checkableSquares, x + incrPos, y)) && b.getSquare(x + incrPos, y)->checkOccupied() == false) {
-            possibleMoves.push_back({x + incrPos, y});
-        }
-    }
-
-    if (checkBounds(x, y + incrPos, b)) {
-        if (!(findInMoves(checkableSquares, x, y + incrPos)) && b.getSquare(x, y + incrPos)->checkOccupied() == false) {
-            possibleMoves.push_back({x, y + incrPos});
-        }
-    }
-    if (checkBounds(x + incrNeg, y + incrNeg, b)) {
-        if (!(findInMoves(checkableSquares, x + incrNeg, y + incrNeg)) && b.getSquare(x + incrNeg, y + incrNeg)->checkOccupied() == false) {
-            possibleMoves.push_back({x + incrNeg, y + incrNeg});
-        }
-    }
-    if (checkBounds(x, y + incrNeg, b)) {
-        if (!(findInMoves(checkableSquares, x, y + incrNeg)) && b.getSquare(x, y + incrNeg)->checkOccupied() == false) {
-            possibleMoves.push_back({x, y + incrNeg});
-        }
-    }
-      
-    if (checkBounds(x + incrNeg, y, b)) {
-        if (!(findInMoves(checkableSquares, x + incrNeg, y)) && b.getSquare(x + incrNeg, y)->checkOccupied() == false) {
-            possibleMoves.push_back({x + incrNeg, y});
+    for (int i=0; i<8; i++) {
+        int tx = x + dx[i];
+        int ty = y + dy[i];
+        if (checkBounds(tx, ty, b)) {
+            if (!(findInMoves(checkableSquares, tx, ty)) && b.getSquare(tx, ty)->checkOccupied() == false) {
+                possibleMoves.push_back({tx, ty});
+            } else if (b.getSquare(tx, ty)->checkOccupied() == true && b.getPiece(tx, ty)->getColor() != getCurPiece->getColor() && tolower(b.getPiece(tx, ty)->getType()) != 'k') {
+                if (!b.isCheck(getCurPiece->getColor(), tx, ty) && b.checkAdjacentKings(tx, ty)) {
+                    possibleMoves.push_back({tx, ty});
+                }
+            };
         }
     }
 
-    if (checkBounds(x + incrPos, y + incrNeg, b)) {
-        if (!(findInMoves(checkableSquares, x + incrPos, y + incrNeg)) && b.getSquare(x + incrPos, y + incrNeg)->checkOccupied() == false) {
-            possibleMoves.push_back({x + incrPos, y + incrNeg});
-        }
-    }
-    
-    if (checkBounds(x + incrNeg, y + incrPos, b)) {
-        if (!(findInMoves(checkableSquares, x + incrNeg, y + incrPos)) && b.getSquare(x + incrNeg, y + incrPos)->checkOccupied() == false) {
-            possibleMoves.push_back({x + incrNeg, y + incrPos});
-        }
-    } 
     // printMoves(possibleMoves);
     return possibleMoves;
 }
@@ -82,7 +54,30 @@ vector<pair<int, int>> King::getPossibleMoves(Board& b, int x, int y) {
 
 vector<pair<int, int>> King::getPossibleCaptures(Board& b, int x, int y) {
     // --------TODO--------
+
     vector<pair<int, int>> possibleMoves;
+    if (!checkBounds(x, y, b) || b.getPiece(x, y) == nullptr) {
+        return possibleMoves; // return empty set
+    }
+    Piece *getCurPiece = b.getPiece(x, y);
+    vector<pair<int, int>> checkableSquares = getCheckableSquares(b, x, y);
+    // printMoves(checkableSquares);
+
+    vector<int> dx = {1, 1, 1, -1, -1, -1, 0, 0};
+    vector<int> dy = {1, -1, 0, 1, -1, 0, 1, -1};
+
+    for (int i=0; i<8; i++) {
+        int tx = x + dx[i];
+        int ty = y + dy[i];
+        if (checkBounds(tx, ty, b)) {
+            if (b.getSquare(tx, ty)->checkOccupied() == true && b.getPiece(tx, ty)->getColor() != getCurPiece->getColor() && tolower(b.getPiece(tx, ty)->getType()) != 'k') {
+                if (!b.isCheck(getCurPiece->getColor(), tx, ty) && b.checkAdjacentKings(tx, ty)) {
+                    possibleMoves.push_back({tx, ty});
+                }
+            };
+        }
+    }
+
     return possibleMoves;
 }
 
@@ -102,6 +97,10 @@ vector<pair<int, int>> King::getCheckableSquares(Board& b, int x, int y) {
     }
 
     return checkableSquares;
+}
+
+Piece* King::clone() const {
+    return new King(*this);
 }
 
 bool King::isValidMove(Board& b, int curX, int curY, int newX, int newY) {

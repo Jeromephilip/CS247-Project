@@ -2,6 +2,12 @@
 
 Square::Square(string color, int x, int y): p{nullptr}, x{x}, y{y}, color{color}, isOccupied{false} {}
 
+Square::Square(const Square& other) : p{nullptr}, x{other.x}, y{other.y}, color{other.color}, isOccupied{other.isOccupied} {
+    if (other.p != nullptr) {
+        p = other.p->clone();
+    }
+}
+
 Piece* Square::getPieceOnSquare() {
     return this->p;
 }

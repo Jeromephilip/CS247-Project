@@ -13,20 +13,24 @@ class Square;
 
 class Board {
     private:
-        vector<vector<Square*>> board;
-        int width;
         int height;
+        int width;
+        vector<vector<Square*>> board;
+        bool checkBounds(int, int);
     public:
         Board(int, int);
         Piece* getPiece(int, int);
         void setPiece(Piece*, int, int);
         // void movePiece(int, int, int, int);
-        bool isCheck();
+        bool isCheck(string, int, int);
+        pair<int, int> findKing(string);
         void removePiece(int, int);
         void printBoard();
         int getWidth();
         int getHeight();
         Square* getSquare(int, int);
+        bool checkAdjacentKings(int, int);
+        Board(const Board& other);
         ~Board();
 };
 

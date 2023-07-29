@@ -41,13 +41,14 @@ class Game {
         bool inCheckmate = false;
         void defaultSetup();
         void gameType(stringstream& ss);
-        void move(Player*, string, string);
+        void move(Player*, string, string, bool&);
         void helpMenu();
     public:
         Game();
         void play();
         void setup();
         bool isMoveValid(Piece*, int, int, int, int);
+        // bool checkAdjacentKings(int, int);
         bool isCheckmate(Player *p);
         bool isCheck(Player *p);
         ~Game();

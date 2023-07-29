@@ -15,7 +15,6 @@ bool Game::isMoveValid(Piece* pc, int curX, int curY, int newX, int newY) {
     return false;
 }
 
-
 void Game::defaultSetup() {
     // black side
     b.setPiece(new Rook("black"), 0, 0);
@@ -56,9 +55,9 @@ void Game::defaultSetup() {
 
 void Game::setup() {
     // initial setup code;
-    bool hasSetup = false;
-    bool hasPickedWhiteKing = false;
-    bool hasPickedBlackKing = false;
+    // bool hasSetup = false;
+    // bool hasPickedWhiteKing = false;
+    // bool hasPickedBlackKing = false;
     
     while (true) {
         string c;
@@ -68,17 +67,25 @@ void Game::setup() {
         if (c == "default") {
             defaultSetup();
             b.printBoard();
-            hasSetup = true;
-            hasPickedBlackKing = true;
-            hasPickedWhiteKing = true;
+            // hasSetup = true;
+            // hasPickedBlackKing = true;
+            // hasPickedWhiteKing = true;
             cout << "Default Mode Selected - Setup Mode Exited" << endl;
             break;
         } else if (c == "done") {
-            if (hasSetup) {
+
+            pair <int, int> bKingPos = b.findKing("black");
+            pair <int, int> wKingPos = b.findKing("white");
+
+            if (bKingPos.first == -1 && bKingPos.second == -1) {
+                cout << "The black king is not on the board" << endl;
+            } else if (wKingPos.first == -1 && wKingPos.second == -1) {
+                cout << "The white king is not on the board" << endl;
+            } else if (b.isCheck("black", bKingPos.first, bKingPos.second) || b.isCheck("white", wKingPos.first, wKingPos.second)) {
+                cout << "Your black/white king is in check!!" << endl;
+            } else {
                 cout << "Setup Mode Exited" << endl;
                 break;
-            } else {
-                cout << "Still need to setup your board! If you are having trouble, check if both kings are on the board!" << endl;
             }
         } else {
             string arg2;
@@ -97,8 +104,13 @@ void Game::setup() {
 
                 if (arg2 == "K") {
                     // check if in check or king is beside king
-                    b.setPiece(new King("white"), x, y);
-                    hasPickedWhiteKing = true;
+                    if (b.checkAdjacentKings(x, y)) {
+                        cout << "Cannot place a king there as the kings are beside each other!" << endl;
+                    } else if (b.isCheck("white", x, y)) {
+                        cout << "King in check, cannot move there" << endl;
+                    } else {
+                        b.setPiece(new King("white"), x, y);
+                    }
                 } else if (arg2 == "Q") {
                     b.setPiece(new Queen("white"), x, y);
                 } else if (arg2 == "R") {
@@ -110,8 +122,13 @@ void Game::setup() {
                 } else if (arg2 == "P") {
                     b.setPiece(new Pawn("white"), x, y);
                 } else if (arg2 == "k") {
-                    b.setPiece(new King("black"), x, y);
-                    hasPickedBlackKing = true;
+                    if (b.checkAdjacentKings(x, y)) {
+                        cout << "Cannot place a king there as the kings are beside each other!" << endl;
+                    } else if (b.isCheck("black", x, y)) {
+                        cout << "King in check, cannot move there" << endl;
+                    } else {
+                        b.setPiece(new King("black"), x, y);
+                    }
                 } else if (arg2 == "q") {
                     b.setPiece(new Queen("black"), x, y);
                 } else if (arg2 == "r") {
@@ -129,17 +146,15 @@ void Game::setup() {
                 if (inValid) {
                     cout << "Invalid Command" << endl;
                 }
-
-                if (hasPickedWhiteKing && hasPickedBlackKing) {
-                    hasSetup = true;
-                }
             } else if (c == "-") {
                 // need to check if nothing is on board -> then hasSetup = false;
                 cin >> arg2;
                 if (arg2.size() == 2) {
                     int x = arg2[0] - 'a';
                     int y = abs(arg2[1] - '0' - 8);
-                    b.removePiece(x, y);
+                    if (b.getSquare(x, y)->checkOccupied() == true) {
+                        b.removePiece(x, y);
+                    }
                 } else {
                     cout << "Invalid Position" << endl;
                 }
@@ -161,7 +176,7 @@ void Game::setup() {
 
 }
 
-void Game::move(Player* p, string iPos, string fPos) {
+void Game::move(Player* p, string iPos, string fPos, bool& isKingInCheck) {
     int curX = iPos[0] - 'a';
     int curY = abs(iPos[1] - '0' - 8);
     int newX = fPos[0] - 'a';
@@ -172,20 +187,34 @@ void Game::move(Player* p, string iPos, string fPos) {
         return; 
     }
     
+
+    
+
     cout << "The move coordinates are: (" << m.oldX << "," << m.oldY << ") -> (" << m.newX << "," << m.newY << ")" << endl;
     if (m.valid) {
         cout << "valid move" << endl;
         cout << m.piece->getType() << endl;
     }
-    // cout << pieceToMove->getHasMoved() << endl;
+
+    
+
+    pair<int, int> kingPos = b.findKing(p->getColour());
     if (m.valid) {
-        b.setPiece(m.piece, m.newX, m.newY);
-        b.removePiece(m.oldX, m.oldY);   
-        if (m.piece->getHasMoved() == false) {
-            m.piece->setHasMoved(true);
+        // copy board
+        Board tempBoard(b);
+        tempBoard.setPiece(m.piece, m.newX, m.newY);
+        tempBoard.removePiece(m.oldX, m.oldY); 
+
+        if (tempBoard.isCheck(p->getColour(), kingPos.first, kingPos.second)) {
+            cout << "Your king is still in check!" << endl;
+        } else {
+            b.setPiece(m.piece, m.newX, m.newY);
+            b.removePiece(m.oldX, m.oldY);   
+            if (m.piece->getHasMoved() == false) {
+                m.piece->setHasMoved(true);
+            }
         }
     }
-
     // check if the the move makes it a check with b.isCheck...
     return;
 }
@@ -224,36 +253,18 @@ void Game::gameType(stringstream& ss) {
 
 void Game::helpMenu() {
     cout << "Here are the list of commands:" << endl;
-    cout << "setup - You can setup your board. Use the 'default' command to get a basic chess board or make your custom moves!" << endl;
+    cout << "setup - You can setup your board. Use the 'default' command to get a basic chess board or make your custom chess positions!" << endl;
     cout << "game - You can initialize your players, i.e. who is black or white and if you want to face against a computer. The command takes in 3 arguments as follows: <game> <player1> <player2> where player1 and player2 are either human or computer1, computer2, computer3, computer4 " << endl;
-    cout << "move- Once you used both of these commands, you can move a piece to start your game" << endl;
+    cout << "move - Once you used both of these commands, you can move a piece to start your game" << endl;
     cout << "Note that you cannot go back to setup and game once initialized" << endl;
 }
 
 void Game::play() {
-    // setup();
-    // b.printBoard();
-    // cout <<  b.getPiece(4, 7)->getType() << endl;
-    // pW = new Human("white", false);
-    // pB = new Human("black", false);
-    // vector <pair<int, int>> test = b.getPiece(4, 7)->getPossibleMoves(b, 4, 7);
-    // cout << test.size() << endl;
-    // for (const auto& pair : test) {
-    //     cout << pair.first << ", " << pair.second << endl;
-    // }
-    // move(pW, "e2", "e3");
-    // b.printBoard();
-    // test = b.getPiece(4, 7)->getPossibleMoves(b, 4, 7);
-    // cout << test.size() << endl;
-    // for (const auto& pair : test) {
-    //     cout << pair.first << ", " << pair.second << endl;
-    // }
-    // move(pW, "e1", "e2");
-    // b.printBoard();
-
     cout << "Welcome to our CS247 Project - Chess in C++ - Made by Jerome and Maahir" << endl;
-    bool isSetupDone = false;
+    bool isWhiteinCheck = false;
+    bool isBlackinCheck = false;
     bool isGameDone = false;
+    bool isSetupDone = false;
     while (true) {
         string input;
         if (!getline(cin, input)) {
@@ -278,21 +289,32 @@ void Game::play() {
                 if (!pW->getBool()) {
                     ss >> iPos;
                     ss >> fPos;
-                    move(pW, iPos, fPos); 
+                    move(pW, iPos, fPos, isWhiteinCheck); 
                 } 
                 else {
-                    move(pW, "a2", "a3");
+                    move(pW, "a2", "a3", isWhiteinCheck);
+                }
+        
+                pair<int, int> blackKingPos = b.findKing("black");
+                if (b.isCheck("black", blackKingPos.first, blackKingPos.second)) {
+                    isBlackinCheck = true;
+                    cout << "Black is in check." << endl;
                 }
             } else {
                 if (!pB->getBool()) {
                     ss >> iPos;
                     ss >> fPos;
-                    move(pB, iPos, fPos); 
+                    move(pB, iPos, fPos, isBlackinCheck); 
                 } else {
-                    move(pB, "a2", "a3");
+                    move(pB, "a2", "a3", isBlackinCheck);
+                }
+
+                pair<int, int> whiteKingPos = b.findKing("white");
+                if (b.isCheck("white", whiteKingPos.first, whiteKingPos.second)) {
+                    isWhiteinCheck = true;
+                    cout << "White is in check." << endl;
                 }
             }
-            turn++;
             b.printBoard();
         } else if (cmd == "done") {
             cout << "Thanks for playing!" << endl;

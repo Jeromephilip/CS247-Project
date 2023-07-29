@@ -8,6 +8,10 @@ Rook::Rook(string color): Piece{color} {
     }
 }
 
+Piece* Rook::clone() const {
+    return new Rook(*this);
+}
+
 vector<pair<int, int>> Rook::getPossibleMoves(Board& b, int x, int y) {
     vector<pair<int, int>> possibleMoves;
     if (!checkBounds(x, y, b) || b.getPiece(x, y) == nullptr) {

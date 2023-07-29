@@ -8,6 +8,10 @@ Queen::Queen(string color): Piece{color} {
     }
 }
 
+Piece* Queen::clone() const {
+    return new Queen(*this);
+}
+
 vector<pair<int, int>> Queen::getPossibleMoves(Board& b, int x, int y) {
     vector<pair<int, int>> possibleMoves;
     if (!checkBounds(x, y, b) || b.getPiece(x, y) == nullptr) {

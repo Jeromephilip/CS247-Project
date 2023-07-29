@@ -159,4 +159,8 @@ bool Bishop::isValidMove(Board& b, int curX, int curY, int newX, int newY) {
     return false;
 }
 
+Piece* Bishop::clone() const {
+    return new Bishop(*this);
+}
+
 Bishop::~Bishop() {}

@@ -23,12 +23,16 @@ vector<pair<int, int>> Knight::getPossibleMoves(Board& b, int x, int y) {
         int tx = dx[i] + x;
         int ty = dy[i] + y;
         if (checkBounds(tx, ty, b)) {
-            if (b.getSquare(tx, ty)->checkOccupied() == false || (b.getPiece(tx, ty)->getColor() != getCurPiece->getColor() && tolower(b.getPiece(tx, ty)->getType() != 'k'))) {
+            if (b.getSquare(tx, ty)->checkOccupied() == false || (b.getPiece(tx, ty)->getColor() != getCurPiece->getColor() && tolower(b.getPiece(tx, ty)->getType()) != 'k')) {
                 possibleMoves.push_back({tx, ty});
             }
         }
     }
     return possibleMoves;
+}
+
+Piece* Knight::clone() const {
+    return new Knight(*this);
 }
 
 vector<pair<int, int>> Knight::getPossibleCaptures(Board& b, int x, int y) {
@@ -46,7 +50,7 @@ vector<pair<int, int>> Knight::getPossibleCaptures(Board& b, int x, int y) {
         int tx = dx[i] + x;
         int ty = dy[i] + y;
         if (checkBounds(tx, ty, b)) {
-            if (b.getSquare(tx, ty)->checkOccupied() == true && b.getPiece(tx, ty)->getColor() != getCurPiece->getColor() && tolower(b.getPiece(tx, ty)->getType() != 'k')) {
+            if (b.getSquare(tx, ty)->checkOccupied() == true && b.getPiece(tx, ty)->getColor() != getCurPiece->getColor() && tolower(b.getPiece(tx, ty)->getType()) != 'k') {
                 possibleMoves.push_back({tx, ty});
             }
         }
