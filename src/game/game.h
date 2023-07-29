@@ -4,6 +4,11 @@
 
 #include "../board/board.h"
 #include "../player/player.h"
+
+#include "../window/subject.h"
+#include "../window/graphicDisplay.h"
+#include "../window/window.h"
+
 #include "../piece/piece.h"
 #include "../piece/king.h"
 #include "../piece/queen.h"
@@ -32,7 +37,7 @@ using namespace std;
 
 class Player;
 
-class Game {
+class Game : public Subject {
     private:
         Player *pW, *pB; 
         int turn; 
@@ -50,6 +55,7 @@ class Game {
         bool isMoveValid(Piece*, int, int, int, int);
         bool isCheckmate(Player *p);
         bool isCheck(Player *p);
+        Board& getBoard(); 
         ~Game();
 };
 
