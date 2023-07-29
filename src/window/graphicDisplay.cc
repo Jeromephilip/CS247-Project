@@ -2,6 +2,7 @@
 
 GraphicDisplay::GraphicDisplay(Game* game, Xwindow* window) : game{game}, window{window} {
     game->attach(this); 
+
     for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 8; j++) {
             if ((i + j) % 2 == 0) {
@@ -12,6 +13,23 @@ GraphicDisplay::GraphicDisplay(Game* game, Xwindow* window) : game{game}, window
             }
         }
     }
+    window->drawString(75 * 8 + 10, 75 * 0 + 37, "8");
+    window->drawString(75 * 8 + 10, 75 * 1 + 37, "7");
+    window->drawString(75 * 8 + 10, 75 * 2 + 37, "6");
+    window->drawString(75 * 8 + 10, 75 * 3 + 37, "5");
+    window->drawString(75 * 8 + 10, 75 * 4 + 37, "4");
+    window->drawString(75 * 8 + 10, 75 * 5 + 37, "3");
+    window->drawString(75 * 8 + 10, 75 * 6 + 37, "2");
+    window->drawString(75 * 8 + 10, 75 * 7 + 37, "1");
+
+    window->drawString(75 * 0 + 37, 75 * 8 + 10, "a");
+    window->drawString(75 * 1 + 37, 75 * 8 + 10, "b");
+    window->drawString(75 * 2 + 37, 75 * 8 + 10, "c");
+    window->drawString(75 * 3 + 37, 75 * 8 + 10, "d");
+    window->drawString(75 * 4 + 37, 75 * 8 + 10, "e");
+    window->drawString(75 * 5 + 37, 75 * 8 + 10, "f");
+    window->drawString(75 * 6 + 37, 75 * 8 + 10, "g");
+    window->drawString(75 * 7 + 37, 75 * 8 + 10, "h");
 }
 
 void GraphicDisplay::notify() {
@@ -28,5 +46,22 @@ void GraphicDisplay::notify() {
             }
         }
     } 
+    window->drawString(75 * 8 + 10, 75 * 0 + 37, "8");
+    window->drawString(75 * 8 + 10, 75 * 1 + 37, "7");
+    window->drawString(75 * 8 + 10, 75 * 2 + 37, "6");
+    window->drawString(75 * 8 + 10, 75 * 3 + 37, "5");
+    window->drawString(75 * 8 + 10, 75 * 4 + 37, "4");
+    window->drawString(75 * 8 + 10, 75 * 5 + 37, "3");
+    window->drawString(75 * 8 + 10, 75 * 6 + 37, "2");
+    window->drawString(75 * 8 + 10, 75 * 7 + 37, "1");
+
+    window->drawString(75 * 0 + 37, 75 * 8 + 10, "a");
+    window->drawString(75 * 1 + 37, 75 * 8 + 10, "b");
+    window->drawString(75 * 2 + 37, 75 * 8 + 10, "c");
+    window->drawString(75 * 3 + 37, 75 * 8 + 10, "d");
+    window->drawString(75 * 4 + 37, 75 * 8 + 10, "e");
+    window->drawString(75 * 5 + 37, 75 * 8 + 10, "f");
+    window->drawString(75 * 6 + 37, 75 * 8 + 10, "g");
+    window->drawString(75 * 7 + 37, 75 * 8 + 10, "h");
     return; 
 }
