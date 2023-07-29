@@ -7,4 +7,6 @@ setup
 + k e4
 done
 game human human
+move a3 a4
+move e4 e5
 done

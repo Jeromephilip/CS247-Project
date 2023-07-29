@@ -28,6 +28,7 @@ class Board {
         void printBoard();
         int getWidth();
         int getHeight();
+        void removePieceSetup(int, int);
         Square* getSquare(int, int);
         bool checkAdjacentKings(int, int);
         Board(const Board& other);

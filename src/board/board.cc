@@ -18,12 +18,12 @@ Board::Board(int width, int height):  height{height}, width{width} {
     }
 }
 
+
 Board::Board(const Board& other): height(other.height), width(other.width), board(other.height, vector<Square*>(other.width, nullptr)) {
     for (int i=0; i < height; i++) {
         for (int j=0; j < width; j++) {
-            if (other.board[i][j] != nullptr) {
-                board[i][j] = new Square(*other.board[i][j]);
-            }
+            cout << j << ", " << i << endl;
+            board[i][j] = new Square(*other.board[i][j]);
         }
     }
 }
@@ -104,6 +104,7 @@ bool Board::isCheck(string color, int x, int y) { // king's position
             return true;
         }
     }
+
     // going up
     for (int i=y; i >= 0; i--) {
         if (y != i && getSquare(x, i)->checkOccupied() == true && getSquare(x, i)->getPieceOnSquare()->getColor() == color) {
@@ -139,7 +140,6 @@ bool Board::isCheck(string color, int x, int y) { // king's position
         tx++;
         ty++;
     }
-
     tx = x - 1;
     ty = y + 1;
     while (checkBounds(tx, ty)) {
@@ -151,7 +151,6 @@ bool Board::isCheck(string color, int x, int y) { // king's position
         tx--;
         ty++;
     }
-
     tx = x + 1;
     ty = y - 1;
     while (checkBounds(tx, ty)) {
@@ -167,7 +166,6 @@ bool Board::isCheck(string color, int x, int y) { // king's position
     // knight
     vector<int> dx = {-1, -2, -2, -1, 1, 2, 2, 1};
     vector<int> dy = {-2, -1, 1, 2, 2, 1, -1, -2};
-
     for (int i=0; i<8; i++) {
         int newX = dx[i] + x;
         int newY = dy[i] + y;
@@ -191,7 +189,6 @@ bool Board::isCheck(string color, int x, int y) { // king's position
         }
     }
 
-
     return false;
 }
 
@@ -212,9 +209,13 @@ void Board::setPiece(Piece *p, int x, int y) {
 
 void Board::removePiece(int x, int y) {
     if (board[y][x]->checkOccupied() == true) {
-        board[y][x]->capturePieceOnSquare();
-    } else {
         board[y][x]->removePieceOnSquare();
+    }  
+}
+
+void Board::removePieceSetup(int x, int y) {
+    if (board[y][x]->checkOccupied() == true) {
+        board[y][x]->capturePieceOnSquare();
     }
 }
 

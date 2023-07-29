@@ -1,4 +1,4 @@
-CXX=g++
+maCXX=g++
 CXXFLAGS=-std=c++14 -Wall -g -MMD
 EXEC=main
 SRCDIR=.

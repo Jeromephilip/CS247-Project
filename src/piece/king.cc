@@ -27,9 +27,11 @@ vector<pair<int, int>> King::getPossibleMoves(Board& b, int x, int y) {
         return possibleMoves; // return empty set
     }
     Piece *getCurPiece = b.getPiece(x, y);
-    vector<pair<int, int>> checkableSquares = getCheckableSquares(b, x, y);
+    // cout << "finished herre squares" << endl;
+    // vector<pair<int, int>> checkableSquares = getCheckableSquares(b, x, y);
     // printMoves(checkableSquares);
 
+    // cout << "finished checkable squares" << endl;
     vector<int> dx = {1, 1, 1, -1, -1, -1, 0, 0};
     vector<int> dy = {1, -1, 0, 1, -1, 0, 1, -1};
 
@@ -37,7 +39,7 @@ vector<pair<int, int>> King::getPossibleMoves(Board& b, int x, int y) {
         int tx = x + dx[i];
         int ty = y + dy[i];
         if (checkBounds(tx, ty, b)) {
-            if (!(findInMoves(checkableSquares, tx, ty)) && b.getSquare(tx, ty)->checkOccupied() == false) {
+            if (!b.isCheck(getCurPiece->getColor(), tx, ty) && b.getSquare(tx, ty)->checkOccupied() == false) {
                 possibleMoves.push_back({tx, ty});
             } else if (b.getSquare(tx, ty)->checkOccupied() == true && b.getPiece(tx, ty)->getColor() != getCurPiece->getColor() && tolower(b.getPiece(tx, ty)->getType()) != 'k') {
                 if (!b.isCheck(getCurPiece->getColor(), tx, ty) && b.checkAdjacentKings(tx, ty)) {
@@ -60,7 +62,7 @@ vector<pair<int, int>> King::getPossibleCaptures(Board& b, int x, int y) {
         return possibleMoves; // return empty set
     }
     Piece *getCurPiece = b.getPiece(x, y);
-    vector<pair<int, int>> checkableSquares = getCheckableSquares(b, x, y);
+    // vector<pair<int, int>> checkableSquares = getCheckableSquares(b, x, y);
     // printMoves(checkableSquares);
 
     vector<int> dx = {1, 1, 1, -1, -1, -1, 0, 0};
@@ -81,23 +83,26 @@ vector<pair<int, int>> King::getPossibleCaptures(Board& b, int x, int y) {
     return possibleMoves;
 }
 
-vector<pair<int, int>> King::getCheckableSquares(Board& b, int x, int y) {
-    Piece* getKingPiece = b.getPiece(x, y);
-    vector<pair<int, int>> checkableSquares;
+// vector<pair<int, int>> King::getCheckableSquares(Board& b, int x, int y) {
+//     // cout << "we are in checkable" << endl;
+//     Piece* getKingPiece = b.getPiece(x, y);
+//     vector<pair<int, int>> checkableSquares;
 
-    for (int i=0; i<b.getHeight(); i++) {
-        for (int j=0; j<b.getWidth(); j++) {
-            if (b.getSquare(j, i)->checkOccupied() && b.getPiece(j, i)->getColor() != getKingPiece->getColor()) {
-                vector<pair<int, int>> posMoves = b.getPiece(j, i)->getPossibleMoves(b, j, i);
-                for (size_t k=0; k<posMoves.size(); k++) {
-                    checkableSquares.push_back(posMoves[k]);
-                }
-            }
-        }
-    }
+//     for (int i=0; i<b.getHeight(); i++) {
+//         for (int j=0; j<b.getWidth(); j++) {
+//             cout << j << ", " << i << endl;
+//             if (b.getSquare(j, i)->checkOccupied() == true && b.getPiece(j, i)->getColor() != getKingPiece->getColor()) {
+//                 vector<pair<int, int>> posMoves = rook->getPossibleMoves(b, j, i);
+//                 for (size_t k=0; k<posMoves.size(); k++) {
+                    
+//                     checkableSquares.push_back(posMoves[k]);
+//                 }
+//             }
+//         }
+//     }
 
-    return checkableSquares;
-}
+//     return checkableSquares;
+// }
 
 Piece* King::clone() const {
     return new King(*this);

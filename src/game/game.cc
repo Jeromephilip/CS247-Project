@@ -153,7 +153,7 @@ void Game::setup() {
                     int x = arg2[0] - 'a';
                     int y = abs(arg2[1] - '0' - 8);
                     if (b.getSquare(x, y)->checkOccupied() == true) {
-                        b.removePiece(x, y);
+                        b.removePieceSetup(x, y);
                     }
                 } else {
                     cout << "Invalid Position" << endl;
@@ -186,8 +186,8 @@ void Game::move(Player* p, string iPos, string fPos, bool& isKingInCheck) {
     if (m.piece == nullptr) {
         return; 
     }
-    
-
+    cout << "ggg it" << endl;
+    cout << isKingInCheck << endl;
     
 
     cout << "The move coordinates are: (" << m.oldX << "," << m.oldY << ") -> (" << m.newX << "," << m.newY << ")" << endl;
@@ -201,20 +201,30 @@ void Game::move(Player* p, string iPos, string fPos, bool& isKingInCheck) {
     pair<int, int> kingPos = b.findKing(p->getColour());
     if (m.valid) {
         // copy board
-        Board tempBoard(b);
-        tempBoard.setPiece(m.piece, m.newX, m.newY);
-        tempBoard.removePiece(m.oldX, m.oldY); 
+        cout << "Printing Actual Board" << endl;
+        b.printBoard();
 
+        cout << "creating temp board" << endl;
+        Board tempBoard(b);
+        tempBoard.printBoard();
+        cout << "temp board printed" << endl;
+        tempBoard.setPiece(m.piece, m.newX, m.newY);
+        tempBoard.removePiece(m.oldX, m.oldY);
+
+        cout << "moving piece puts in check" << endl;
         if (tempBoard.isCheck(p->getColour(), kingPos.first, kingPos.second)) {
             cout << "Your king is still in check!" << endl;
         } else {
             b.setPiece(m.piece, m.newX, m.newY);
-            b.removePiece(m.oldX, m.oldY);   
+            b.removePiece(m.oldX, m.oldY);
+               
             if (m.piece->getHasMoved() == false) {
                 m.piece->setHasMoved(true);
             }
         }
     }
+
+    cout << "gpne" << endl;
     // check if the the move makes it a check with b.isCheck...
     return;
 }
@@ -294,6 +304,10 @@ void Game::play() {
                 else {
                     move(pW, "a2", "a3", isWhiteinCheck);
                 }
+                
+                if (!isWhiteinCheck) {
+                    turn++;
+                }
         
                 pair<int, int> blackKingPos = b.findKing("black");
                 if (b.isCheck("black", blackKingPos.first, blackKingPos.second)) {
@@ -304,10 +318,16 @@ void Game::play() {
                 if (!pB->getBool()) {
                     ss >> iPos;
                     ss >> fPos;
+                    cout << "moving black" << endl;
                     move(pB, iPos, fPos, isBlackinCheck); 
                 } else {
                     move(pB, "a2", "a3", isBlackinCheck);
                 }
+                
+                if (!isBlackinCheck) {
+                    turn++;
+                }
+                
 
                 pair<int, int> whiteKingPos = b.findKing("white");
                 if (b.isCheck("white", whiteKingPos.first, whiteKingPos.second)) {
