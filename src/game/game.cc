@@ -18,11 +18,11 @@ bool Game::isCheckmate(string color) {
     for (int i=0; i<b.getHeight(); i++) {
         for (int j=0; j<b.getWidth(); j++) {
             if (b.getSquare(j, i)->checkOccupied() && b.getPiece(j, i)->getColor() == color) {
-                vector<pair<int, int>> pMove = b.getPiece(j, i)->getPossibleMoves(b, j, i);
-                cout << b.getPiece(j, i)->getType() << endl;
-                for (size_t k=0; k<pMove.size(); k++) {
-                    cout << " " << pMove[k].first << ", " << pMove[k].second << endl;
-                }
+                // vector<pair<int, int>> pMove = b.getPiece(j, i)->getPossibleMoves(b, j, i);
+                // cout << b.getPiece(j, i)->getType() << endl;
+                // for (size_t k=0; k<pMove.size(); k++) {
+                //     cout << " " << pMove[k].first << ", " << pMove[k].second << endl;
+                // }
                 numMoves += b.getPiece(j, i)->getPossibleMoves(b, j, i).size();
             }
         }
@@ -302,7 +302,7 @@ void Game::play() {
             gameType(ss);
             isGameDone = true;
         } else if (cmd == "move" && isGameDone && isSetupDone) {
-            cout << turn << endl;
+            // cout << turn << endl;
             string iPos;
             string fPos;
             if (turn % 2 == 0) {

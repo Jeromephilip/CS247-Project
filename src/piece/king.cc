@@ -60,8 +60,6 @@ vector<pair<int, int>> King::getPossibleMoves(Board& b, int x, int y) {
     // printMoves(filteredPossibleMoves);
     return filteredPossibleMoves;
     // cout << "possible moves for king" << endl;
-    // printMoves(possibleMoves);
-    return possibleMoves;
 }
 
 
