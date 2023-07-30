@@ -6,8 +6,8 @@ Move Level1::turnMove(int x, int y, int z, int w, Board& b) {
     // Seed the random number generator with the current time
     srand(time(NULL));
     
-    int rstartX = rand() % 7; 
-    int rstartY = rand() % 7; 
+    int rstartX = rand() % 8; 
+    int rstartY = rand() % 8; 
     int random = 0; 
     pair<int, int> newMove; 
     vector<pair<int, int>> moves; 
@@ -18,8 +18,8 @@ Move Level1::turnMove(int x, int y, int z, int w, Board& b) {
             break; 
          }
          else {
-            rstartX = rand() % 7; 
-            rstartY = rand() % 7; 
+            rstartX = rand() % 8; 
+            rstartY = rand() % 8; 
          }
 
     }

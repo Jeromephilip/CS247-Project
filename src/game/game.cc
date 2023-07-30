@@ -206,7 +206,7 @@ void Game::move(Player* p, string iPos, string fPos, bool& isKingInCheck) {
         // Board tempBoard(b);
         // tempBoard.printBoard();
         // cout << "temp board printed" << endl;
-        b.swapPiece(m.oldX, m.oldY, m.newX, m.newY);
+        b.movePiece(m.oldX, m.oldY, m.newX, m.newY);
         if (m.piece->getHasMoved() == false) {
             m.piece->setHasMoved(true);
         }
