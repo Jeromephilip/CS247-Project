@@ -18,12 +18,39 @@ Board::Board(int width, int height):  height{height}, width{width} {
     }
 }
 
+
+
+bool Board::isMoveAllowed(int curX, int curY, int newX, int newY) {
+    Piece *pieceToMove = getPiece(curX, curY);
+    string color = pieceToMove->getColor();
+    pair<int, int> kingPos = findKing(color);
+    bool isCapturedSquare = false;
+    Piece *tempPiece;
+
+    if (getSquare(newX, newY)->checkOccupied() == true) {
+        tempPiece = getPiece(newX, newY);
+        isCapturedSquare = true;
+    }
+    swapPiece(curX, curY, newX, newY);
+    // cout << kingPos.first << ", " << kingPos.second << endl;
+    // cout << "printing Board before isCheck" << endl;
+    // printBoard();
+    // printBoard();
+    bool isCheckedAfterMove = isCheck(color, kingPos.first, kingPos.second);
+
+    swapPiece(newX, newY, curX, curY);
+    if (isCapturedSquare == true) {
+        setPiece(tempPiece, newX, newY);
+    }
+    // move the piece, check if it is in check.
+    return !isCheckedAfterMove;
+}
+
+
 Board::Board(const Board& other): height(other.height), width(other.width), board(other.height, vector<Square*>(other.width, nullptr)) {
     for (int i=0; i < height; i++) {
         for (int j=0; j < width; j++) {
-            if (other.board[i][j] != nullptr) {
                 board[i][j] = new Square(*other.board[i][j]);
-            }
         }
     }
 }
@@ -80,6 +107,8 @@ bool Board::checkBounds(int x, int y) {
 bool Board::isCheck(string color, int x, int y) { // king's position
     // queen and rook
     // going right
+    // cout << "printing board in ischeck" << endl;
+    // printBoard();
     for (int i=x; i < width; i++) {
         if (x != i && getSquare(i, y)->checkOccupied() == true && getSquare(i, y)->getPieceOnSquare()->getColor() == color ) {
             break;
@@ -104,6 +133,7 @@ bool Board::isCheck(string color, int x, int y) { // king's position
             return true;
         }
     }
+
     // going up
     for (int i=y; i >= 0; i--) {
         if (y != i && getSquare(x, i)->checkOccupied() == true && getSquare(x, i)->getPieceOnSquare()->getColor() == color) {
@@ -139,7 +169,6 @@ bool Board::isCheck(string color, int x, int y) { // king's position
         tx++;
         ty++;
     }
-
     tx = x - 1;
     ty = y + 1;
     while (checkBounds(tx, ty)) {
@@ -151,7 +180,6 @@ bool Board::isCheck(string color, int x, int y) { // king's position
         tx--;
         ty++;
     }
-
     tx = x + 1;
     ty = y - 1;
     while (checkBounds(tx, ty)) {
@@ -167,7 +195,6 @@ bool Board::isCheck(string color, int x, int y) { // king's position
     // knight
     vector<int> dx = {-1, -2, -2, -1, 1, 2, 2, 1};
     vector<int> dy = {-2, -1, 1, 2, 2, 1, -1, -2};
-
     for (int i=0; i<8; i++) {
         int newX = dx[i] + x;
         int newY = dy[i] + y;
@@ -191,9 +218,29 @@ bool Board::isCheck(string color, int x, int y) { // king's position
         }
     }
 
-
     return false;
 }
+
+// bool Board::isCheckmate(string color, int x, int y) {
+//     // first check if the king is in check
+//     pair<int, int> kingPos = findKing(color);
+//     if (!isCheck(color, x, y)) {
+//         return false;
+//     }
+
+//     for (int i=0; i<height; i++) {
+//         for (int j=0; j<width; j++) {
+//             if (board[i][j]->getPieceOnSquare()->checkOccupied()) {
+                
+//             }
+//         }
+//     }
+
+//     // if king in check, get all possible moves of every piece of 'color' on the board
+//     // do the move
+//     // if the move makes it so that no more check return false
+//     // else return true
+// }
 
 Piece* Board::getPiece(int x, int y) {
     if (board[y][x]->getPieceOnSquare() == nullptr) {
@@ -212,9 +259,22 @@ void Board::setPiece(Piece *p, int x, int y) {
 
 void Board::removePiece(int x, int y) {
     if (board[y][x]->checkOccupied() == true) {
-        board[y][x]->capturePieceOnSquare();
-    } else {
         board[y][x]->removePieceOnSquare();
+    }  
+}
+
+
+void Board::swapPiece(int curX, int curY, int newX, int newY) {
+    if (board[curY][curX]->checkOccupied()) {
+        Piece *toSwapPiece = board[curY][curX]->getPieceOnSquare();
+        board[newY][newX]->setPieceOnSquare(toSwapPiece);
+        board[curY][curX]->removePieceOnSquare();
+    }
+}
+
+void Board::removePieceSetup(int x, int y) {
+    if (board[y][x]->checkOccupied() == true) {
+        board[y][x]->capturePieceOnSquare();
     }
 }
 

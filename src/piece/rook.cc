@@ -13,10 +13,13 @@ Piece* Rook::clone() const {
 }
 
 vector<pair<int, int>> Rook::getPossibleMoves(Board& b, int x, int y) {
+    cout << "Rook's Possible Moves" << endl;
     vector<pair<int, int>> possibleMoves;
     if (!checkBounds(x, y, b) || b.getPiece(x, y) == nullptr) {
         return possibleMoves; // return empty set
     }
+
+    
     Piece* getCurPiece = b.getPiece(x, y);
     // cout << b.getWidth() << endl;
     // already checks bounds in the loop
@@ -68,7 +71,16 @@ vector<pair<int, int>> Rook::getPossibleMoves(Board& b, int x, int y) {
             break;
         }
     }
-    return possibleMoves;
+
+    vector<pair<int, int>> filteredPossibleMoves; 
+    for (size_t i=0; i<possibleMoves.size(); i++) {
+        if (b.isMoveAllowed(x, y, possibleMoves[i].first, possibleMoves[i].second)) {
+            filteredPossibleMoves.push_back(possibleMoves[i]);
+        }
+    }
+    
+    return filteredPossibleMoves;
+    // return possibleMoves;
 }
 
 vector<pair<int, int>> Rook::getPossibleCaptures(Board& b, int x, int y) {

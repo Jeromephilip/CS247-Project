@@ -4,12 +4,12 @@ setup
 + k e3
 + R a3
 - e3
-+ k e4
++ k e5
++ r d4
 done
 game human human
 move a3 a4
-move e4 e5
+move d4 d5
 move a4 a5
-move e5 e6
-move e6 e5
+move d5 d4
 done

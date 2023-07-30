@@ -1,6 +1,7 @@
 #ifndef KING_H
 #define KING_H
 #include "piece.h"
+#include "../board/board.h"
 #include <string>
 #include <vector>
 #include <utility>
@@ -17,7 +18,7 @@ class King : public Piece {
         bool isValidMove(Board&, int, int, int, int) override;
         virtual Piece* clone() const override;
         bool checkCanCastle();
-        vector<pair<int, int>> getCheckableSquares(Board& b, int, int);
+        // vector<pair<int, int>> getCheckableSquares(Board& b, int, int);
         ~King();
 };
 
