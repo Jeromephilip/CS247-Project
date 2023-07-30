@@ -17,16 +17,31 @@ Move Level2::turnMove(int x, int y, int z, int w, Board& b)  {
    vector<pair<int, int>> moves; 
 
    for (int i = 0; i < pieces.size(); i++){
-      if (pieces[i].first->getPossibleCaptures(b, pieces[i].second.first, pieces[i].second.first).size() != 0) {
-         random = rand() % (pieces[i].first->getPossibleCaptures(b, pieces[i].second.first, pieces[i].second.first).size()); 
-         newMove = pieces[i].first->getPossibleCaptures(b, pieces[i].second.first, pieces[i].second.first)[random]; 
+      if (pieces[i].first->getPossibleCaptures(b, pieces[i].second.first, pieces[i].second.second).size() != 0) {
+         random = rand() % (pieces[i].first->getPossibleCaptures(b, pieces[i].second.first, pieces[i].second.second).size()); 
+         newMove = pieces[i].first->getPossibleCaptures(b, pieces[i].second.first, pieces[i].second.second)[random]; 
          return Move{pieces[i].second.first, pieces[i].second.second, newMove.first, newMove.second, true, pieces[i].first}; 
       }
    }
    cout << "There are no possible captures" << endl;
-   random = rand() % (pieces.size()); 
-   newMove = pieces[random].first->getPossibleCaptures(b, pieces[random].second.first, pieces[random].second.first)[random]; 
-   return Move{pieces[random].second.first, pieces[random].second.second, newMove.first, newMove.second, true, pieces[random].first}; 
+   
+    int rstartX = rand() % 7; 
+    int rstartY = rand() % 7; 
+    while (true) {
+         if (b.getPiece(rstartX, rstartY)->getColor() == getColour()) {
+             moves = b.getPiece(rstartX, rstartY)->getPossibleMoves(b, rstartX, rstartY); 
+             break; 
+         }
+         else {
+             rstartX = rand() % 7; 
+             rstartY = rand() % 7; 
+         }
+
+    }
+
+    random = rand() % (moves.size()); 
+    newMove = moves[random];
+    return Move{rstartX, rstartY, newMove.first, newMove.second, b.getPiece(rstartX, rstartY)->isValidMove(b, rstartX, rstartY, newMove.first, newMove.second), b.getPiece(rstartX, rstartY)}; 
 
 /*
     int rstartX = rand() % 7; 
