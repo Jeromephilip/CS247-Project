@@ -70,7 +70,16 @@ vector<pair<int, int>> Bishop::getPossibleCaptures(Board& b, int x, int y) {
         tx++;
         ty--;
     }
-    return possibleMoves;
+    
+    vector<pair<int, int>> filteredPossibleMoves; 
+    for (size_t i=0; i<possibleMoves.size(); i++) {
+        if (b.isMoveAllowed(x, y, possibleMoves[i].first, possibleMoves[i].second)) {
+            filteredPossibleMoves.push_back(possibleMoves[i]);
+        }
+    }
+
+    // printMoves(filteredPossibleMoves);
+    return filteredPossibleMoves;
 }
 
 vector<pair<int, int>> Bishop::getPossibleMoves(Board& b, int x, int y) {
@@ -165,10 +174,6 @@ bool Bishop::isValidMove(Board& b, int curX, int curY, int newX, int newY) {
         }
     }
     return false;
-}
-
-Piece* Bishop::clone() const {
-    return new Bishop(*this);
 }
 
 Bishop::~Bishop() {}

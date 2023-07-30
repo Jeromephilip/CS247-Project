@@ -12,7 +12,6 @@ class Knight : public Piece {
         Knight(string );
         vector<pair<int, int>> getPossibleMoves(Board& , int, int) override;
         vector<pair<int, int>> getPossibleCaptures(Board& , int, int) override;
-        virtual Piece* clone() const override;
         bool isValidMove(Board& , int, int, int, int) override;
         ~Knight();
 };

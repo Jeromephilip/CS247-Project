@@ -8,9 +8,6 @@ Queen::Queen(string color): Piece{color} {
     }
 }
 
-Piece* Queen::clone() const {
-    return new Queen(*this);
-}
 
 vector<pair<int, int>> Queen::getPossibleMoves(Board& b, int x, int y) {
     vector<pair<int, int>> possibleMoves;
@@ -84,57 +81,73 @@ vector<pair<int, int>> Queen::getPossibleMoves(Board& b, int x, int y) {
     }
 
     // going north
-    for (int i=y; i >= 0; i--) {
-        // check if square is occupied with a piece of the same color (i != y so that it is not the current piece)
-        if (b.getSquare(x, i)->checkOccupied() == true && b.getSquare(x, i)->getPieceOnSquare()->getColor() == getCurPiece->getColor() && i != y) {
-            break;
-        // open square
-        } else if (b.getSquare(x, i)->checkOccupied() == false) {
-            possibleMoves.push_back({x, i});
-        // square with a piece that can be captured
-        } else if (b.getSquare(tx, ty)->checkOccupied() == true && b.getSquare(x, i)->getPieceOnSquare()->getColor() != getCurPiece->getColor() && tolower(b.getSquare(x, i)->getPieceOnSquare()->getType()) != 'k') {
-            possibleMoves.push_back({x, i});
-            break;
+    if (checkBounds(x, y-1, b)) {
+        for (int i=y-1; i >= 0; i--) {
+            // check if square is occupied with a piece of the same color (i != y so that it is not the current piece)
+            if (b.getSquare(x, i)->checkOccupied() == true && b.getSquare(x, i)->getPieceOnSquare()->getColor() == getCurPiece->getColor()) {
+                break;
+            // open square
+            } else if (b.getSquare(x, i)->checkOccupied() == false) {
+                possibleMoves.push_back({x, i});
+            // square with a piece that can be captured
+            } else if (b.getSquare(x, i)->getPieceOnSquare()->getColor() != getCurPiece->getColor() && tolower(b.getSquare(x, i)->getPieceOnSquare()->getType()) != 'k') {
+                possibleMoves.push_back({x, i});
+                break;
+            }
         }
     }
     
-    // going south
-    for (int i=y; i < b.getHeight(); i++) {
-        if (b.getSquare(x, i)->checkOccupied() == true && b.getSquare(x, i)->getPieceOnSquare()->getColor() == getCurPiece->getColor() && i != y) {
-            break;
-        } else if (b.getSquare(x, i)->checkOccupied() == false) {
-            possibleMoves.push_back({x, i});
-        } else if (b.getSquare(tx, ty)->checkOccupied() == true && b.getSquare(x, i)->getPieceOnSquare()->getColor() != getCurPiece->getColor() && tolower(b.getSquare(x, i)->getPieceOnSquare()->getType()) != 'k') {
-            possibleMoves.push_back({x, i});
-            break;
+    if (checkBounds(x, y+1, b)) {
+        for (int i=y+1; i < b.getHeight(); i++) {
+            if (b.getSquare(x, i)->checkOccupied() == true && b.getSquare(x, i)->getPieceOnSquare()->getColor() == getCurPiece->getColor()) {
+                break;
+            } else if (b.getSquare(x, i)->checkOccupied() == false) {
+                possibleMoves.push_back({x, i});
+            } else if (b.getSquare(x, i)->getPieceOnSquare()->getColor() != getCurPiece->getColor() && tolower(b.getSquare(x, i)->getPieceOnSquare()->getType()) != 'k') {
+                possibleMoves.push_back({x, i});
+                break;
+            }
         }
     }
-    
-    // // going east
-    for (int i=x; i < b.getWidth(); i++) {
-        if (b.getSquare(i, y)->checkOccupied() == true && b.getSquare(i, y)->getPieceOnSquare()->getColor() == getCurPiece->getColor() && x != i) {
-            break;
-        } else if (b.getSquare(i, y)->checkOccupied() == false) {
-            possibleMoves.push_back({i, y});
-        } else if (b.getSquare(tx, ty)->checkOccupied() == true && b.getSquare(i, y)->getPieceOnSquare()->getColor() != getCurPiece->getColor() && tolower(b.getSquare(i, y)->getPieceOnSquare()->getType()) != 'k') {
-            possibleMoves.push_back({i, y});
-            break;
+    // going down
+
+    // // going right
+    if (checkBounds(x+1, y, b)) {
+        for (int i=x+1; i < b.getWidth(); i++) {
+            if (b.getSquare(i, y)->checkOccupied() == true && b.getSquare(i, y)->getPieceOnSquare()->getColor() == getCurPiece->getColor()) {
+                break;
+            } else if (b.getSquare(i, y)->checkOccupied() == false) {
+                possibleMoves.push_back({i, y});
+            } else if (b.getSquare(i, y)->getPieceOnSquare()->getColor() != getCurPiece->getColor() && tolower(b.getSquare(i, y)->getPieceOnSquare()->getType()) != 'k') {
+                possibleMoves.push_back({i, y});
+                break;
+            }
         }
     }
 
-    // going west
-    for (int i=x; i >= 0; i--) {
-        if (b.getSquare(i, y)->checkOccupied() == true && b.getSquare(i, y)->getPieceOnSquare()->getColor() == getCurPiece->getColor() && x != i) {
-            break;
-        } else if (b.getSquare(i, y)->checkOccupied() == false) {
-            possibleMoves.push_back({i, y});
-        } else if (b.getSquare(tx, ty)->checkOccupied() == true && b.getSquare(i, y)->getPieceOnSquare()->getColor() != getCurPiece->getColor() && tolower(b.getSquare(i, y)->getPieceOnSquare()->getType()) != 'k') {
-            possibleMoves.push_back({i, y});
-            break;
+    // // going left
+    if (checkBounds(x-1, y, b)) {
+        for (int i=x-1; i >= 0; i--) {
+            if (b.getSquare(i, y)->checkOccupied() == true && b.getSquare(i, y)->getPieceOnSquare()->getColor() == getCurPiece->getColor()) {
+                break;
+            } else if (b.getSquare(i, y)->checkOccupied() == false) {
+                possibleMoves.push_back({i, y});
+            } else if (b.getSquare(i, y)->getPieceOnSquare()->getColor() != getCurPiece->getColor() && tolower(b.getSquare(i, y)->getPieceOnSquare()->getType()) != 'k') {
+                possibleMoves.push_back({i, y});
+                break;
+            }
         }
     }
 
-    return possibleMoves;
+    vector<pair<int, int>> filteredPossibleMoves; 
+    for (size_t i=0; i<possibleMoves.size(); i++) {
+        if (b.isMoveAllowed(x, y, possibleMoves[i].first, possibleMoves[i].second)) {
+            filteredPossibleMoves.push_back(possibleMoves[i]);
+        }
+    }
+
+    // printMoves(filteredPossibleMoves);
+    return filteredPossibleMoves;
 }
 
 vector<pair<int, int>> Queen::getPossibleCaptures(Board& b, int x, int y) {
@@ -238,7 +251,7 @@ vector<pair<int, int>> Queen::getPossibleCaptures(Board& b, int x, int y) {
             break;
         }
     }
-        
+    
     vector<pair<int, int>> filteredPossibleMoves; 
     for (size_t i=0; i<possibleMoves.size(); i++) {
         if (b.isMoveAllowed(x, y, possibleMoves[i].first, possibleMoves[i].second)) {
@@ -248,6 +261,7 @@ vector<pair<int, int>> Queen::getPossibleCaptures(Board& b, int x, int y) {
 
     // printMoves(filteredPossibleMoves);
     return filteredPossibleMoves;
+
 }
 
 

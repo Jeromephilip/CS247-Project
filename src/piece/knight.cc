@@ -39,10 +39,6 @@ vector<pair<int, int>> Knight::getPossibleMoves(Board& b, int x, int y) {
     return filteredPossibleMoves;
 }
 
-Piece* Knight::clone() const {
-    return new Knight(*this);
-}
-
 vector<pair<int, int>> Knight::getPossibleCaptures(Board& b, int x, int y) {
     vector<pair<int, int>> possibleMoves;
     if (!checkBounds(x, y, b) || b.getPiece(x, y) == nullptr) {
@@ -63,7 +59,15 @@ vector<pair<int, int>> Knight::getPossibleCaptures(Board& b, int x, int y) {
             }
         }
     }
-    return possibleMoves; 
+    vector<pair<int, int>> filteredPossibleMoves; 
+    for (size_t i=0; i<possibleMoves.size(); i++) {
+        if (b.isMoveAllowed(x, y, possibleMoves[i].first, possibleMoves[i].second)) {
+            filteredPossibleMoves.push_back(possibleMoves[i]);
+        }
+    }
+
+    // printMoves(filteredPossibleMoves);
+    return filteredPossibleMoves;
 }
 
 bool Knight::isValidMove(Board& b, int curX, int curY, int newX, int newY) {
