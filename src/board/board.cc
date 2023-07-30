@@ -27,6 +27,7 @@ bool Board::isMoveAllowed(int curX, int curY, int newX, int newY) {
     bool isCapturedSquare = false;
     Piece *tempPiece;
 
+    // cout << "before swap" << endl;
     if (getSquare(newX, newY)->checkOccupied() == true) {
         tempPiece = getPiece(newX, newY);
         isCapturedSquare = true;
@@ -37,11 +38,14 @@ bool Board::isMoveAllowed(int curX, int curY, int newX, int newY) {
     // printBoard();
     // printBoard();
     bool isCheckedAfterMove = isCheck(color, kingPos.first, kingPos.second);
+    
 
     swapPiece(newX, newY, curX, curY);
     if (isCapturedSquare == true) {
         setPiece(tempPiece, newX, newY);
     }
+    // cout << "after swap" << endl;
+    // printBoard();
     // move the piece, check if it is in check.
     return !isCheckedAfterMove;
 }
@@ -220,27 +224,6 @@ bool Board::isCheck(string color, int x, int y) { // king's position
 
     return false;
 }
-
-// bool Board::isCheckmate(string color, int x, int y) {
-//     // first check if the king is in check
-//     pair<int, int> kingPos = findKing(color);
-//     if (!isCheck(color, x, y)) {
-//         return false;
-//     }
-
-//     for (int i=0; i<height; i++) {
-//         for (int j=0; j<width; j++) {
-//             if (board[i][j]->getPieceOnSquare()->checkOccupied()) {
-                
-//             }
-//         }
-//     }
-
-//     // if king in check, get all possible moves of every piece of 'color' on the board
-//     // do the move
-//     // if the move makes it so that no more check return false
-//     // else return true
-// }
 
 Piece* Board::getPiece(int x, int y) {
     if (board[y][x]->getPieceOnSquare() == nullptr) {

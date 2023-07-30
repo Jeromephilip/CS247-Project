@@ -238,7 +238,16 @@ vector<pair<int, int>> Queen::getPossibleCaptures(Board& b, int x, int y) {
             break;
         }
     }
-    return possibleMoves;
+        
+    vector<pair<int, int>> filteredPossibleMoves; 
+    for (size_t i=0; i<possibleMoves.size(); i++) {
+        if (b.isMoveAllowed(x, y, possibleMoves[i].first, possibleMoves[i].second)) {
+            filteredPossibleMoves.push_back(possibleMoves[i]);
+        }
+    }
+
+    printMoves(filteredPossibleMoves);
+    return filteredPossibleMoves;
 }
 
 
