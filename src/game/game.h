@@ -55,7 +55,7 @@ class Game : public Subject {
         void setup();
         bool isMoveValid(Piece*, int, int, int, int);
         // bool checkAdjacentKings(int, int);
-        bool isCheckmate(Player *p);
+        bool isCheckmate(string color);
         bool isCheck(Player *p);
         Board& getBoard(); 
         ~Game();

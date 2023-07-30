@@ -7,8 +7,34 @@ bool Game::isCheck(Player* p) {
     return true;
 }
 
-bool Game::isCheckmate(Player* p) {
-    return true;
+bool Game::isCheckmate(string color) {
+    // first check if the king is in check
+    pair<int, int> kingPos = b.findKing(color);
+    if (!b.isCheck(color, kingPos.first, kingPos.second)) {
+        return false;
+    }
+
+    int numMoves = 0;
+    for (int i=0; i<b.getHeight(); i++) {
+        for (int j=0; j<b.getWidth(); j++) {
+            if (b.getSquare(j, i)->checkOccupied() && b.getPiece(j, i)->getColor() == color) {
+                vector<pair<int, int>> pMove = b.getPiece(j, i)->getPossibleMoves(b, j, i);
+                cout << b.getPiece(j, i)->getType() << endl;
+                for (int k=0; k<pMove.size(); k++) {
+                    cout << " " << pMove[k].first << ", " << pMove[k].second << endl;
+                }
+                numMoves += b.getPiece(j, i)->getPossibleMoves(b, j, i).size();
+            }
+        }
+    }
+
+    cout << numMoves << endl;
+
+    if (numMoves == 0) {
+        return true;
+    }
+
+    return false;
 }
 
 bool Game::isMoveValid(Piece* pc, int curX, int curY, int newX, int newY) {
@@ -325,12 +351,6 @@ void Game::play() {
                 }
                 //
 
-                // checkmate should be here
-                pair<int, int> blackKingPos = b.findKing("black");
-                if (b.isCheck("black", blackKingPos.first, blackKingPos.second)) {
-                    isBlackinCheck = true;
-                    cout << "Black is in check." << endl;
-                }
             } else {
                 // cout << "printing in black turn board" << endl;
                 // b.printBoard();
@@ -346,15 +366,22 @@ void Game::play() {
                 if (!isBlackinCheck) {
                     turn++;
                 }
-                
-
-                pair<int, int> whiteKingPos = b.findKing("white");
-                if (b.isCheck("white", whiteKingPos.first, whiteKingPos.second)) {
-                    isWhiteinCheck = true;
-                    cout << "White is in check." << endl;
-                }
             }
 
+            pair<int, int> whiteKingPos = b.findKing("white");
+            pair<int, int> blackKingPos = b.findKing("black");
+
+            if (isCheckmate("white")) {
+                cout << "white is in checkmate" << endl;
+            } else if (isCheckmate("black")) {
+                cout << "black is in checkmate" << endl;
+            } else if (b.isCheck("white", whiteKingPos.first, whiteKingPos.second)) {
+                isWhiteinCheck = true;
+                cout << "White is in check." << endl;
+            } else if (b.isCheck("black", blackKingPos.first, blackKingPos.second)) {
+                isBlackinCheck = true;
+                cout << "Black is in check." << endl;
+            }
 
 
             b.printBoard();

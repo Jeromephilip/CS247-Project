@@ -28,7 +28,15 @@ vector<pair<int, int>> Knight::getPossibleMoves(Board& b, int x, int y) {
             }
         }
     }
-    return possibleMoves;
+
+    vector<pair<int, int>> filteredPossibleMoves; 
+    for (size_t i=0; i<possibleMoves.size(); i++) {
+        if (b.isMoveAllowed(x, y, possibleMoves[i].first, possibleMoves[i].second)) {
+            filteredPossibleMoves.push_back(possibleMoves[i]);
+        }
+    }
+
+    return filteredPossibleMoves;
 }
 
 Piece* Knight::clone() const {
