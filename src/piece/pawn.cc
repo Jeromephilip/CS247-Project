@@ -38,7 +38,7 @@ vector<pair<int, int>> Pawn::getPossibleCaptures(Board& b, int x, int y) {
         }
     }
 
-    printMoves(filteredPossibleMoves);
+    // printMoves(filteredPossibleMoves);
     return filteredPossibleMoves;
 }
 
@@ -100,7 +100,7 @@ vector<pair<int, int>> Pawn::getPossibleMoves(Board& b, int x, int y) {
         }
     }
 
-    printMoves(filteredPossibleMoves);
+    // printMoves(filteredPossibleMoves);
     return filteredPossibleMoves;
 }
 

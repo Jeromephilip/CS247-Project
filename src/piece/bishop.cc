@@ -20,7 +20,7 @@ vector<pair<int, int>> Bishop::getPossibleCaptures(Board& b, int x, int y) {
     while (checkBounds(tx, ty, b)) {
         if (b.getSquare(tx, ty)->checkOccupied() == true && b.getSquare(tx, ty)->getPieceOnSquare()->getColor() == getCurPiece->getColor()) {
             break;
-        } else if(b.getSquare(tx, ty)->getPieceOnSquare()->getColor() != getCurPiece->getColor() && tolower(b.getSquare(tx, ty)->getPieceOnSquare()->getType() != 'k')) {
+        } else if(b.getSquare(tx, ty)->checkOccupied() == true && b.getSquare(tx, ty)->getPieceOnSquare()->getColor() != getCurPiece->getColor() && tolower(b.getSquare(tx, ty)->getPieceOnSquare()->getType() != 'k')) {
             possibleMoves.push_back({tx, ty});
             break;
         }
@@ -34,7 +34,7 @@ vector<pair<int, int>> Bishop::getPossibleCaptures(Board& b, int x, int y) {
     while (checkBounds(tx, ty, b)) {
         if (b.getSquare(tx, ty)->checkOccupied() == true && b.getSquare(tx, ty)->getPieceOnSquare()->getColor() == getCurPiece->getColor()) {
             break;
-        } else if (b.getSquare(tx, ty)->getPieceOnSquare()->getColor() != getCurPiece->getColor() && tolower(b.getSquare(tx, ty)->getPieceOnSquare()->getType() != 'k')) {
+        } else if (b.getSquare(tx, ty)->checkOccupied() == true && b.getSquare(tx, ty)->getPieceOnSquare()->getColor() != getCurPiece->getColor() && tolower(b.getSquare(tx, ty)->getPieceOnSquare()->getType() != 'k')) {
             possibleMoves.push_back({tx, ty});
             break;
         }
@@ -49,7 +49,7 @@ vector<pair<int, int>> Bishop::getPossibleCaptures(Board& b, int x, int y) {
     while (checkBounds(tx, ty, b)) {
         if (b.getSquare(tx, ty)->checkOccupied() == true && b.getSquare(tx, ty)->getPieceOnSquare()->getColor() == getCurPiece->getColor()) {
             break;
-        } else if (b.getSquare(tx, ty)->getPieceOnSquare()->getColor() != getCurPiece->getColor() && tolower(b.getSquare(tx, ty)->getPieceOnSquare()->getType() != 'k')) {
+        } else if (b.getSquare(tx, ty)->checkOccupied() == true && b.getSquare(tx, ty)->getPieceOnSquare()->getColor() != getCurPiece->getColor() && tolower(b.getSquare(tx, ty)->getPieceOnSquare()->getType() != 'k')) {
             possibleMoves.push_back({tx, ty});
             break;
         }
@@ -63,7 +63,7 @@ vector<pair<int, int>> Bishop::getPossibleCaptures(Board& b, int x, int y) {
     while (checkBounds(tx, ty, b)) {
         if (b.getSquare(tx, ty)->checkOccupied() == true && b.getSquare(tx, ty)->getPieceOnSquare()->getColor() == getCurPiece->getColor()) {
             break;
-        } else if (b.getSquare(tx, ty)->getPieceOnSquare()->getColor() != getCurPiece->getColor() && tolower(b.getSquare(tx, ty)->getPieceOnSquare()->getType() != 'k')) {
+        } else if (b.getSquare(tx, ty)->checkOccupied() == true && b.getSquare(tx, ty)->getPieceOnSquare()->getColor() != getCurPiece->getColor() && tolower(b.getSquare(tx, ty)->getPieceOnSquare()->getType() != 'k')) {
             possibleMoves.push_back({tx, ty});
             break;
         }
@@ -87,7 +87,7 @@ vector<pair<int, int>> Bishop::getPossibleMoves(Board& b, int x, int y) {
             break;
         } else if (b.getSquare(tx, ty)->checkOccupied() == false) {
             possibleMoves.push_back({tx, ty});
-        } else if(b.getSquare(tx, ty)->getPieceOnSquare()->getColor() != getCurPiece->getColor() && tolower(b.getSquare(tx, ty)->getPieceOnSquare()->getType() != 'k')) {
+        } else if(b.getSquare(tx, ty)->checkOccupied() == true && b.getSquare(tx, ty)->getPieceOnSquare()->getColor() != getCurPiece->getColor() && tolower(b.getSquare(tx, ty)->getPieceOnSquare()->getType() != 'k')) {
             possibleMoves.push_back({tx, ty});
             break;
         }
@@ -103,7 +103,7 @@ vector<pair<int, int>> Bishop::getPossibleMoves(Board& b, int x, int y) {
             break;
         } else if (b.getSquare(tx, ty)->checkOccupied() == false) {
             possibleMoves.push_back({tx, ty});
-        } else if(b.getSquare(tx, ty)->getPieceOnSquare()->getColor() != getCurPiece->getColor() && tolower(b.getSquare(tx, ty)->getPieceOnSquare()->getType() != 'k')) {
+        } else if(b.getSquare(tx, ty)->checkOccupied() == true && b.getSquare(tx, ty)->getPieceOnSquare()->getColor() != getCurPiece->getColor() && tolower(b.getSquare(tx, ty)->getPieceOnSquare()->getType() != 'k')) {
             possibleMoves.push_back({tx, ty});
             break;
         }
@@ -120,7 +120,7 @@ vector<pair<int, int>> Bishop::getPossibleMoves(Board& b, int x, int y) {
             break;
         } else if (b.getSquare(tx, ty)->checkOccupied() == false) {
             possibleMoves.push_back({tx, ty});
-        } else if(b.getSquare(tx, ty)->getPieceOnSquare()->getColor() != getCurPiece->getColor() && tolower(b.getSquare(tx, ty)->getPieceOnSquare()->getType() != 'k')) {
+        } else if(b.getSquare(tx, ty)->checkOccupied() == true && b.getSquare(tx, ty)->getPieceOnSquare()->getColor() != getCurPiece->getColor() && tolower(b.getSquare(tx, ty)->getPieceOnSquare()->getType() != 'k')) {
             possibleMoves.push_back({tx, ty});
             break;
         }
@@ -136,7 +136,7 @@ vector<pair<int, int>> Bishop::getPossibleMoves(Board& b, int x, int y) {
             break;
         } else if (b.getSquare(tx, ty)->checkOccupied() == false) {
             possibleMoves.push_back({tx, ty});
-        } else if(b.getSquare(tx, ty)->getPieceOnSquare()->getColor() != getCurPiece->getColor() && tolower(b.getSquare(tx, ty)->getPieceOnSquare()->getType() != 'k')) {
+        } else if (b.getSquare(tx, ty)->checkOccupied() == true && b.getSquare(tx, ty)->getPieceOnSquare()->getColor() != getCurPiece->getColor() && tolower(b.getSquare(tx, ty)->getPieceOnSquare()->getType() != 'k')) {
             possibleMoves.push_back({tx, ty});
             break;
         }
@@ -152,7 +152,7 @@ vector<pair<int, int>> Bishop::getPossibleMoves(Board& b, int x, int y) {
         }
     }
 
-    printMoves(filteredPossibleMoves);
+    // printMoves(filteredPossibleMoves);
     return filteredPossibleMoves;
 }
 

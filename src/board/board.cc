@@ -19,6 +19,17 @@ Board::Board(int width, int height):  height{height}, width{width} {
 }
 
 
+void Board::movePiece(int curX, int curY, int newX, int newY) {
+    if (board[curY][curX]->checkOccupied()) {
+        Piece *toSwapPiece = board[curY][curX]->getPieceOnSquare();
+        if (board[newY][newX]->checkOccupied() == true) {
+            board[newY][newX]->capturePieceOnSquare();
+        }
+        board[newY][newX]->setPieceOnSquare(toSwapPiece);
+        board[curY][curX]->removePieceOnSquare();
+    }
+}
+
 
 bool Board::isMoveAllowed(int curX, int curY, int newX, int newY) {
     Piece *pieceToMove = getPiece(curX, curY);

@@ -18,17 +18,17 @@ bool Game::isCheckmate(string color) {
     for (int i=0; i<b.getHeight(); i++) {
         for (int j=0; j<b.getWidth(); j++) {
             if (b.getSquare(j, i)->checkOccupied() && b.getPiece(j, i)->getColor() == color) {
-                vector<pair<int, int>> pMove = b.getPiece(j, i)->getPossibleMoves(b, j, i);
-                cout << b.getPiece(j, i)->getType() << endl;
-                for (int k=0; k<pMove.size(); k++) {
-                    cout << " " << pMove[k].first << ", " << pMove[k].second << endl;
-                }
+                // vector<pair<int, int>> pMove = b.getPiece(j, i)->getPossibleMoves(b, j, i);
+                // cout << b.getPiece(j, i)->getType() << endl;
+                // for (size_t k=0; k<pMove.size(); k++) {
+                //     cout << " " << pMove[k].first << ", " << pMove[k].second << endl;
+                // }
                 numMoves += b.getPiece(j, i)->getPossibleMoves(b, j, i).size();
             }
         }
     }
 
-    cout << numMoves << endl;
+    // cout << numMoves << endl;
 
     if (numMoves == 0) {
         return true;
@@ -207,7 +207,7 @@ void Game::move(Player* p, string iPos, string fPos, bool& isKingInCheck) {
     int curY = abs(iPos[1] - '0' - 8);
     int newX = fPos[0] - 'a';
     int newY = abs(fPos[1] - '0' - 8);
-    cout << curX << ", " << curY << endl;
+    // cout << curX << ", " << curY << endl;
     if (!b.getPiece(curX, curY)) {
         cout << "NO PIECE THERE" << endl;
     }
@@ -220,17 +220,15 @@ void Game::move(Player* p, string iPos, string fPos, bool& isKingInCheck) {
     
 
     cout << "The move coordinates are: (" << m.oldX << "," << m.oldY << ") -> (" << m.newX << "," << m.newY << ")" << endl;
-    if (m.valid) {
-        cout << "valid move" << endl;
-        cout << m.piece->getType() << endl;
-    }
 
     if (m.valid) {
+        cout << "Valid Move" << endl;
+        cout << m.piece->getType() << endl;
         // copy board
         // Board tempBoard(b);
         // tempBoard.printBoard();
         // cout << "temp board printed" << endl;
-        b.swapPiece(m.oldX, m.oldY, m.newX, m.newY);
+        b.movePiece(m.oldX, m.oldY, m.newX, m.newY);
         if (m.piece->getHasMoved() == false) {
             m.piece->setHasMoved(true);
         }
@@ -335,7 +333,6 @@ void Game::play() {
                 if (!isWhiteinCheck) {
                     turn++;
                 }
-                //
 
             } else {
                 // cout << "printing in black turn board" << endl;
@@ -358,9 +355,9 @@ void Game::play() {
             pair<int, int> blackKingPos = b.findKing("black");
 
             if (isCheckmate("white")) {
-                cout << "white is in checkmate" << endl;
+                cout << "White is in checkmate" << endl;
             } else if (isCheckmate("black")) {
-                cout << "black is in checkmate" << endl;
+                cout << "Black is in checkmate" << endl;
             } else if (b.isCheck("white", whiteKingPos.first, whiteKingPos.second)) {
                 isWhiteinCheck = true;
                 cout << "White is in check." << endl;
