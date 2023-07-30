@@ -186,8 +186,6 @@ void Game::move(Player* p, string iPos, string fPos, bool& isKingInCheck) {
     if (m.piece == nullptr) {
         return; 
     }
-    cout << "ggg it" << endl;
-    cout << isKingInCheck << endl;
     
 
     cout << "The move coordinates are: (" << m.oldX << "," << m.oldY << ") -> (" << m.newX << "," << m.newY << ")" << endl;
@@ -196,35 +194,29 @@ void Game::move(Player* p, string iPos, string fPos, bool& isKingInCheck) {
         cout << m.piece->getType() << endl;
     }
 
-    
-
-    pair<int, int> kingPos = b.findKing(p->getColour());
     if (m.valid) {
         // copy board
-        cout << "Printing Actual Board" << endl;
-        b.printBoard();
+        // Board tempBoard(b);
+        // tempBoard.printBoard();
+        // cout << "temp board printed" << endl;
+        b.setPiece(m.piece, m.newX, m.newY);
+        b.removePiece(m.oldX, m.oldY);
 
-        cout << "creating temp board" << endl;
-        Board tempBoard(b);
-        tempBoard.printBoard();
-        cout << "temp board printed" << endl;
-        tempBoard.setPiece(m.piece, m.newX, m.newY);
-        tempBoard.removePiece(m.oldX, m.oldY);
+        pair<int, int> kingPos = b.findKing(p->getColour());
+        // cout << "printing board" << endl;
+        // b.printBoard();
 
-        cout << "moving piece puts in check" << endl;
-        if (tempBoard.isCheck(p->getColour(), kingPos.first, kingPos.second)) {
+        if (b.isCheck(p->getColour(), kingPos.first, kingPos.second)) {
             cout << "Your king is still in check!" << endl;
-        } else {
-            b.setPiece(m.piece, m.newX, m.newY);
-            b.removePiece(m.oldX, m.oldY);
-               
+            b.setPiece(m.piece, m.oldX, m.oldY);
+            b.removePiece(m.newX, m.newY);
+        } else {               
             if (m.piece->getHasMoved() == false) {
                 m.piece->setHasMoved(true);
             }
+            isKingInCheck = false;
         }
     }
-
-    cout << "gpne" << endl;
     // check if the the move makes it a check with b.isCheck...
     return;
 }

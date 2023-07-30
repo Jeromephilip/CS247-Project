@@ -22,8 +22,7 @@ Board::Board(int width, int height):  height{height}, width{width} {
 Board::Board(const Board& other): height(other.height), width(other.width), board(other.height, vector<Square*>(other.width, nullptr)) {
     for (int i=0; i < height; i++) {
         for (int j=0; j < width; j++) {
-            cout << j << ", " << i << endl;
-            board[i][j] = new Square(*other.board[i][j]);
+                board[i][j] = new Square(*other.board[i][j]);
         }
     }
 }
@@ -80,6 +79,8 @@ bool Board::checkBounds(int x, int y) {
 bool Board::isCheck(string color, int x, int y) { // king's position
     // queen and rook
     // going right
+    // cout << "printing board in ischeck" << endl;
+    // printBoard();
     for (int i=x; i < width; i++) {
         if (x != i && getSquare(i, y)->checkOccupied() == true && getSquare(i, y)->getPieceOnSquare()->getColor() == color ) {
             break;

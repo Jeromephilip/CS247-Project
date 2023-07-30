@@ -4,7 +4,7 @@ Square::Square(string color, int x, int y): p{nullptr}, x{x}, y{y}, color{color}
 
 Square::Square(const Square& other) : p{nullptr}, x{other.x}, y{other.y}, color{other.color}, isOccupied{other.isOccupied} {
     if (other.p != nullptr) { 
-        this->p = other.p->clone();
+        p = other.p->clone();
     }
 }
 

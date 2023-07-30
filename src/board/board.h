@@ -10,6 +10,7 @@ using namespace std;
 
 class Piece;
 class Square;
+class Rook;
 
 class Board {
     private:
