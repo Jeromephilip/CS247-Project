@@ -1,4 +1,5 @@
 #ifndef _COMPUTER_
+#define _COMPUTER_
 
 #include "../player/player.h"
 

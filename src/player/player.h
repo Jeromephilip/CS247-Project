@@ -31,7 +31,7 @@ class Player {
         virtual Move turnMove(int, int, int, int, Board&) = 0; 
         string getColour();
         bool getBool(); 
-
+        vector<pair<Piece*, pair<int, int>>> getPieces(Board& b); 
 }; 
 
 

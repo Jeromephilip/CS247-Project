@@ -18,6 +18,7 @@
 #include "../piece/pawn.h"
 #include "../player/human.h"
 #include "../player/level1.h"
+#include "../player/level2.h"
 #include <iostream>
 #include <vector>
 #include <utility>
