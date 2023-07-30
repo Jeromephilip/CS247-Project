@@ -16,8 +16,8 @@ bool Square::checkOccupied() {
     return isOccupied;
 }
 
-void Square::setPieceOnSquare(Piece* p) {
-    this->p = p;
+void Square::setPieceOnSquare(Piece* pieceToSet) {
+    this->p = pieceToSet;
     this->isOccupied = true;
 }
 

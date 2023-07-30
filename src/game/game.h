@@ -37,8 +37,8 @@ class Game {
         Player *pW, *pB; 
         int turn; 
         Board b;
-        bool inCheck = false;
-        bool inCheckmate = false;
+        bool isBlackCheckmate = false;
+        bool isWhiteCheckmate = false;
         void defaultSetup();
         void gameType(stringstream& ss);
         void move(Player*, string, string, bool&);
