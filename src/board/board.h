@@ -22,7 +22,7 @@ class Board {
         Board(int, int);
         Piece* getPiece(int, int);
         void setPiece(Piece*, int, int);
-        // void movePiece(int, int, int, int);
+        void movePiece(int, int, int, int);
         bool isCheck(string, int, int);
         bool isCheckmate(string, int, int);
         pair<int, int> findKing(string);

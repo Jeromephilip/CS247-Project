@@ -148,7 +148,7 @@ vector<pair<int, int>> Queen::getPossibleCaptures(Board& b, int x, int y) {
     while (checkBounds(tx, ty, b)) {
         if (b.getSquare(tx, ty)->checkOccupied() == true && b.getSquare(tx, ty)->getPieceOnSquare()->getColor() == getCurPiece->getColor()) {
             break;
-        } else if(b.getSquare(tx, ty)->getPieceOnSquare()->getColor() != getCurPiece->getColor() && tolower(b.getSquare(tx, ty)->getPieceOnSquare()->getType() != 'k')) {
+        } else if(b.getSquare(tx, ty)->checkOccupied() == true && b.getSquare(tx, ty)->getPieceOnSquare()->getColor() != getCurPiece->getColor() && tolower(b.getSquare(tx, ty)->getPieceOnSquare()->getType() != 'k')) {
             possibleMoves.push_back({tx, ty});
             break;
         }
@@ -162,7 +162,7 @@ vector<pair<int, int>> Queen::getPossibleCaptures(Board& b, int x, int y) {
     while (checkBounds(tx, ty, b)) {
         if (b.getSquare(tx, ty)->checkOccupied() == true && b.getSquare(tx, ty)->getPieceOnSquare()->getColor() == getCurPiece->getColor()) {
             break;
-        } else if (b.getSquare(tx, ty)->getPieceOnSquare()->getColor() != getCurPiece->getColor() && tolower(b.getSquare(tx, ty)->getPieceOnSquare()->getType() != 'k')) {
+        } else if (b.getSquare(tx, ty)->checkOccupied() == true && b.getSquare(tx, ty)->getPieceOnSquare()->getColor() != getCurPiece->getColor() && tolower(b.getSquare(tx, ty)->getPieceOnSquare()->getType() != 'k')) {
             possibleMoves.push_back({tx, ty});
             break;
         }
@@ -177,7 +177,7 @@ vector<pair<int, int>> Queen::getPossibleCaptures(Board& b, int x, int y) {
     while (checkBounds(tx, ty, b)) {
         if (b.getSquare(tx, ty)->checkOccupied() == true && b.getSquare(tx, ty)->getPieceOnSquare()->getColor() == getCurPiece->getColor()) {
             break;
-        } else if (b.getSquare(tx, ty)->getPieceOnSquare()->getColor() != getCurPiece->getColor() && tolower(b.getSquare(tx, ty)->getPieceOnSquare()->getType() != 'k')) {
+        } else if (b.getSquare(tx, ty)->checkOccupied() == true && b.getSquare(tx, ty)->getPieceOnSquare()->getColor() != getCurPiece->getColor() && tolower(b.getSquare(tx, ty)->getPieceOnSquare()->getType() != 'k')) {
             possibleMoves.push_back({tx, ty});
             break;
         }
@@ -191,7 +191,7 @@ vector<pair<int, int>> Queen::getPossibleCaptures(Board& b, int x, int y) {
     while (checkBounds(tx, ty, b)) {
         if (b.getSquare(tx, ty)->checkOccupied() == true && b.getSquare(tx, ty)->getPieceOnSquare()->getColor() == getCurPiece->getColor()) {
             break;
-        } else if (b.getSquare(tx, ty)->getPieceOnSquare()->getColor() != getCurPiece->getColor() && tolower(b.getSquare(tx, ty)->getPieceOnSquare()->getType() != 'k')) {
+        } else if (b.getSquare(tx, ty)->checkOccupied() == true && b.getSquare(tx, ty)->getPieceOnSquare()->getColor() != getCurPiece->getColor() && tolower(b.getSquare(tx, ty)->getPieceOnSquare()->getType() != 'k')) {
             possibleMoves.push_back({tx, ty});
             break;
         }
@@ -205,7 +205,7 @@ vector<pair<int, int>> Queen::getPossibleCaptures(Board& b, int x, int y) {
         if (b.getSquare(x, i)->checkOccupied() == true && b.getSquare(x, i)->getPieceOnSquare()->getColor() == getCurPiece->getColor() && i != y) {
             break;
         // square with a piece that can be captured
-        } else if (b.getSquare(x, i)->getPieceOnSquare()->getColor() != getCurPiece->getColor() && tolower(b.getSquare(x, i)->getPieceOnSquare()->getType()) != 'k') {
+        } else if (b.getSquare(x, i)->checkOccupied() == true && b.getSquare(x, i)->getPieceOnSquare()->getColor() != getCurPiece->getColor() && tolower(b.getSquare(x, i)->getPieceOnSquare()->getType()) != 'k') {
             possibleMoves.push_back({x, i});
             break;
         }
@@ -215,7 +215,7 @@ vector<pair<int, int>> Queen::getPossibleCaptures(Board& b, int x, int y) {
     for (int i=y; i < b.getHeight(); i++) {
         if (b.getSquare(x, i)->checkOccupied() == true && b.getSquare(x, i)->getPieceOnSquare()->getColor() == getCurPiece->getColor() && i != y) {
             break;
-        } else if (b.getSquare(x, i)->getPieceOnSquare()->getColor() != getCurPiece->getColor() && tolower(b.getSquare(x, i)->getPieceOnSquare()->getType()) != 'k') {
+        } else if (b.getSquare(x, i)->checkOccupied() == true && b.getSquare(x, i)->getPieceOnSquare()->getColor() != getCurPiece->getColor() && tolower(b.getSquare(x, i)->getPieceOnSquare()->getType()) != 'k') {
             possibleMoves.push_back({x, i});
             break;
         }
@@ -224,7 +224,7 @@ vector<pair<int, int>> Queen::getPossibleCaptures(Board& b, int x, int y) {
     for (int i=x; i < b.getWidth(); i++) {
         if (b.getSquare(i, y)->checkOccupied() == true && b.getSquare(i, y)->getPieceOnSquare()->getColor() == getCurPiece->getColor() && x != i) {
             break;
-        } else if (b.getSquare(i, y)->getPieceOnSquare()->getColor() != getCurPiece->getColor() && tolower(b.getSquare(i, y)->getPieceOnSquare()->getType()) != 'k') {
+        } else if (b.getSquare(i, y)->checkOccupied() == true && b.getSquare(i, y)->getPieceOnSquare()->getColor() != getCurPiece->getColor() && tolower(b.getSquare(i, y)->getPieceOnSquare()->getType()) != 'k') {
             possibleMoves.push_back({i, y});
             break;
         }
@@ -233,7 +233,7 @@ vector<pair<int, int>> Queen::getPossibleCaptures(Board& b, int x, int y) {
     for (int i=x; i >= 0; i--) {
         if (b.getSquare(i, y)->checkOccupied() == true && b.getSquare(i, y)->getPieceOnSquare()->getColor() == getCurPiece->getColor() && x != i) {
             break;
-        } else if (b.getSquare(i, y)->getPieceOnSquare()->getColor() != getCurPiece->getColor() && tolower(b.getSquare(i, y)->getPieceOnSquare()->getType()) != 'k') {
+        } else if (b.getSquare(i, y)->checkOccupied() == true && b.getSquare(i, y)->getPieceOnSquare()->getColor() != getCurPiece->getColor() && tolower(b.getSquare(i, y)->getPieceOnSquare()->getType()) != 'k') {
             possibleMoves.push_back({i, y});
             break;
         }
