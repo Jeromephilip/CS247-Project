@@ -48,6 +48,7 @@ class Game {
         bool isMoveValid(Piece*, int, int, int, int);
         // bool checkAdjacentKings(int, int);
         bool isCheckmate(string color);
+        bool isStalemate(string color);
         bool isCheck(Player *p);
         ~Game();
 };
