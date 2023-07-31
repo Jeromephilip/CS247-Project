@@ -5,6 +5,39 @@ Game::Game(): b(8, 8) {}
 
 bool Game::isCheck(Player* p) {
     return true;
+} 
+
+void Game::reset() {
+    b.reset();
+    isGameDone = false;
+    isSetupDone = false;
+    turn = 0;
+    Player* tempPlayer1 = pW;
+    Player* tempPlayer2 = pB;
+    pW = nullptr;
+    pB = nullptr;
+    delete tempPlayer1;
+    delete tempPlayer2;
+}
+
+
+bool Game::isStalemate(string color) {
+    int numMoves = 0;
+    for (int i=0; i<b.getHeight(); i++) {
+        for (int j=0; j<b.getWidth(); j++) {
+            if (b.getSquare(j, i)->checkOccupied() && b.getPiece(j, i)->getColor() == color) {
+                numMoves += b.getPiece(j, i)->getPossibleMoves(b, j, i).size();
+            }
+        }
+    }
+
+    // cout << numMoves << endl;
+    pair<int, int> kingPos = b.findKing(color);
+    if (numMoves == 0 && !b.isCheck(color, kingPos.first, kingPos.second)) {
+        return true;
+    }
+
+    return false;
 }
 
 bool Game::isCheckmate(string color) {
@@ -18,17 +51,17 @@ bool Game::isCheckmate(string color) {
     for (int i=0; i<b.getHeight(); i++) {
         for (int j=0; j<b.getWidth(); j++) {
             if (b.getSquare(j, i)->checkOccupied() && b.getPiece(j, i)->getColor() == color) {
-                vector<pair<int, int>> pMove = b.getPiece(j, i)->getPossibleMoves(b, j, i);
-                cout << b.getPiece(j, i)->getType() << endl;
-                for (int k=0; k<pMove.size(); k++) {
-                    cout << " " << pMove[k].first << ", " << pMove[k].second << endl;
-                }
+                // vector<pair<int, int>> pMove = b.getPiece(j, i)->getPossibleMoves(b, j, i);
+                // cout << b.getPiece(j, i)->getType() << endl;
+                // for (size_t k=0; k<pMove.size(); k++) {
+                //     cout << " " << pMove[k].first << ", " << pMove[k].second << endl;
+                // }
                 numMoves += b.getPiece(j, i)->getPossibleMoves(b, j, i).size();
             }
         }
     }
 
-    cout << numMoves << endl;
+    // cout << numMoves << endl;
 
     if (numMoves == 0) {
         return true;
@@ -209,51 +242,32 @@ void Game::move(Player* p, string iPos, string fPos, bool& isKingInCheck) {
     int curY = abs(iPos[1] - '0' - 8);
     int newX = fPos[0] - 'a';
     int newY = abs(fPos[1] - '0' - 8);
-    cout << curX << ", " << curY << endl;
-    if (!b.getPiece(curX, curY)) {
-        cout << "NO PIECE THERE" << endl;
-    }
 
-    //Piece *pieceToMove = b.getPiece(curX, curY);
     Move m = p->turnMove(curX, curY, newX, newY, b); 
     if (m.piece == nullptr) {
         return; 
+    } else if (p->getColour() != m.piece->getColor()) {
+        cout << "It is " << p->getColour() << " player's turn!"<< endl;
+        return;
     }
     
 
     cout << "The move coordinates are: (" << m.oldX << "," << m.oldY << ") -> (" << m.newX << "," << m.newY << ")" << endl;
-    if (m.valid) {
-        cout << "valid move" << endl;
-        cout << m.piece->getType() << endl;
-    }
 
     if (m.valid) {
-        // copy board
-        // Board tempBoard(b);
-        // tempBoard.printBoard();
-        // cout << "temp board printed" << endl;
+        cout << "Valid Move." << endl;
+ 
         b.movePiece(m.oldX, m.oldY, m.newX, m.newY);
         if (m.piece->getHasMoved() == false) {
             m.piece->setHasMoved(true);
         }
+
+        // valid moves returns moves that make sure the king will not be in check. So we safely turn this to false
         isKingInCheck = false;
-
-        // pair<int, int> kingPos = b.findKing(p->getColour());
-        // cout << "printing board" << endl;
-        // b.printBoard();
-
-        
-
-        // if (b.isCheck(p->getColour(), kingPos.first, kingPos.second)) {
-        //     cout << "Your king is still in check!" << endl;
-        // } else {               
-
-        // }
+        turn++;
     } else {
-        cout << "NOT VALID" << endl;
+        cout << "Not a valid move." << endl;
     }
-    // check if the the move makes it a check with b.isCheck...
-    return;
 }
 
 void Game::gameType(stringstream& ss) {
@@ -312,8 +326,6 @@ void Game::play() {
     cout << "Welcome to our CS247 Project - Chess in C++ - Made by Jerome and Maahir" << endl;
     bool isWhiteinCheck = false;
     bool isBlackinCheck = false;
-    bool isGameDone = false;
-    bool isSetupDone = false;
     while (true) {
         string input;
         if (!getline(cin, input)) {
@@ -332,11 +344,12 @@ void Game::play() {
             gameType(ss);
             isGameDone = true;
         } else if (cmd == "move" && isGameDone && isSetupDone) {
+            // cout << turn << endl;
             string iPos;
             string fPos;
             if (turn % 2 == 0) {
-                // cout << "printing in white turn board" << endl;
-                // b.printBoard();
+                // white turn's move
+                cout << "Player 1 (White) Move" << endl;
                 if (!pW->getBool()) {
                     ss >> iPos;
                     ss >> fPos;
@@ -345,50 +358,40 @@ void Game::play() {
                 else {
                     move(pW, "a2", "a3", isWhiteinCheck);
                 }
-                
-                if (!isWhiteinCheck) {
-                    turn++;
-                }
-                //
-
+                // if white is not in check, next turn.
             } else {
-                // cout << "printing in black turn board" << endl;
-                // b.printBoard();
+                cout << "Player 2 (Black) Move" << endl;
                 if (!pB->getBool()) {
                     ss >> iPos;
                     ss >> fPos;
-                    cout << "moving black" << endl;
                     move(pB, iPos, fPos, isBlackinCheck); 
                 } else {
                     move(pB, "a2", "a3", isBlackinCheck);
                 }
-                
-                if (!isBlackinCheck) {
-                    turn++;
-                }
+                // if black is not in check, next turn.
             }
-
+            // winning conditions
+             b.printBoard();
+            notifyObservers();
             pair<int, int> whiteKingPos = b.findKing("white");
             pair<int, int> blackKingPos = b.findKing("black");
 
-            if (isCheckmate("white")) {
-                cout << "white is in checkmate" << endl;
+            if (isStalemate("white") || isStalemate("black")) {
+                cout << "Stalemate!" << endl;
+                reset();
+            } else if (isCheckmate("white")) {
+                cout << "Checkmate! White wins!" << endl;
+                reset();
             } else if (isCheckmate("black")) {
-                cout << "black is in checkmate" << endl;
+                cout << "Checkmate! Black wins!" << endl;
+                reset();
             } else if (b.isCheck("white", whiteKingPos.first, whiteKingPos.second)) {
                 isWhiteinCheck = true;
                 cout << "White is in check." << endl;
             } else if (b.isCheck("black", blackKingPos.first, blackKingPos.second)) {
                 isBlackinCheck = true;
                 cout << "Black is in check." << endl;
-            }
-
-
-            b.printBoard();
-            notifyObservers(); 
-        } else if (cmd == "done") {
-            cout << "Thanks for playing!" << endl;
-            break;
+            } 
         } else {
             if (cmd == "setup" && isSetupDone) {
                 cout << "You have already setup your board!" << endl;

@@ -24,18 +24,17 @@ class Board {
         void setPiece(Piece*, int, int);
         void movePiece(int, int, int, int);
         bool isCheck(string, int, int);
-        bool isCheckmate(string, int, int);
         pair<int, int> findKing(string);
         void removePiece(int, int);
         void printBoard();
         int getWidth();
         int getHeight();
+        void reset();
         bool isMoveAllowed(int, int, int, int);
         void swapPiece(int, int, int, int);
         void removePieceSetup(int, int);
         Square* getSquare(int, int);
         bool checkAdjacentKings(int, int);
-        Board(const Board& other);
         ~Board();
 };
 

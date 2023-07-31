@@ -16,7 +16,6 @@ class King : public Piece {
         vector<pair<int, int>> getPossibleMoves(Board& , int, int) override;
         vector<pair<int, int>> getPossibleCaptures(Board&, int, int) override;
         bool isValidMove(Board&, int, int, int, int) override;
-        virtual Piece* clone() const override;
         bool checkCanCastle();
         // vector<pair<int, int>> getCheckableSquares(Board& b, int, int);
         ~King();

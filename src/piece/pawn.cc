@@ -38,7 +38,7 @@ vector<pair<int, int>> Pawn::getPossibleCaptures(Board& b, int x, int y) {
         }
     }
 
-    printMoves(filteredPossibleMoves);
+    // printMoves(filteredPossibleMoves);
     return filteredPossibleMoves;
 }
 
@@ -100,7 +100,7 @@ vector<pair<int, int>> Pawn::getPossibleMoves(Board& b, int x, int y) {
         }
     }
 
-    printMoves(filteredPossibleMoves);
+    // printMoves(filteredPossibleMoves);
     return filteredPossibleMoves;
 }
 
@@ -112,10 +112,6 @@ bool Pawn::isValidMove(Board& b, int curX, int curY, int newX, int newY) {
         }
     }
     return false;
-}
-
-Piece* Pawn::clone() const {
-    return new Pawn(*this);
 }
 
 Pawn::~Pawn() {}

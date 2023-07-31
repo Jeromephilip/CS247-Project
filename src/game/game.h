@@ -43,8 +43,8 @@ class Game : public Subject {
         Player *pW, *pB; 
         int turn; 
         Board b;
-        bool isBlackCheckmate = false;
-        bool isWhiteCheckmate = false;
+        bool isGameDone = false;
+        bool isSetupDone = false;
         void defaultSetup();
         void gameType(stringstream& ss);
         void move(Player*, string, string, bool&);
@@ -56,6 +56,8 @@ class Game : public Subject {
         bool isMoveValid(Piece*, int, int, int, int);
         // bool checkAdjacentKings(int, int);
         bool isCheckmate(string color);
+        void reset();
+        bool isStalemate(string color);
         bool isCheck(Player *p);
         Board& getBoard(); 
         ~Game();

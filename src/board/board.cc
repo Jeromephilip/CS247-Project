@@ -18,6 +18,20 @@ Board::Board(int width, int height):  height{height}, width{width} {
     }
 }
 
+// move a piece from current (x, y) to new (x, y)
+void Board::movePiece(int curX, int curY, int newX, int newY) {
+    // only move the piece if the current (x, y) contains a piece
+    if (board[curY][curX]->checkOccupied()) {
+        Piece *toSwapPiece = board[curY][curX]->getPieceOnSquare();
+        // check if the new (x, y) contains a piece (capture)
+        if (board[newY][newX]->checkOccupied() == true) {
+            board[newY][newX]->capturePieceOnSquare();
+        }
+        // move the piece current (x, y) -> new (x, y)
+        board[newY][newX]->setPieceOnSquare(toSwapPiece);
+        board[curY][curX]->removePieceOnSquare();
+    }
+}
 
 void Board::movePiece(int curX, int curY, int newX, int newY) {
     if (board[curY][curX]->checkOccupied()) {
@@ -30,43 +44,48 @@ void Board::movePiece(int curX, int curY, int newX, int newY) {
     }
 }
 
+void Board::reset() {
+    for (int i=0; i<height; i++) {
+        for (int j=0; j<width; j++) {
+            if (getSquare(j, i)->checkOccupied() == true) {
+                getSquare(j, i)->capturePieceOnSquare();
+            }
+        }
+    }
+}
+
 bool Board::isMoveAllowed(int curX, int curY, int newX, int newY) {
     Piece *pieceToMove = getPiece(curX, curY);
     string color = pieceToMove->getColor();
-    pair<int, int> kingPos = findKing(color);
     bool isCapturedSquare = false;
     Piece *tempPiece;
-
-    // cout << "before swap" << endl;
+    // check if the place to move has a piece
     if (getSquare(newX, newY)->checkOccupied() == true) {
+        // store it in a temporary variable
         tempPiece = getPiece(newX, newY);
         isCapturedSquare = true;
     }
-    swapPiece(curX, curY, newX, newY);
-    // cout << kingPos.first << ", " << kingPos.second << endl;
-    // cout << "printing Board before isCheck" << endl;
-    // printBoard();
-    // printBoard();
-    bool isCheckedAfterMove = isCheck(color, kingPos.first, kingPos.second);
-    
 
+    // cout << "Moving (" << curX << ", " << curY << ") to (" << newX << ", " << newY << ")" << endl; 
+    // move the piece temporarily to the new (x, y)
+    swapPiece(curX, curY, newX, newY);
+
+    pair<int, int> kingPos = findKing(color);
+    // printBoard();
+    
+    // check if the new board after moving the piece makes it so that the king is in check.
+    bool isCheckedAfterMove = isCheck(color, kingPos.first, kingPos.second);
+
+
+    // move the piece back
     swapPiece(newX, newY, curX, curY);
+    
+    // the piece previously in the new (x, y) needs to be restored
     if (isCapturedSquare == true) {
         setPiece(tempPiece, newX, newY);
     }
-    // cout << "after swap" << endl;
-    // printBoard();
-    // move the piece, check if it is in check.
+    
     return !isCheckedAfterMove;
-}
-
-
-Board::Board(const Board& other): height(other.height), width(other.width), board(other.height, vector<Square*>(other.width, nullptr)) {
-    for (int i=0; i < height; i++) {
-        for (int j=0; j < width; j++) {
-                board[i][j] = new Square(*other.board[i][j]);
-        }
-    }
 }
 
 pair<int, int> Board::findKing(string color) {
@@ -119,41 +138,50 @@ bool Board::checkBounds(int x, int y) {
 }
 
 bool Board::isCheck(string color, int x, int y) { // king's position
-    // queen and rook
-    // going right
-    // cout << "printing board in ischeck" << endl;
+    // cout << "printing board for : " << x << ", " << y << endl;
     // printBoard();
-    for (int i=x; i < width; i++) {
-        if (x != i && getSquare(i, y)->checkOccupied() == true && getSquare(i, y)->getPieceOnSquare()->getColor() == color ) {
-            break;
-        } else if (x != i && getSquare(i, y)->checkOccupied() == true && (tolower(getPiece(i, y)->getType()) == 'q' || tolower(getPiece(i, y)->getType()) == 'r')) {
-            return true;
+
+    if (checkBounds(x+1, y)) {
+        for (int i=x+1; i < width; i++) {
+            if (getSquare(i, y)->checkOccupied() == true && getSquare(i, y)->getPieceOnSquare()->getColor() == color ) {
+                break;
+            } else if (getSquare(i, y)->checkOccupied() == true && (tolower(getPiece(i, y)->getType()) == 'q' || tolower(getPiece(i, y)->getType()) == 'r')) {
+                return true;
+            }
         }
     }
 
     // going left
-    for (int i=x; i >= 0; i--) {
-        if (x != i && getSquare(i, y)->checkOccupied() == true && getSquare(i, y)->getPieceOnSquare()->getColor() == color){
-            break;
-        } else if (x != i && getSquare(i, y)->checkOccupied() == true && (tolower(getPiece(i, y)->getType()) == 'q' || tolower(getPiece(i, y)->getType()) == 'r')) {
-            return true;
+    if (checkBounds(x-1, y)) {
+        for (int i=x-1; i >= 0; i--) {
+            if (getSquare(i, y)->checkOccupied() == true && getSquare(i, y)->getPieceOnSquare()->getColor() == color){
+                break;
+            } else if (getSquare(i, y)->checkOccupied() == true && (tolower(getPiece(i, y)->getType()) == 'q' || tolower(getPiece(i, y)->getType()) == 'r')) {
+                return true;
+            }
         }
-    }
+    } 
+
     // going down
-    for (int i=y; i < height; i++) {
-        if (y != i && getSquare(x, i)->checkOccupied() == true && getSquare(x, i)->getPieceOnSquare()->getColor() == color) {
-            break;
-        } else if (y != i && getSquare(x, i)->checkOccupied() == true && (tolower(getPiece(x, i)->getType()) == 'q' || tolower(getPiece(x, i)->getType()) == 'r')) {
-            return true;
+    if (checkBounds(x, y+1)) {
+        for (int i=y+1; i < height; i++) {
+            if (getSquare(x, i)->checkOccupied() == true && getSquare(x, i)->getPieceOnSquare()->getColor() == color) {
+                break;
+            } else if (getSquare(x, i)->checkOccupied() == true && (tolower(getPiece(x, i)->getType()) == 'q' || tolower(getPiece(x, i)->getType()) == 'r')) {
+                // cout << "found " << x << ", " << y << endl;
+                return true;
+            }
         }
     }
 
     // going up
-    for (int i=y; i >= 0; i--) {
-        if (y != i && getSquare(x, i)->checkOccupied() == true && getSquare(x, i)->getPieceOnSquare()->getColor() == color) {
-            break;
-        } else if (y != i && getSquare(x, i)->checkOccupied() == true && (tolower(getPiece(x, i)->getType()) == 'q' || tolower(getPiece(x, i)->getType()) == 'r')) {
-            return true;
+    if (checkBounds(x, y-1)) {
+        for (int i=y-1; i >= 0; i--) {
+            if (getSquare(x, i)->checkOccupied() == true && getSquare(x, i)->getPieceOnSquare()->getColor() == color) {
+                break;
+            } else if (y != i && getSquare(x, i)->checkOccupied() == true && (tolower(getPiece(x, i)->getType()) == 'q' || tolower(getPiece(x, i)->getType()) == 'r')) {
+                return true;
+            }
         }
     }
     
