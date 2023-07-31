@@ -37,6 +37,8 @@ class Game {
         Player *pW, *pB; 
         int turn; 
         Board b;
+        bool isGameDone = false;
+        bool isSetupDone = false;
         void defaultSetup();
         void gameType(stringstream& ss);
         void move(Player*, string, string, bool&);
@@ -48,6 +50,7 @@ class Game {
         bool isMoveValid(Piece*, int, int, int, int);
         // bool checkAdjacentKings(int, int);
         bool isCheckmate(string color);
+        void reset();
         bool isStalemate(string color);
         bool isCheck(Player *p);
         ~Game();

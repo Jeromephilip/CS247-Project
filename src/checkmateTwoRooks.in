@@ -8,4 +8,9 @@ done
 game human human
 move a8 a7
 move b1 a1
+setup
++ K h1
++ k a8
 done
+game human human
+move h1 g1

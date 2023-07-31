@@ -29,6 +29,7 @@ class Board {
         void printBoard();
         int getWidth();
         int getHeight();
+        void reset();
         bool isMoveAllowed(int, int, int, int);
         void swapPiece(int, int, int, int);
         void removePieceSetup(int, int);

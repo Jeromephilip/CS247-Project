@@ -5,7 +5,21 @@ Game::Game(): b(8, 8) {}
 
 bool Game::isCheck(Player* p) {
     return true;
+} 
+
+void Game::reset() {
+    b.reset();
+    isGameDone = false;
+    isSetupDone = false;
+    turn = 0;
+    Player* tempPlayer1 = pW;
+    Player* tempPlayer2 = pB;
+    pW = nullptr;
+    pB = nullptr;
+    delete tempPlayer1;
+    delete tempPlayer2;
 }
+
 
 bool Game::isStalemate(string color) {
     int numMoves = 0;
@@ -231,7 +245,7 @@ void Game::move(Player* p, string iPos, string fPos, bool& isKingInCheck) {
     if (m.piece == nullptr) {
         return; 
     } else if (p->getColour() != m.piece->getColor()) {
-        cout << "Wrong Piece to move!" << endl;
+        cout << "It is " << p->getColour() << " player's turn!"<< endl;
         return;
     }
     
@@ -301,8 +315,6 @@ void Game::play() {
     cout << "Welcome to our CS247 Project - Chess in C++ - Made by Jerome and Maahir" << endl;
     bool isWhiteinCheck = false;
     bool isBlackinCheck = false;
-    bool isGameDone = false;
-    bool isSetupDone = false;
     while (true) {
         string input;
         if (!getline(cin, input)) {
@@ -354,10 +366,13 @@ void Game::play() {
 
             if (isStalemate("white") || isStalemate("black")) {
                 cout << "Stalemate!" << endl;
+                reset();
             } else if (isCheckmate("white")) {
                 cout << "Checkmate! White wins!" << endl;
+                reset();
             } else if (isCheckmate("black")) {
                 cout << "Checkmate! Black wins!" << endl;
+                reset();
             } else if (b.isCheck("white", whiteKingPos.first, whiteKingPos.second)) {
                 isWhiteinCheck = true;
                 cout << "White is in check." << endl;
@@ -365,9 +380,6 @@ void Game::play() {
                 isBlackinCheck = true;
                 cout << "Black is in check." << endl;
             }
-        } else if (cmd == "done") {
-            cout << "Thanks for playing!" << endl;
-            break;
         } else {
             if (cmd == "setup" && isSetupDone) {
                 cout << "You have already setup your board!" << endl;

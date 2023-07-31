@@ -34,6 +34,16 @@ void Board::movePiece(int curX, int curY, int newX, int newY) {
 }
 
 
+void Board::reset() {
+    for (int i=0; i<height; i++) {
+        for (int j=0; j<width; j++) {
+            if (getSquare(j, i)->checkOccupied() == true) {
+                getSquare(j, i)->capturePieceOnSquare();
+            }
+        }
+    }
+}
+
 bool Board::isMoveAllowed(int curX, int curY, int newX, int newY) {
     Piece *pieceToMove = getPiece(curX, curY);
     string color = pieceToMove->getColor();
