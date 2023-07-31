@@ -126,6 +126,7 @@ void Game::setup() {
         if (c == "default") {
             defaultSetup();
             b.printBoard();
+            notifyObservers(); 
             // hasSetup = true;
             // hasPickedBlackKing = true;
             // hasPickedWhiteKing = true;
@@ -230,6 +231,7 @@ void Game::setup() {
                 cout << "Invalid Command" << endl;
             }
             b.printBoard();
+            notifyObservers(); 
         }
     }
 
@@ -254,10 +256,7 @@ void Game::move(Player* p, string iPos, string fPos, bool& isKingInCheck) {
 
     if (m.valid) {
         cout << "Valid Move." << endl;
-        // cout << m.piece->getType() << endl;
-
-        // moves the piece from the current (x, y) to the desired (x, y)
-    
+ 
         b.movePiece(m.oldX, m.oldY, m.newX, m.newY);
         if (m.piece->getHasMoved() == false) {
             m.piece->setHasMoved(true);
@@ -285,19 +284,31 @@ void Game::gameType(stringstream& ss) {
         if (p2[8] == '1') {
             pB = new Level1("black", true);
         }
+        if (p2[8] == '2') {
+            pB = new Level2("black", true);
+        }
     }
     else if (p1 != "human" && p2 == "human") {
         pB = new Human("black", false);
         if (p1[8] == '1') {
             pW = new Level1("white", true);
         }
+        if (p1[8] == '2') {
+            pW = new Level2("white", true);
+        }
     }
     else if (p1 != "human" && p2 != "human") {
-        if (p2[8] == '1') {
+        if (p1[8] == '1') {
             pB = new Level1("black", true);
         }
         if (p2[8] == '1') {
             pW = new Level1("white", true);
+        }
+        if (p1[8] == '2') {
+            pB = new Level2("black", true);
+        }
+        if (p2[8] == '2') {
+            pW = new Level2("white", true);
         }
     }
 
@@ -360,7 +371,8 @@ void Game::play() {
                 // if black is not in check, next turn.
             }
             // winning conditions
-            b.printBoard();
+             b.printBoard();
+            notifyObservers();
             pair<int, int> whiteKingPos = b.findKing("white");
             pair<int, int> blackKingPos = b.findKing("black");
 
@@ -379,7 +391,7 @@ void Game::play() {
             } else if (b.isCheck("black", blackKingPos.first, blackKingPos.second)) {
                 isBlackinCheck = true;
                 cout << "Black is in check." << endl;
-            }
+            } 
         } else {
             if (cmd == "setup" && isSetupDone) {
                 cout << "You have already setup your board!" << endl;
@@ -394,6 +406,9 @@ void Game::play() {
     return;
 }
 
+Board& Game::getBoard() {
+    return b; 
+}
 
 Game::~Game() {
     delete pW;

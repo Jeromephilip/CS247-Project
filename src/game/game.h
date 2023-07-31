@@ -4,6 +4,11 @@
 
 #include "../board/board.h"
 #include "../player/player.h"
+
+#include "../window/subject.h"
+#include "../window/graphicDisplay.h"
+#include "../window/window.h"
+
 #include "../piece/piece.h"
 #include "../piece/king.h"
 #include "../piece/queen.h"
@@ -13,6 +18,7 @@
 #include "../piece/pawn.h"
 #include "../player/human.h"
 #include "../player/level1.h"
+#include "../player/level2.h"
 #include <iostream>
 #include <vector>
 #include <utility>
@@ -32,7 +38,7 @@ using namespace std;
 
 class Player;
 
-class Game {
+class Game : public Subject {
     private:
         Player *pW, *pB; 
         int turn; 
@@ -53,6 +59,7 @@ class Game {
         void reset();
         bool isStalemate(string color);
         bool isCheck(Player *p);
+        Board& getBoard(); 
         ~Game();
 };
 

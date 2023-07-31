@@ -71,7 +71,9 @@ vector<pair<int, int>> King::getPossibleCaptures(Board& b, int x, int y) {
         return possibleMoves; // return empty set
     }
     Piece *getCurPiece = b.getPiece(x, y);
+
     // vector<pair<int, int>> checkableSquares = getCheckableSquares(b, x, y);
+
     // printMoves(checkableSquares);
 
     vector<int> dx = {1, 1, 1, -1, -1, -1, 0, 0};
