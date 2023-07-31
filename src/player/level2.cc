@@ -16,7 +16,7 @@ Move Level2::turnMove(int x, int y, int z, int w, Board& b)  {
    pair<int, int> newMove; 
    vector<pair<int, int>> moves; 
 
-   for (int i = 0; i < pieces.size(); i++){
+   for (size_t i = 0; i < pieces.size(); i++){
       cout << "Inside for loop " << i << endl;
       if (pieces[i].first->getPossibleCaptures(b, pieces[i].second.first, pieces[i].second.second).size() != 0) {
          random = rand() % (pieces[i].first->getPossibleCaptures(b, pieces[i].second.first, pieces[i].second.second).size()); 

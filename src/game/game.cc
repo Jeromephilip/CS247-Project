@@ -113,6 +113,8 @@ void Game::defaultSetup() {
 }
 
 void Game::setup() {
+    cout << "Entered Setup Mode" << endl;
+    b.printBoard();
     // initial setup code;
     // bool hasSetup = false;
     // bool hasPickedWhiteKing = false;
@@ -252,7 +254,7 @@ void Game::move(Player* p, string iPos, string fPos, bool& isKingInCheck) {
     }
     
 
-    cout << "The move coordinates are: (" << m.oldX << "," << m.oldY << ") -> (" << m.newX << "," << m.newY << ")" << endl;
+    // cout << "The move coordinates are: (" << m.oldX << "," << m.oldY << ") -> (" << m.newX << "," << m.newY << ")" << endl;
 
     if (m.valid) {
         cout << "Valid Move." << endl;

@@ -33,17 +33,6 @@ void Board::movePiece(int curX, int curY, int newX, int newY) {
     }
 }
 
-void Board::movePiece(int curX, int curY, int newX, int newY) {
-    if (board[curY][curX]->checkOccupied()) {
-        Piece *toSwapPiece = board[curY][curX]->getPieceOnSquare();
-        if (board[newY][newX]->checkOccupied() == true) {
-            board[newY][newX]->capturePieceOnSquare();
-        }
-        board[newY][newX]->setPieceOnSquare(toSwapPiece);
-        board[curY][curX]->removePieceOnSquare();
-    }
-}
-
 void Board::reset() {
     for (int i=0; i<height; i++) {
         for (int j=0; j<width; j++) {
