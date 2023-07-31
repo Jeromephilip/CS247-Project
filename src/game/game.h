@@ -24,6 +24,7 @@
 #include <utility>
 #include <sstream>
 #include <limits>
+#include <regex>
 
 using namespace std;
 
@@ -47,19 +48,22 @@ class Game : public Subject {
         bool isSetupDone = false;
         float blackScore = 0;
         float whiteScore = 0;
+        string toLowerCaseString(string);
         void defaultSetup();
         void gameType(stringstream& ss);
-        void move(Player*, string, string, bool&);
+        void move(Player*, string, string, bool&, stringstream&);
         void helpMenu();
-    public:
-        Game();
-        void play();
+        void reset();
         void setup();
         bool isMoveValid(Piece*, int, int, int, int);
         void displayScore();
+        bool isValidMoveInput(string, string);
+        Piece* pawnPromote(string, string);
+    public:
+        Game();
+        void play();
         // bool checkAdjacentKings(int, int);
         bool isCheckmate(string color);
-        void reset();
         bool isStalemate(string color);
         bool isCheck(Player *p);
         Board& getBoard(); 
