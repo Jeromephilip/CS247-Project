@@ -406,6 +406,18 @@ void Game::play() {
                 isBlackinCheck = true;
                 cout << "Black is in check." << endl;
             } 
+        } else if (cmd == "resign") {
+            // white resigns -> black wins
+            if (turn % 2 == 0) {
+                cout << "Black wins!" << endl;
+                blackScore++;
+                reset();
+            // black resigns -> white wins
+            } else if (turn % 2 == 1) {
+                cout << "White wins!" << endl;
+                whiteScore++;
+                reset();
+            }
         } else {
             if (cmd == "setup" && isSetupDone) {
                 cout << "You have already setup your board!" << endl;
