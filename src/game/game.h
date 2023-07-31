@@ -45,6 +45,8 @@ class Game : public Subject {
         Board b;
         bool isGameDone = false;
         bool isSetupDone = false;
+        float blackScore = 0;
+        float whiteScore = 0;
         void defaultSetup();
         void gameType(stringstream& ss);
         void move(Player*, string, string, bool&);
@@ -54,6 +56,7 @@ class Game : public Subject {
         void play();
         void setup();
         bool isMoveValid(Piece*, int, int, int, int);
+        void displayScore();
         // bool checkAdjacentKings(int, int);
         bool isCheckmate(string color);
         void reset();

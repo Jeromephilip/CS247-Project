@@ -239,6 +239,12 @@ void Game::setup() {
 
 }
 
+void Game::displayScore() {
+    cout << "Final Score:" << endl;
+    cout << "White: " << whiteScore << endl;
+    cout << "Black: " << blackScore  << endl;
+}
+
 void Game::move(Player* p, string iPos, string fPos, bool& isKingInCheck) {
     int curX = iPos[0] - 'a';
     int curY = abs(iPos[1] - '0' - 8);
@@ -330,7 +336,9 @@ void Game::play() {
     bool isBlackinCheck = false;
     while (true) {
         string input;
+        // EOF break game loop
         if (!getline(cin, input)) {
+            displayScore();
             break;
         }        
         stringstream ss {input};
@@ -373,19 +381,23 @@ void Game::play() {
                 // if black is not in check, next turn.
             }
             // winning conditions
-             b.printBoard();
+            b.printBoard();
             notifyObservers();
             pair<int, int> whiteKingPos = b.findKing("white");
             pair<int, int> blackKingPos = b.findKing("black");
 
             if (isStalemate("white") || isStalemate("black")) {
                 cout << "Stalemate!" << endl;
+                whiteScore += 0.5;
+                blackScore += 0.5;
                 reset();
             } else if (isCheckmate("white")) {
                 cout << "Checkmate! White wins!" << endl;
+                blackScore++;
                 reset();
             } else if (isCheckmate("black")) {
                 cout << "Checkmate! Black wins!" << endl;
+                whiteScore++;
                 reset();
             } else if (b.isCheck("white", whiteKingPos.first, whiteKingPos.second)) {
                 isWhiteinCheck = true;
