@@ -24,6 +24,7 @@ class Board {
         void setPiece(Piece*, int, int);
         void movePiece(int, int, int, int);
         bool isCheck(string, int, int);
+        bool isMoveCheck(int, int, int, int); 
         pair<int, int> findKing(string);
         void removePiece(int, int);
         void printBoard();

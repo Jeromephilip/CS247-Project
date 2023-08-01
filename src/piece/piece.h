@@ -21,6 +21,7 @@ class Piece {
         virtual vector<pair<int, int>> getPossibleMoves(Board& , int, int) = 0;
         virtual bool isValidMove(Board& , int, int, int, int) = 0; // check in getPossibleMoves if valid
         virtual vector<pair<int, int>> getPossibleCaptures(Board& , int, int) = 0;
+        //virtual vector<pair<int, int>> getPossibleChecks(Board& , int, int) = 0;
         char getType();
         string getColor();
         bool getHasMoved();
