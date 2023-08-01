@@ -19,6 +19,7 @@
 #include "../player/human.h"
 #include "../player/level1.h"
 #include "../player/level2.h"
+#include "../player/level3.h"
 #include <iostream>
 #include <vector>
 #include <utility>
