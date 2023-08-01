@@ -23,7 +23,7 @@ Move Level1::turnMove(int x, int y, int z, int w, Board& b) {
          }
 
     }
-    cout << "Moving: " << b.getPiece(rstartX, rstartY)->getType() << endl;
+    //cout << "Moving: " << b.getPiece(rstartX, rstartY)->getType() << endl;
     random = rand() % (moves.size()); 
     newMove = moves[random]; 
 
