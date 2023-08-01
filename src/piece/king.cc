@@ -91,7 +91,15 @@ vector<pair<int, int>> King::getPossibleCaptures(Board& b, int x, int y) {
         }
     }
 
-    return possibleMoves;
+    vector<pair<int, int>> filteredPossibleMoves; 
+    for (size_t i=0; i<possibleMoves.size(); i++) {
+        if (b.isMoveAllowed(x, y, possibleMoves[i].first, possibleMoves[i].second)) {
+            filteredPossibleMoves.push_back(possibleMoves[i]);
+        }
+    }
+
+    // printMoves(filteredPossibleMoves);
+    return filteredPossibleMoves;
 }
 
 bool King::isValidMove(Board& b, int curX, int curY, int newX, int newY) {

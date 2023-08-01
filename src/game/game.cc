@@ -300,7 +300,8 @@ void Game::move(Player* p, string iPos, string fPos, bool& isKingInCheck, string
     if (m.piece->getType() == 'K' && iPos == "e1" && fPos == "g1" && m.piece->getHasMoved() == false) {
         // check if pieces exist in between
         if (b.getSquare(7, 7)->checkOccupied() && b.getPiece(7, 7)->getType() == 'R' && b.getPiece(7, 7)->getHasMoved() == false) {
-            if (b.getSquare(6, 7)->checkOccupied() == false && b.getSquare(5, 7)->checkOccupied() == false) {
+            if (b.getSquare(6, 7)->checkOccupied() == false && b.getSquare(5, 7)->checkOccupied() == false
+                && !b.isCheck("white", 6, 7) && !b.isCheck("white", 5, 7)) {
                 king = b.getPiece(4, 7);
                 rook = b.getPiece(7, 7);
                 rook->setHasMoved(true);
@@ -317,7 +318,8 @@ void Game::move(Player* p, string iPos, string fPos, bool& isKingInCheck, string
         }
     } else if (m.piece->getType() == 'K' && iPos == "e1" && fPos == "c1" && m.piece->getHasMoved() == false) {
         if (b.getSquare(0, 7)->checkOccupied() && b.getPiece(0, 7)->getType() == 'R' && b.getPiece(0, 7)->getHasMoved() == false) {
-            if (b.getSquare(3, 7)->checkOccupied() == false && b.getSquare(2, 7)->checkOccupied() == false && b.getSquare(1, 7)->checkOccupied() == false) {
+            if (b.getSquare(3, 7)->checkOccupied() == false && b.getSquare(2, 7)->checkOccupied() == false && b.getSquare(1, 7)->checkOccupied() == false
+                && !b.isCheck("white", 3, 7) && !b.isCheck("white", 2, 7) && !b.isCheck("white", 1, 7)) {
                 king = b.getPiece(4, 7);
                 rook = b.getPiece(0, 7);
                 rook->setHasMoved(true);
@@ -334,7 +336,7 @@ void Game::move(Player* p, string iPos, string fPos, bool& isKingInCheck, string
         }
     } else if (m.piece->getType() == 'k' && iPos == "e8" && fPos == "g8" && m.piece->getHasMoved() == false) {
         if (b.getSquare(7, 0)->checkOccupied() && b.getPiece(7, 0)->getType() == 'r' && b.getPiece(7, 0)->getHasMoved() == false) {
-            if (b.getSquare(6, 0)->checkOccupied() == false && b.getSquare(5, 0)->checkOccupied() == false) {
+            if (b.getSquare(6, 0)->checkOccupied() == false && b.getSquare(5, 0)->checkOccupied() == false && !b.isCheck("black", 6, 0) && !b.isCheck("black", 5, 0)) {
                 king = b.getPiece(4, 0);
                 rook = b.getPiece(7, 0);
                 rook->setHasMoved(true);
@@ -351,7 +353,8 @@ void Game::move(Player* p, string iPos, string fPos, bool& isKingInCheck, string
         }
     } else if (m.piece->getType() == 'k' && iPos == "e8" && fPos == "c8" && m.piece->getHasMoved() == false) {
         if (b.getSquare(0, 0)->checkOccupied() && b.getPiece(0, 0)->getType() == 'r' && b.getPiece(0, 0)->getHasMoved() == false) {
-            if (b.getSquare(3, 0)->checkOccupied() == false && b.getSquare(2, 0)->checkOccupied() == false && b.getSquare(1, 0)->checkOccupied() == false) {
+            if (b.getSquare(3, 0)->checkOccupied() == false && b.getSquare(2, 0)->checkOccupied() == false && b.getSquare(1, 0)->checkOccupied() == false
+            && !b.isCheck("black", 3, 0) && !b.isCheck("black", 2, 0) && !b.isCheck("black", 1, 0)) {
                 king = b.getPiece(4, 0);
                 rook = b.getPiece(0, 0);
                 rook->setHasMoved(true);
