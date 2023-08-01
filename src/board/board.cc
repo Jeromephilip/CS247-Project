@@ -137,6 +137,8 @@ bool Board::isCheck(string color, int x, int y) { // king's position
                 && tolower(getPiece(i, y)->getType()) != 'q' && tolower(getPiece(i, y)->getType()) != 'r')) {
                 break;
             } else if (getSquare(i, y)->checkOccupied() == true && getPiece(i, y)->getColor() != color && (tolower(getPiece(i, y)->getType()) == 'q' || tolower(getPiece(i, y)->getType()) == 'r')) {
+
+                //cout << getPiece(i, y)->getType() << " (" << i << ", " << y << ") puts it in check" << endl;
                 return true;
             }
         }
@@ -150,6 +152,9 @@ bool Board::isCheck(string color, int x, int y) { // king's position
                 && tolower(getPiece(i, y)->getType()) != 'q' && tolower(getPiece(i, y)->getType()) != 'r')) {
                 break;
             } else if (getSquare(i, y)->checkOccupied() == true && getPiece(i, y)->getColor() != color && (tolower(getPiece(i, y)->getType()) == 'q' || tolower(getPiece(i, y)->getType()) == 'r')) {
+
+                //cout << getPiece(i, y)->getType() << " (" << i << ", " << y << ") puts it in check" << endl;
+
                 return true;
             }
         }
@@ -163,6 +168,9 @@ bool Board::isCheck(string color, int x, int y) { // king's position
                 && tolower(getPiece(x, i)->getType()) != 'q' && tolower(getPiece(x, i)->getType()) != 'r')) {
                 break;
             } else if (getSquare(x, i)->checkOccupied() == true && getPiece(x, i)->getColor() != color && (tolower(getPiece(x, i)->getType()) == 'q' || tolower(getPiece(x, i)->getType()) == 'r')) {
+
+                //cout << getPiece(x, i)->getType() << " (" << x << ", " << i << ") puts it in check" << endl;
+
                 return true;
             }
         }
@@ -176,6 +184,9 @@ bool Board::isCheck(string color, int x, int y) { // king's position
                 && tolower(getPiece(x, i)->getType()) != 'q' && tolower(getPiece(x, i)->getType()) != 'r')) {
                 break;
             } else if (getSquare(x, i)->checkOccupied() == true && getPiece(x, i)->getColor() != color && (tolower(getPiece(x, i)->getType()) == 'q' || tolower(getPiece(x, i)->getType()) == 'r')) {
+
+                //cout << getPiece(x, i)->getType() << " (" << x << ", " << i << ") puts it in check" << endl;
+
                 return true;
             }
         }
@@ -192,6 +203,9 @@ bool Board::isCheck(string color, int x, int y) { // king's position
             && tolower(getPiece(tx, ty)->getType()) != 'q' && tolower(getPiece(tx, ty)->getType()) != 'b')) {
             break;
         } else if (getSquare(tx, ty)->checkOccupied() == true && getPiece(tx, ty)->getColor() != color && (tolower(getPiece(tx, ty)->getType()) == 'q' || tolower(getPiece(tx, ty)->getType()) == 'b')) {
+
+            //cout << getPiece(tx, ty)->getType() << " (" << tx << ", " << ty << ") puts it in check" << endl;
+
             return true;
         }
         tx--;
@@ -206,6 +220,9 @@ bool Board::isCheck(string color, int x, int y) { // king's position
             && tolower(getPiece(tx, ty)->getType()) != 'q' && tolower(getPiece(tx, ty)->getType()) != 'b')) {
             break;
         } else if (getSquare(tx, ty)->checkOccupied() == true && getPiece(tx, ty)->getColor() != color && (tolower(getPiece(tx, ty)->getType()) == 'q' || tolower(getPiece(tx, ty)->getType()) == 'b')) {
+
+            //cout << getPiece(tx, ty)->getType() << " (" << tx << ", " << ty << ") puts it in check" << endl;
+
             return true;
         }
         tx++;
@@ -219,6 +236,9 @@ bool Board::isCheck(string color, int x, int y) { // king's position
             && tolower(getPiece(tx, ty)->getType()) != 'q' && tolower(getPiece(tx, ty)->getType()) != 'b')) {
             break;
         } else if (getSquare(tx, ty)->checkOccupied() == true && getPiece(tx, ty)->getColor() != color && (tolower(getPiece(tx, ty)->getType()) == 'q' || tolower(getPiece(tx, ty)->getType()) == 'b')) {
+
+            //cout << getPiece(tx, ty)->getType() << " (" << tx << ", " << ty << ") puts it in check" << endl;
+
             return true;
         }
         tx--;
@@ -232,6 +252,9 @@ bool Board::isCheck(string color, int x, int y) { // king's position
             && tolower(getPiece(tx, ty)->getType()) != 'q' && tolower(getPiece(tx, ty)->getType()) != 'b')) {
             break;
         } else if (getSquare(tx, ty)->checkOccupied() == true && getPiece(tx, ty)->getColor() != color && (tolower(getPiece(tx, ty)->getType()) == 'q' || tolower(getPiece(tx, ty)->getType()) == 'b')) {
+
+            //cout << getPiece(tx, ty)->getType() << " (" << tx << ", " << ty << ") puts it in check" << endl;
+
             return true;
         }
         tx++;
@@ -246,6 +269,7 @@ bool Board::isCheck(string color, int x, int y) { // king's position
         int newY = dy[i] + y;
         if (checkBounds(newX, newY)) {
             if (getSquare(newX, newY)->checkOccupied() == true && getPiece(newX, newY)->getColor() != color && tolower(getPiece(newX, newY)->getType()) == 'n') {
+                //cout << getPiece(newX, newY)->getType() << " (" << newX << ", " << newY << ") puts it in check" << endl;
                 return true;
             }
         }
@@ -255,11 +279,17 @@ bool Board::isCheck(string color, int x, int y) { // king's position
     if (color == "white") {
         if ( (checkBounds(x - 1, y - 1) && getSquare(x - 1, y - 1)->checkOccupied() == true && getPiece(x - 1, y - 1)->getType() == 'p') ||
              (checkBounds(x + 1, y - 1) && getSquare(x + 1, y - 1)->checkOccupied() == true && getPiece(x + 1, y - 1)->getType() == 'p')) {
+
+            //cout << "pawn puts in check" << endl;
+
             return true;
         }
     } else if (color == "black") {
         if ( (checkBounds(x + 1, y + 1) && getSquare(x + 1, y + 1)->checkOccupied() == true && getPiece(x + 1, y + 1)->getType() == 'P') ||
              (checkBounds(x - 1, y + 1) && getSquare(x - 1, y + 1)->checkOccupied() == true && getPiece(x - 1, y + 1)->getType() == 'P')) {
+
+            //cout << "pawn puts in check" << endl;
+
             return true;
         }
     }
