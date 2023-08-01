@@ -17,8 +17,8 @@ class Board {
         int height;
         int width;
         vector<vector<Square*>> board;
-        bool checkBounds(int, int);
     public:
+        bool checkBounds(int, int);
         Board(int, int);
         Piece* getPiece(int, int);
         vector<int> enPassantPosition;

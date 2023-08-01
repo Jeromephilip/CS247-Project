@@ -32,6 +32,7 @@ class Player {
         string getColour();
         bool getBool(); 
         vector<pair<Piece*, pair<int, int>>> getPieces(Board& b); 
+        bool kingChecks(Board&, int, int); 
 }; 
 
 
