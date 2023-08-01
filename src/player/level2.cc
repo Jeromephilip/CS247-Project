@@ -17,14 +17,22 @@ Move Level2::turnMove(int x, int y, int z, int w, Board& b)  {
    vector<pair<int, int>> moves; 
 
    for (size_t i = 0; i < pieces.size(); i++){
-      cout << "Inside for loop " << i << endl;
+      //cout << "Inside for loop " << i << endl;
       if (pieces[i].first->getPossibleCaptures(b, pieces[i].second.first, pieces[i].second.second).size() != 0) {
          random = rand() % (pieces[i].first->getPossibleCaptures(b, pieces[i].second.first, pieces[i].second.second).size()); 
          newMove = pieces[i].first->getPossibleCaptures(b, pieces[i].second.first, pieces[i].second.second)[random]; 
          return Move{pieces[i].second.first, pieces[i].second.second, newMove.first, newMove.second, true, pieces[i].first}; 
       }
+      for (size_t j = 0; j < pieces[i].first->getPossibleMoves(b, pieces[i].second.first, pieces[i].second.second).size(); j++) {
+         if (b.isMoveCheck(pieces[i].second.first, pieces[i].second.second, pieces[i].first->getPossibleMoves(b, pieces[i].second.first, pieces[i].second.second)[j].first, pieces[i].first->getPossibleMoves(b, pieces[i].second.first, pieces[i].second.second)[j].second)) {
+            
+            cout << "Move puts game in check" << endl;
+            return Move{pieces[i].second.first, pieces[i].second.second, pieces[i].first->getPossibleMoves(b, pieces[i].second.first, pieces[i].second.second)[j].first, pieces[i].first->getPossibleMoves(b, pieces[i].second.first, pieces[i].second.second)[j].second, true, pieces[i].first}; 
+         }
+      }
    }
-   cout << "There are no possible captures" << endl;
+
+   //cout << "There are no possible captures" << endl;
    // Seed the random number generator with the current time
     srand(time(NULL));
     
@@ -45,7 +53,7 @@ Move Level2::turnMove(int x, int y, int z, int w, Board& b)  {
          }
 
     }
-    cout << "Moving: " << b.getPiece(rstartX, rstartY)->getType() << endl;
+    //cout << "Moving: " << b.getPiece(rstartX, rstartY)->getType() << endl;
     random = rand() % (moves.size()); 
     newMove = moves[random]; 
 
