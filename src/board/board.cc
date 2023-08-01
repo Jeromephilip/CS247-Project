@@ -132,9 +132,11 @@ bool Board::isCheck(string color, int x, int y) { // king's position
 
     if (checkBounds(x+1, y)) {
         for (int i=x+1; i < width; i++) {
-            if (getSquare(i, y)->checkOccupied() == true && getSquare(i, y)->getPieceOnSquare()->getColor() == color ) {
+            if ((getSquare(i, y)->checkOccupied() == true && getSquare(i, y)->getPieceOnSquare()->getColor() == color) ||
+                (getSquare(i, y)->checkOccupied() == true && getSquare(i, y)->getPieceOnSquare()->getColor() != color 
+                && tolower(getPiece(i, y)->getType()) != 'q' && tolower(getPiece(i, y)->getType()) != 'r')) {
                 break;
-            } else if (getSquare(i, y)->checkOccupied() == true && (tolower(getPiece(i, y)->getType()) == 'q' || tolower(getPiece(i, y)->getType()) == 'r')) {
+            } else if (getSquare(i, y)->checkOccupied() == true && getPiece(i, y)->getColor() != color && (tolower(getPiece(i, y)->getType()) == 'q' || tolower(getPiece(i, y)->getType()) == 'r')) {
                 return true;
             }
         }
@@ -143,9 +145,11 @@ bool Board::isCheck(string color, int x, int y) { // king's position
     // going left
     if (checkBounds(x-1, y)) {
         for (int i=x-1; i >= 0; i--) {
-            if (getSquare(i, y)->checkOccupied() == true && getSquare(i, y)->getPieceOnSquare()->getColor() == color){
+            if ((getSquare(i, y)->checkOccupied() == true && getSquare(i, y)->getPieceOnSquare()->getColor() == color) ||
+                (getSquare(i, y)->checkOccupied() == true && getSquare(i, y)->getPieceOnSquare()->getColor() != color 
+                && tolower(getPiece(i, y)->getType()) != 'q' && tolower(getPiece(i, y)->getType()) != 'r')) {
                 break;
-            } else if (getSquare(i, y)->checkOccupied() == true && (tolower(getPiece(i, y)->getType()) == 'q' || tolower(getPiece(i, y)->getType()) == 'r')) {
+            } else if (getSquare(i, y)->checkOccupied() == true && getPiece(i, y)->getColor() != color && (tolower(getPiece(i, y)->getType()) == 'q' || tolower(getPiece(i, y)->getType()) == 'r')) {
                 return true;
             }
         }
@@ -154,10 +158,11 @@ bool Board::isCheck(string color, int x, int y) { // king's position
     // going down
     if (checkBounds(x, y+1)) {
         for (int i=y+1; i < height; i++) {
-            if (getSquare(x, i)->checkOccupied() == true && getSquare(x, i)->getPieceOnSquare()->getColor() == color) {
+            if ((getSquare(x, i)->checkOccupied() == true && getSquare(x, i)->getPieceOnSquare()->getColor() == color) || 
+                (getSquare(x, i)->checkOccupied() == true && getSquare(x, i)->getPieceOnSquare()->getColor() != color 
+                && tolower(getPiece(x, i)->getType()) != 'q' && tolower(getPiece(x, i)->getType()) != 'r')) {
                 break;
-            } else if (getSquare(x, i)->checkOccupied() == true && (tolower(getPiece(x, i)->getType()) == 'q' || tolower(getPiece(x, i)->getType()) == 'r')) {
-                // cout << "found " << x << ", " << y << endl;
+            } else if (getSquare(x, i)->checkOccupied() == true && getPiece(x, i)->getColor() != color && (tolower(getPiece(x, i)->getType()) == 'q' || tolower(getPiece(x, i)->getType()) == 'r')) {
                 return true;
             }
         }
@@ -166,9 +171,11 @@ bool Board::isCheck(string color, int x, int y) { // king's position
     // going up
     if (checkBounds(x, y-1)) {
         for (int i=y-1; i >= 0; i--) {
-            if (getSquare(x, i)->checkOccupied() == true && getSquare(x, i)->getPieceOnSquare()->getColor() == color) {
+            if ((getSquare(x, i)->checkOccupied() == true && getSquare(x, i)->getPieceOnSquare()->getColor() == color) ||
+                (getSquare(x, i)->checkOccupied() == true && getSquare(x, i)->getPieceOnSquare()->getColor() != color 
+                && tolower(getPiece(x, i)->getType()) != 'q' && tolower(getPiece(x, i)->getType()) != 'r')) {
                 break;
-            } else if (y != i && getSquare(x, i)->checkOccupied() == true && (tolower(getPiece(x, i)->getType()) == 'q' || tolower(getPiece(x, i)->getType()) == 'r')) {
+            } else if (getSquare(x, i)->checkOccupied() == true && getPiece(x, i)->getColor() != color && (tolower(getPiece(x, i)->getType()) == 'q' || tolower(getPiece(x, i)->getType()) == 'r')) {
                 return true;
             }
         }
@@ -180,9 +187,11 @@ bool Board::isCheck(string color, int x, int y) { // king's position
     int tx = x - 1;
     int ty = y - 1;
     while (checkBounds(tx, ty)) {
-        if (getSquare(tx, ty)->checkOccupied() == true && getSquare(tx, ty)->getPieceOnSquare()->getColor() == color) {
+        if ((getSquare(tx, ty)->checkOccupied() == true && getSquare(tx, ty)->getPieceOnSquare()->getColor() == color) || 
+            (getSquare(tx, ty)->checkOccupied() == true && getSquare(tx, ty)->getPieceOnSquare()->getColor() != color 
+            && tolower(getPiece(tx, ty)->getType()) != 'q' && tolower(getPiece(tx, ty)->getType()) != 'b')) {
             break;
-        } else if (getSquare(tx, ty)->checkOccupied() == true && (tolower(getPiece(tx, ty)->getType()) == 'q' || tolower(getPiece(tx, ty)->getType()) == 'b')) {
+        } else if (getSquare(tx, ty)->checkOccupied() == true && getPiece(tx, ty)->getColor() != color && (tolower(getPiece(tx, ty)->getType()) == 'q' || tolower(getPiece(tx, ty)->getType()) == 'b')) {
             return true;
         }
         tx--;
@@ -192,9 +201,11 @@ bool Board::isCheck(string color, int x, int y) { // king's position
     tx = x + 1;
     ty = y + 1;
     while (checkBounds(tx, ty)) {
-        if (getSquare(tx, ty)->checkOccupied() == true && getSquare(tx, ty)->getPieceOnSquare()->getColor() == color) {
+        if ((getSquare(tx, ty)->checkOccupied() == true && getSquare(tx, ty)->getPieceOnSquare()->getColor() == color) || 
+            (getSquare(tx, ty)->checkOccupied() == true && getSquare(tx, ty)->getPieceOnSquare()->getColor() != color 
+            && tolower(getPiece(tx, ty)->getType()) != 'q' && tolower(getPiece(tx, ty)->getType()) != 'b')) {
             break;
-        } else if (getSquare(tx, ty)->checkOccupied() == true && (tolower(getPiece(tx, ty)->getType()) == 'q' || tolower(getPiece(tx, ty)->getType()) == 'b')) {
+        } else if (getSquare(tx, ty)->checkOccupied() == true && getPiece(tx, ty)->getColor() != color && (tolower(getPiece(tx, ty)->getType()) == 'q' || tolower(getPiece(tx, ty)->getType()) == 'b')) {
             return true;
         }
         tx++;
@@ -203,9 +214,11 @@ bool Board::isCheck(string color, int x, int y) { // king's position
     tx = x - 1;
     ty = y + 1;
     while (checkBounds(tx, ty)) {
-        if (getSquare(tx, ty)->checkOccupied() == true && getSquare(tx, ty)->getPieceOnSquare()->getColor() == color) {
+        if ((getSquare(tx, ty)->checkOccupied() == true && getSquare(tx, ty)->getPieceOnSquare()->getColor() == color) || 
+            (getSquare(tx, ty)->checkOccupied() == true && getSquare(tx, ty)->getPieceOnSquare()->getColor() != color 
+            && tolower(getPiece(tx, ty)->getType()) != 'q' && tolower(getPiece(tx, ty)->getType()) != 'b')) {
             break;
-        } else if (getSquare(tx, ty)->checkOccupied() == true && (tolower(getPiece(tx, ty)->getType()) == 'q' || tolower(getPiece(tx, ty)->getType()) == 'b')) {
+        } else if (getSquare(tx, ty)->checkOccupied() == true && getPiece(tx, ty)->getColor() != color && (tolower(getPiece(tx, ty)->getType()) == 'q' || tolower(getPiece(tx, ty)->getType()) == 'b')) {
             return true;
         }
         tx--;
@@ -214,9 +227,11 @@ bool Board::isCheck(string color, int x, int y) { // king's position
     tx = x + 1;
     ty = y - 1;
     while (checkBounds(tx, ty)) {
-        if (getSquare(tx, ty)->checkOccupied() == true && getSquare(tx, ty)->getPieceOnSquare()->getColor() == color) {
+        if ((getSquare(tx, ty)->checkOccupied() == true && getSquare(tx, ty)->getPieceOnSquare()->getColor() == color) || 
+            (getSquare(tx, ty)->checkOccupied() == true && getSquare(tx, ty)->getPieceOnSquare()->getColor() != color 
+            && tolower(getPiece(tx, ty)->getType()) != 'q' && tolower(getPiece(tx, ty)->getType()) != 'b')) {
             break;
-        } else if (getSquare(tx, ty)->checkOccupied() == true && (tolower(getPiece(tx, ty)->getType()) == 'q' || tolower(getPiece(tx, ty)->getType()) == 'b')) {
+        } else if (getSquare(tx, ty)->checkOccupied() == true && getPiece(tx, ty)->getColor() != color && (tolower(getPiece(tx, ty)->getType()) == 'q' || tolower(getPiece(tx, ty)->getType()) == 'b')) {
             return true;
         }
         tx++;
@@ -238,13 +253,13 @@ bool Board::isCheck(string color, int x, int y) { // king's position
 
     // pawn
     if (color == "white") {
-        if ( (checkBounds(x + 1, y + 1) && getSquare(x + 1, y + 1)->checkOccupied() == true && getPiece(x + 1, y + 1)->getType() == 'p') ||
-             (checkBounds(x - 1, y + 1) && getSquare(x - 1, y + 1)->checkOccupied() == true && getPiece(x - 1, y + 1)->getType() == 'p')) {
+        if ( (checkBounds(x - 1, y - 1) && getSquare(x - 1, y - 1)->checkOccupied() == true && getPiece(x - 1, y - 1)->getType() == 'p') ||
+             (checkBounds(x + 1, y - 1) && getSquare(x + 1, y - 1)->checkOccupied() == true && getPiece(x + 1, y - 1)->getType() == 'p')) {
             return true;
         }
     } else if (color == "black") {
-        if ( (checkBounds(x + 1, y - 1) && getSquare(x + 1, y - 1)->checkOccupied() == true && getPiece(x + 1, y - 1)->getType() == 'P') ||
-             (checkBounds(x - 1, y - 1) && getSquare(x - 1, y - 1)->checkOccupied() == true && getPiece(x - 1, y - 1)->getType() == 'P')) {
+        if ( (checkBounds(x + 1, y + 1) && getSquare(x + 1, y + 1)->checkOccupied() == true && getPiece(x + 1, y + 1)->getType() == 'P') ||
+             (checkBounds(x - 1, y + 1) && getSquare(x - 1, y + 1)->checkOccupied() == true && getPiece(x - 1, y + 1)->getType() == 'P')) {
             return true;
         }
     }

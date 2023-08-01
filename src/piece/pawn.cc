@@ -15,11 +15,11 @@ vector<pair<int, int>> Pawn::getPossibleCaptures(Board& b, int x, int y) {
     }
     if (this->color == "white") {
         if (checkBounds(x-1, y-1, b) && b.getSquare(x-1, y-1)->checkOccupied() == true && b.getSquare(x-1, y-1)->getPieceOnSquare()->getColor() == "black" && tolower(b.getPiece(x-1, y-1)->getType() != 'k')) {
-            possibleMoves.push_back({x + 1, y + 1});
+            possibleMoves.push_back({x - 1, y - 1});
         }
 
-        if (checkBounds(x-1, y-2, b) && b.getSquare(x-1, y-2)->checkOccupied() == true && b.getSquare(x-1, y-2)->getPieceOnSquare()->getColor() == "black" && tolower(b.getPiece(x-1, y-2)->getType() != 'k')) {
-            possibleMoves.push_back({x - 1, y + 1});
+        if (checkBounds(x+1, y-1, b) && b.getSquare(x+1, y-1)->checkOccupied() == true && b.getSquare(x+1, y-1)->getPieceOnSquare()->getColor() == "black" && tolower(b.getPiece(x+1, y-1)->getType() != 'k')) {
+            possibleMoves.push_back({x + 1, y - 1});
         }
     } else {
         if (checkBounds(x+1, y+1, b) && b.getSquare(x+1, y+1)->checkOccupied() == true && b.getSquare(x+1, y+1)->getPieceOnSquare()->getColor() == "white" && tolower(b.getPiece(x+1, y+1)->getType() != 'k')) {
