@@ -1,9 +1,0 @@
-setup
-+ k a8
-+ r b8
-+ R b1
-+ K e3
-done
-game human human
-move b1 a1
-resign

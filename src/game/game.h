@@ -51,7 +51,7 @@ class Game : public Subject {
         float whiteScore = 0;
         string toLowerCaseString(string);
         void defaultSetup();
-        void gameType(stringstream& ss);
+        void gameType(stringstream&, bool&);
         void move(Player*, string, string, bool&, stringstream&);
         void helpMenu();
         void reset();
