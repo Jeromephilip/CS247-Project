@@ -61,8 +61,6 @@ bool Game::isCheckmate(string color) {
         }
     }
 
-    // cout << numMoves << endl;
-
     if (numMoves == 0) {
         return true;
     }
@@ -458,7 +456,7 @@ void Game::move(Player* p, string iPos, string fPos, bool& isKingInCheck, string
         }
         
 
-        cout << "Valid Move." << endl;
+        cout << "Moving " << m.piece->getType() << " " << iPos << " to " << fPos << endl;
  
         b.movePiece(m.oldX, m.oldY, m.newX, m.newY);
         if (m.piece->getHasMoved() == false) {
@@ -473,11 +471,22 @@ void Game::move(Player* p, string iPos, string fPos, bool& isKingInCheck, string
     }
 }
 
-void Game::gameType(stringstream& ss) {
+void Game::gameType(stringstream& ss, bool& gameBool) {
     string p1;
     string p2;
     ss >> p1;
     ss >> p2;
+
+    vector<string> validPlayers = {"human", "computer1", "computer2", "computer3"};
+
+    if (find(validPlayers.begin(), validPlayers.end(), p1) == validPlayers.end() ||
+        find(validPlayers.begin(), validPlayers.end(), p2) == validPlayers.end()) {
+            cout << "Invalid player types. Please input again starting with the game command followed by two arguments which have to be human, computer1, computer2, or computer3!" << endl;
+            gameBool = false;
+            return;
+        }
+
+
     if (p1 == "human" && p2 == "human") {
         pW = new Human("white", false);
         pB = new Human("black", false);
@@ -514,7 +523,8 @@ void Game::gameType(stringstream& ss) {
             pW = new Level2("white", true);
         }
     }
-
+    cout << "Initialized valid players." << endl;
+    gameBool = true;
 }
 
 void Game::helpMenu() {
@@ -547,8 +557,7 @@ void Game::play() {
             isSetupDone = true;
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
         } else if (cmd == "game" && !isGameDone) {
-            gameType(ss);
-            isGameDone = true;
+            gameType(ss, isGameDone);
         } else if (cmd == "resign") {
             if (turn % 2 == 0) {
                 cout << "Black wins!" << endl;
@@ -619,7 +628,7 @@ void Game::play() {
             } else if (cmd == "game" && isGameDone) {
                 cout << "You have already initialized your players!" << endl;
             } else {
-                cout << "Invalid Command" << endl;
+                cout << "Invalid Command: " << cmd << endl;
             }
             
         }
