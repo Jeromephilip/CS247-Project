@@ -262,8 +262,8 @@ bool Board::isCheck(string color, int x, int y) { // king's position
     }
 
     // knight
-    vector<int> dx = {-1, -2, -2, -1, 1, 2, 2, 1};
-    vector<int> dy = {-2, -1, 1, 2, 2, 1, -1, -2};
+    vector<int> dx = {-1, -2, -2, -1, 1, 2,  2,  1};
+    vector<int> dy = {-2, -1,  1,  2, 2, 1, -1, -2};
     for (int i=0; i<8; i++) {
         int newX = dx[i] + x;
         int newY = dy[i] + y;

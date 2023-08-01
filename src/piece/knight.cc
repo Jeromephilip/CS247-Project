@@ -16,8 +16,8 @@ vector<pair<int, int>> Knight::getPossibleMoves(Board& b, int x, int y) {
 
     Piece* getCurPiece = b.getPiece(x, y);
 
-    vector<int> dx = {-1, -2, -2, -1, 1, 2, 2, 1};
-    vector<int> dy = {-2, -1, 1, 2, 2, 1, -1, -2};
+    vector<int> dx = {-1, -2, -2, -1, 1, 2,  2,  1};
+    vector<int> dy = {-2, -1,  1,  2, 2, 1, -1, -2};
 
     for (int i=0; i<8; i++) {
         int tx = dx[i] + x;
