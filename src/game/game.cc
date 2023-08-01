@@ -295,6 +295,9 @@ void Game::gameType(stringstream& ss) {
         if (p2[8] == '2') {
             pB = new Level2("black", true);
         }
+        if (p2[8] == '3') {
+            pB = new Level3("black", true);
+        }
     }
     else if (p1 != "human" && p2 == "human") {
         pB = new Human("black", false);
@@ -303,6 +306,9 @@ void Game::gameType(stringstream& ss) {
         }
         if (p1[8] == '2') {
             pW = new Level2("white", true);
+        }
+        if (p1[8] == '3') {
+            pW = new Level3("white", true);
         }
     }
     else if (p1 != "human" && p2 != "human") {
@@ -317,6 +323,12 @@ void Game::gameType(stringstream& ss) {
         }
         if (p2[8] == '2') {
             pW = new Level2("white", true);
+        }
+        if (p1[8] == '3') {
+            pB = new Level3("black", true);
+        }
+        if (p2[8] == '3') {
+            pW = new Level3("white", true);
         }
     }
 

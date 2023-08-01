@@ -16,21 +16,32 @@ Move Level2::turnMove(int x, int y, int z, int w, Board& b)  {
    pair<int, int> newMove; 
    vector<pair<int, int>> moves; 
 
+   vector<Move> possibleChecks {}; 
+
    for (size_t i = 0; i < pieces.size(); i++){
       //cout << "Inside for loop " << i << endl;
       if (pieces[i].first->getPossibleCaptures(b, pieces[i].second.first, pieces[i].second.second).size() != 0) {
          random = rand() % (pieces[i].first->getPossibleCaptures(b, pieces[i].second.first, pieces[i].second.second).size()); 
          newMove = pieces[i].first->getPossibleCaptures(b, pieces[i].second.first, pieces[i].second.second)[random]; 
+         cout << "prioritized capture" << endl;
+         cout << "Making capture " << "(" << pieces[i].second.first << ", " << pieces[i].second.second << ") -> (" << newMove.first << ", " << newMove.second << " )" << endl;
+         cout << pieces[i].first->getType() << " captured " << b.getPiece(newMove.first, newMove.second)->getType() << endl;
          return Move{pieces[i].second.first, pieces[i].second.second, newMove.first, newMove.second, true, pieces[i].first}; 
       }
       for (size_t j = 0; j < pieces[i].first->getPossibleMoves(b, pieces[i].second.first, pieces[i].second.second).size(); j++) {
          if (b.isMoveCheck(pieces[i].second.first, pieces[i].second.second, pieces[i].first->getPossibleMoves(b, pieces[i].second.first, pieces[i].second.second)[j].first, pieces[i].first->getPossibleMoves(b, pieces[i].second.first, pieces[i].second.second)[j].second)) {
-            
+            possibleChecks.push_back(Move{pieces[i].second.first, pieces[i].second.second, pieces[i].first->getPossibleMoves(b, pieces[i].second.first, pieces[i].second.second)[j].first, pieces[i].first->getPossibleMoves(b, pieces[i].second.first, pieces[i].second.second)[j].second, true, pieces[i].first} ); 
             cout << "Move puts game in check" << endl;
-            return Move{pieces[i].second.first, pieces[i].second.second, pieces[i].first->getPossibleMoves(b, pieces[i].second.first, pieces[i].second.second)[j].first, pieces[i].first->getPossibleMoves(b, pieces[i].second.first, pieces[i].second.second)[j].second, true, pieces[i].first}; 
+            //return Move{pieces[i].second.first, pieces[i].second.second, pieces[i].first->getPossibleMoves(b, pieces[i].second.first, pieces[i].second.second)[j].first, pieces[i].first->getPossibleMoves(b, pieces[i].second.first, pieces[i].second.second)[j].second, true, pieces[i].first}; 
          }
       }
+      if (possibleChecks.size() != 0) {
+         random = rand() % (possibleChecks.size()); 
+         return possibleChecks[random]; 
+      }
    }
+
+
 
    //cout << "There are no possible captures" << endl;
    // Seed the random number generator with the current time
