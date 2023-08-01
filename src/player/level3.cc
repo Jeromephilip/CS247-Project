@@ -29,15 +29,17 @@ Move Level3::turnMove(int x, int y, int z, int w, Board& b) {
        for (size_t j = 0; j < pieces[i].first->getPossibleMoves(b, pieces[i].second.first, pieces[i].second.second).size(); j++) {
             if (b.isCheck(pieces[i].first->getColor(), pieces[i].second.first, pieces[i].second.second)) {
                 cout << pieces[i].first->getType() << "(" << pieces[i].second.first  << ", " << pieces[i].second.second << ")" << " is in check" << endl;
-                possibleChecks.push_back(Move{pieces[i].second.first, pieces[i].second.second, pieces[i].first->getPossibleMoves(b, pieces[i].second.first, pieces[i].second.second)[j].first, pieces[i].first->getPossibleMoves(b, pieces[i].second.first, pieces[i].second.second)[j].second, true, pieces[i].first} ); 
+                possibleChecks.push_back(Move{pieces[i].second.first, pieces[i].second.second, pieces[i].first->getPossibleMoves(b, pieces[i].second.first, pieces[i].second.second)[j].first, pieces[i].first->getPossibleMoves(b, pieces[i].second.first, pieces[i].second.second)[j].second, true, pieces[i].first} );
+                //cout << "Running away" << endl; 
             }
+        }
+        if (possibleChecks.size() != 0) {
+            random = rand() % (possibleChecks.size()); 
+            cout << "Running away" << endl; 
+            return possibleChecks[random]; 
         }
     }
 
-    if (possibleCapture.size() != 0) {
-        random = rand() % (possibleChecks.size()); 
-        return possibleChecks[random]; 
-    }
 
 
    for (size_t i = 0; i < pieces.size(); i++){
@@ -45,12 +47,15 @@ Move Level3::turnMove(int x, int y, int z, int w, Board& b) {
       if (pieces[i].first->getPossibleCaptures(b, pieces[i].second.first, pieces[i].second.second).size() != 0) {
          random = rand() % (pieces[i].first->getPossibleCaptures(b, pieces[i].second.first, pieces[i].second.second).size()); 
          newMove = pieces[i].first->getPossibleCaptures(b, pieces[i].second.first, pieces[i].second.second)[random]; 
+         cout << "prioritized capture" << endl;
+         cout << "Making capture " << "(" << pieces[i].second.first << ", " << pieces[i].second.second << ") -> (" << newMove.first << ", " << newMove.second << " )" << endl;
+         cout << pieces[i].first->getType() << " captured " << b.getPiece(newMove.first, newMove.second)->getType() << endl;
          return Move{pieces[i].second.first, pieces[i].second.second, newMove.first, newMove.second, true, pieces[i].first}; 
       }
       for (size_t j = 0; j < pieces[i].first->getPossibleMoves(b, pieces[i].second.first, pieces[i].second.second).size(); j++) {
          if (b.isMoveCheck(pieces[i].second.first, pieces[i].second.second, pieces[i].first->getPossibleMoves(b, pieces[i].second.first, pieces[i].second.second)[j].first, pieces[i].first->getPossibleMoves(b, pieces[i].second.first, pieces[i].second.second)[j].second)) {
             possibleChecks.push_back(Move{pieces[i].second.first, pieces[i].second.second, pieces[i].first->getPossibleMoves(b, pieces[i].second.first, pieces[i].second.second)[j].first, pieces[i].first->getPossibleMoves(b, pieces[i].second.first, pieces[i].second.second)[j].second, true, pieces[i].first} ); 
-            //cout << "Move puts game in check" << endl;
+            cout << "Move puts game in check" << endl;
             //return Move{pieces[i].second.first, pieces[i].second.second, pieces[i].first->getPossibleMoves(b, pieces[i].second.first, pieces[i].second.second)[j].first, pieces[i].first->getPossibleMoves(b, pieces[i].second.first, pieces[i].second.second)[j].second, true, pieces[i].first}; 
          }
       }
