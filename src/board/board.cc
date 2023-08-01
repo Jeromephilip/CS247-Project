@@ -267,6 +267,48 @@ bool Board::isCheck(string color, int x, int y) { // king's position
     return false;
 }
 
+bool Board::isMoveCheck(int curX, int curY, int newX, int newY) {
+    Piece *pieceToMove = getPiece(curX, curY);
+    string color = pieceToMove->getColor();
+    bool isCapturedSquare = false;
+    Piece *tempPiece;
+    // check if the place to move has a piece
+    if (getSquare(newX, newY)->checkOccupied() == true) {
+        // store it in a temporary variable
+        tempPiece = getPiece(newX, newY);
+        isCapturedSquare = true;
+    }
+
+    // cout << "Moving (" << curX << ", " << curY << ") to (" << newX << ", " << newY << ")" << endl; 
+    // move the piece temporarily to the new (x, y)
+    swapPiece(curX, curY, newX, newY);
+
+    if (color == "black") {
+        color = "white"; 
+    }
+    else if (color == "white") {
+        color = "black"; 
+    }
+
+    pair<int, int> kingPos = findKing(color);
+    // printBoard();
+    
+    // check if the new board after moving the piece makes it so that the king is in check.
+    bool isCheckedAfterMove = isCheck(color, kingPos.first, kingPos.second);
+
+
+    // move the piece back
+    swapPiece(newX, newY, curX, curY);
+    
+    // the piece previously in the new (x, y) needs to be restored
+    if (isCapturedSquare == true) {
+        setPiece(tempPiece, newX, newY);
+    }
+    
+    return isCheckedAfterMove;
+
+}
+
 Piece* Board::getPiece(int x, int y) {
     if (board[y][x]->getPieceOnSquare() == nullptr) {
         return nullptr;
