@@ -21,6 +21,7 @@ class Board {
     public:
         Board(int, int);
         Piece* getPiece(int, int);
+        vector<int> enPassantPosition;
         void setPiece(Piece*, int, int);
         void movePiece(int, int, int, int);
         bool isCheck(string, int, int);

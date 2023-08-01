@@ -15,11 +15,11 @@ vector<pair<int, int>> Pawn::getPossibleCaptures(Board& b, int x, int y) {
     }
     if (this->color == "white") {
         if (checkBounds(x-1, y-1, b) && b.getSquare(x-1, y-1)->checkOccupied() == true && b.getSquare(x-1, y-1)->getPieceOnSquare()->getColor() == "black" && tolower(b.getPiece(x-1, y-1)->getType() != 'k')) {
-            possibleMoves.push_back({x + 1, y + 1});
+            possibleMoves.push_back({x - 1, y - 1});
         }
 
-        if (checkBounds(x-1, y-2, b) && b.getSquare(x-1, y-2)->checkOccupied() == true && b.getSquare(x-1, y-2)->getPieceOnSquare()->getColor() == "black" && tolower(b.getPiece(x-1, y-2)->getType() != 'k')) {
-            possibleMoves.push_back({x - 1, y + 1});
+        if (checkBounds(x+1, y-1, b) && b.getSquare(x+1, y-1)->checkOccupied() == true && b.getSquare(x+1, y-1)->getPieceOnSquare()->getColor() == "black" && tolower(b.getPiece(x+1, y-1)->getType() != 'k')) {
+            possibleMoves.push_back({x + 1, y - 1});
         }
     } else {
         if (checkBounds(x+1, y+1, b) && b.getSquare(x+1, y+1)->checkOccupied() == true && b.getSquare(x+1, y+1)->getPieceOnSquare()->getColor() == "white" && tolower(b.getPiece(x+1, y+1)->getType() != 'k')) {
@@ -52,7 +52,7 @@ vector<pair<int, int>> Pawn::getPossibleMoves(Board& b, int x, int y) {
         // cout << "white" << endl;
         // move two spaces
         if (this->hasMoved == false) {
-            if (checkBounds(x, y-2, b) && b.getSquare(x, y-2)->checkOccupied() == false) {
+            if (checkBounds(x, y-2, b) && b.getSquare(x, y-2)->checkOccupied() == false && y == 6) {
                 possibleMoves.push_back({x, y-2});
             }
         }
@@ -62,18 +62,18 @@ vector<pair<int, int>> Pawn::getPossibleMoves(Board& b, int x, int y) {
         }
         // captures
         if (checkBounds(x-1, y-1, b) && b.getSquare(x-1, y-1)->checkOccupied() == true && b.getSquare(x-1, y-1)->getPieceOnSquare()->getColor() == "black" && tolower(b.getPiece(x-1, y-1)->getType() != 'k')) {
-            possibleMoves.push_back({x + 1, y + 1});
+            possibleMoves.push_back({x - 1, y - 1});
         }
 
-        if (checkBounds(x-1, y-2, b) && b.getSquare(x-1, y-2)->checkOccupied() == true && b.getSquare(x-1, y-2)->getPieceOnSquare()->getColor() == "black" && tolower(b.getPiece(x-1, y-2)->getType() != 'k')) {
-            possibleMoves.push_back({x - 1, y + 1});
+        if (checkBounds(x+1, y-1, b) && b.getSquare(x+1, y-1)->checkOccupied() == true && b.getSquare(x+1, y-1)->getPieceOnSquare()->getColor() == "black" && tolower(b.getPiece(x+1, y-1)->getType() != 'k')) {
+            possibleMoves.push_back({x + 1, y - 1});
         }
 
     // black color -> moves down the board. Y translation is positive. 
     } else {
         // move two spaces
         if (this->hasMoved == false) {
-            if (checkBounds(x, y+2, b) && b.getSquare(x, y+2)->checkOccupied() == false) {
+            if (checkBounds(x, y+2, b) && b.getSquare(x, y+2)->checkOccupied() == false && y == 1) {
                 // cout << "isoccupied" << endl;
                 possibleMoves.push_back({x, y+2});
             }
