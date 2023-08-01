@@ -158,7 +158,7 @@ void Game::defaultSetup() {
 }
 
 void Game::setup() {
-    cout << "Entered Setup Mode" << endl;
+    cout << "Entered Setup Mode. Once both teams have placed their kings, make sure that there is sufficient material to start the game!" << endl;
     b.printBoard();
     // initial setup code;
     // bool hasSetup = false;
@@ -190,7 +190,7 @@ void Game::setup() {
             } else if (b.isCheck("black", bKingPos.first, bKingPos.second) || b.isCheck("white", wKingPos.first, wKingPos.second)) {
                 cout << "The black/white king is in check! Make sure all the pieces on the board are not in check before exiting setup mode." << endl;
             } else if (isInsufficientMaterial()) {
-                cout << "Insufficient material to start a game!" << endl;
+                cout << "Insufficient material to start a game! The pieces on the board result in a draw." << endl;
             } else {
                 cout << "Setup Mode Exited" << endl << endl;
                 break;
@@ -600,7 +600,7 @@ void Game::helpMenu() {
 }
 
 void Game::play() {
-    cout << "Welcome to our CS247 Project - Chess in C++ - Made by Jerome and Maahir" << endl;
+    cout << "Welcome to our CS247 Project - Chess in C++ - Made by Jerome and Maahir. Use the" << endl;
     bool isWhiteinCheck = false;
     bool isBlackinCheck = false;
     while (true) {
@@ -609,7 +609,7 @@ void Game::play() {
         if (!getline(cin, input)) {
             displayScore();
             break;
-        }      
+        }   
         stringstream ss {input};
         string cmd;
         ss >> cmd;
@@ -620,8 +620,19 @@ void Game::play() {
             setup();
             isSetupDone = true;
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            if (isGameDone && isSetupDone) {
+                cout << "The game has started! ";
+                if (turn % 2 == 0) {
+                    cout << "Player 1 (White) Move" << endl;
+                } else if (turn % 2 == 1) {
+                    cout << "Player 2 (Black) Move" << endl;
+                }
+            }            
         } else if (cmd == "game" && !isGameDone) {
             gameType(ss, isGameDone);
+            if (isGameDone && isSetupDone) {
+                cout << "The game has started!" << endl;
+            }
         } else if (cmd == "resign") {
             if (turn % 2 == 0) {
                 cout << "Black wins!" << endl;
@@ -639,7 +650,6 @@ void Game::play() {
             string fPos;
             if (turn % 2 == 0) {
                 // white turn's move
-                cout << "Player 1 (White) Move" << endl;
                 if (!pW->getBool()) {
                     ss >> iPos;
                     ss >> fPos;
@@ -648,9 +658,8 @@ void Game::play() {
                 else {
                     move(pW, "a2", "a3", isWhiteinCheck, ss);
                 }
-                // if white is not in check, next turn.
             } else {
-                cout << "Player 2 (Black) Move" << endl;
+                
                 if (!pB->getBool()) {
                     ss >> iPos;
                     ss >> fPos;
@@ -663,6 +672,7 @@ void Game::play() {
             // winning conditions
             b.printBoard();
             notifyObservers();
+            
             pair<int, int> whiteKingPos = b.findKing("white");
             pair<int, int> blackKingPos = b.findKing("black");
 
@@ -686,10 +696,18 @@ void Game::play() {
             } else if (b.isCheck("white", whiteKingPos.first, whiteKingPos.second)) {
                 isWhiteinCheck = true;
                 cout << "White is in check." << endl;
+                cout << "Player 1 (White) Move" << endl;
             } else if (b.isCheck("black", blackKingPos.first, blackKingPos.second)) {
                 isBlackinCheck = true;
                 cout << "Black is in check." << endl;
-            } 
+                cout << "Player 2 (Black) Move" << endl;
+            } else if (turn % 2 == 0) {
+                cout << "Player 1 (White) Move" << endl;
+            } else if (turn % 2 == 1) {
+                cout << "Player 2 (Black) Move" << endl;
+            }
+
+
         } else {
             if (cmd == "setup" && isSetupDone) {
                 cout << "You have already setup your board!" << endl;
