@@ -40,6 +40,53 @@ bool Game::isStalemate(string color) {
     return false;
 }
 
+bool Game::isInsufficientMaterial() {
+    vector<Piece*> blackPieces;
+    vector<Piece*> whitePieces;
+
+    for (int i=0; i<b.getHeight(); i++) {
+        for (int j=0; j<b.getWidth(); j++) {
+            if (b.getSquare(j, i)->checkOccupied() && b.getPiece(j, i)->getColor() == "black") {
+                blackPieces.push_back(b.getPiece(j, i));
+            } else if (b.getSquare(j, i)->checkOccupied() && b.getPiece(j, i)->getColor() == "white") {
+                whitePieces.push_back(b.getPiece(j, i));
+            }
+        }
+    }
+
+    if (blackPieces.size() == 1 && whitePieces.size() == 1) {
+        if (blackPieces[0]->getType() == 'k' && blackPieces[0]->getType() == 'K') {
+            return true;
+        }
+    }
+
+    // check insufficient material for black
+    if (blackPieces.size() == 2 && whitePieces.size() == 1) {
+        if (blackPieces[0]->getType() == 'k' && blackPieces[1]->getType() == 'n' && whitePieces[0]->getType() == 'K') {
+            return true;
+        } else if (blackPieces[0]->getType() == 'n' && blackPieces[1]->getType() == 'k' && whitePieces[0]->getType() == 'K') {
+            return true;
+        }  else if (blackPieces[0]->getType() == 'k' && blackPieces[1]->getType() == 'b' && whitePieces[0]->getType() == 'K') {
+            return true;
+        } else if (blackPieces[0]->getType() == 'b' && blackPieces[1]->getType() == 'k' && whitePieces[0]->getType() == 'K') {
+            return true;
+        }
+    // check insufficient material for in terms of white
+    } else if (blackPieces.size() == 1 && whitePieces.size() == 2) {
+        if (whitePieces[0]->getType() == 'K' && whitePieces[1]->getType() == 'N' && blackPieces[0]->getType() == 'k') {
+            return true;
+        } else if (whitePieces[0]->getType() == 'N' && whitePieces[1]->getType() == 'K' && blackPieces[0]->getType() == 'k') {
+            return true;
+        } else if (whitePieces[0]->getType() == 'K' && whitePieces[1]->getType() == 'B' && blackPieces[0]->getType() == 'k') {
+            return true;
+        } else if (whitePieces[0]->getType() == 'B' && whitePieces[1]->getType() == 'K' && blackPieces[0]->getType() == 'k') {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 bool Game::isCheckmate(string color) {
     // first check if the king is in check
     pair<int, int> kingPos = b.findKing(color);
@@ -142,6 +189,8 @@ void Game::setup() {
                 cout << "The white king is not on the board" << endl;
             } else if (b.isCheck("black", bKingPos.first, bKingPos.second) || b.isCheck("white", wKingPos.first, wKingPos.second)) {
                 cout << "The black/white king is in check! Make sure all the pieces on the board are not in check before exiting setup mode." << endl;
+            } else if (isInsufficientMaterial()) {
+                cout << "Insufficient material to start a game!" << endl;
             } else {
                 cout << "Setup Mode Exited" << endl << endl;
                 break;
@@ -622,6 +671,10 @@ void Game::play() {
                 whiteScore += 0.5;
                 blackScore += 0.5;
                 reset();
+            } else if (isInsufficientMaterial()) {
+                cout << "Draw!" << endl;
+                whiteScore += 0.5;
+                blackScore += 0.5;
             } else if (isCheckmate("white")) {
                 cout << "Checkmate! Black wins!" << endl;
                 blackScore++;
@@ -642,6 +695,10 @@ void Game::play() {
                 cout << "You have already setup your board!" << endl;
             } else if (cmd == "game" && isGameDone) {
                 cout << "You have already initialized your players!" << endl;
+            } else if (cmd == "move" && !isGameDone) {
+                cout << "You have not initialized your players yet!" << endl;
+            } else if (cmd == "move" && !isSetupDone) {
+                cout << "You have not set up your board yet!" << endl;
             } else {
                 cout << "Invalid Command: " << cmd << endl;
             }

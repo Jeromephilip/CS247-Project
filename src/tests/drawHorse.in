@@ -1,0 +1,9 @@
+setup
++ K e1
++ k a8
++ n e4
++ P f6
+= black
+done
+game human human
+move e4 f6

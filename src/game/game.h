@@ -66,6 +66,7 @@ class Game : public Subject {
         // bool checkAdjacentKings(int, int);
         bool isCheckmate(string color);
         bool isStalemate(string color);
+        bool isInsufficientMaterial();
         bool isCheck(Player *p);
         Board& getBoard(); 
         ~Game();
