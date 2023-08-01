@@ -3,10 +3,6 @@
 
 Game::Game(): b(8, 8) {}
 
-bool Game::isCheck(Player* p) {
-    return true;
-} 
-
 void Game::reset() {
     b.reset();
     isGameDone = false;
@@ -112,10 +108,6 @@ bool Game::isCheckmate(string color) {
         return true;
     }
 
-    return false;
-}
-
-bool Game::isMoveValid(Piece* pc, int curX, int curY, int newX, int newY) {
     return false;
 }
 

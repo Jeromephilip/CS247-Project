@@ -56,7 +56,6 @@ class Game : public Subject {
         void helpMenu();
         void reset();
         void setup();
-        bool isMoveValid(Piece*, int, int, int, int);
         void displayScore();
         bool isValidMoveInput(string, string);
         Piece* pawnPromote(string, string);
@@ -67,7 +66,6 @@ class Game : public Subject {
         bool isCheckmate(string color);
         bool isStalemate(string color);
         bool isInsufficientMaterial();
-        bool isCheck(Player *p);
         Board& getBoard(); 
         ~Game();
 };
