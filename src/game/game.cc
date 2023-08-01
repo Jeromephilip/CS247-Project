@@ -313,6 +313,7 @@ void Game::move(Player* p, string iPos, string fPos, bool& isKingInCheck, string
                 b.setPiece(rook, 5, 7);
                 
                 cout << "Castle king side (White)" << endl;
+                turn++;
                 return;
             }
         }
@@ -329,6 +330,7 @@ void Game::move(Player* p, string iPos, string fPos, bool& isKingInCheck, string
                 b.setPiece(rook, 3, 7);
                 
                 cout << "Castle queen side (White)" << endl;
+                turn++;
                 return;                
             }
         }
@@ -345,6 +347,7 @@ void Game::move(Player* p, string iPos, string fPos, bool& isKingInCheck, string
                 b.setPiece(rook, 5, 0);
                 
                 cout << "Castle king side (Black)" << endl;
+                turn++;
                 return;
             }
         }
@@ -361,17 +364,69 @@ void Game::move(Player* p, string iPos, string fPos, bool& isKingInCheck, string
                 b.setPiece(rook, 3, 0);
                 
                 cout << "Castle queen side (Black)" << endl;
+                turn++;
                 return;
             }
         }
     }
-    
+
+    // en passant done
+    // check if black
+    if (m.piece->getType() == 'p' && (newX == curX - 1) && (newY == curY + 1))  {
+        if (b.getSquare(curX - 1, curY)->checkOccupied() && b.getPiece(curX - 1, curY)->getColor() != m.piece->getColor() && tolower(b.getPiece(curX - 1, curY)->getType()) == 'p') {
+            if (b.enPassantPosition.size() == 2 && b.enPassantPosition[0] == curX - 1 && b.enPassantPosition[1] == curY) {
+                b.removePieceSetup(curX + 1, curY);
+                b.movePiece(curX, curY, newX, newY);
+                b.enPassantPosition.clear();
+                turn++;
+                return;
+            }
+        }
+    } else if (m.piece->getType() == 'p' && (newX == curX + 1) && (newY == curY + 1))  {
+        if (b.getSquare(curX + 1, curY)->checkOccupied() && b.getPiece(curX + 1, curY)->getColor() != m.piece->getColor() && tolower(b.getPiece(curX + 1, curY)->getType()) == 'p') {
+            if (b.enPassantPosition.size() == 2 && b.enPassantPosition[0] == curX + 1 && b.enPassantPosition[1] == curY) {
+                b.removePieceSetup(curX + 1, curY);
+                b.movePiece(curX, curY, newX, newY);
+                b.enPassantPosition.clear();
+                turn++;
+                return;
+            }
+        }
+    } else if (m.piece->getType() == 'P' && (newX == curX - 1) && (newY == curY - 1))  {
+        if (b.getSquare(curX - 1, curY)->checkOccupied() && b.getPiece(curX - 1, curY)->getColor() != m.piece->getColor() && tolower(b.getPiece(curX - 1, curY)->getType()) == 'p') {
+            if (b.enPassantPosition.size() == 2 && b.enPassantPosition[0] == curX - 1 && b.enPassantPosition[1] == curY) {
+                b.removePieceSetup(curX - 1, curY);
+                b.movePiece(curX, curY, newX, newY);
+                b.enPassantPosition.clear();
+                turn++;
+                return;
+            }
+        }
+    } else if (m.piece->getType() == 'P' && (newX == curX + 1) && (newY == curY - 1))  {
+        if (b.getSquare(curX + 1, curY)->checkOccupied() && b.getPiece(curX + 1, curY)->getColor() != m.piece->getColor() && tolower(b.getPiece(curX + 1, curY)->getType()) == 'p') {
+            if (b.enPassantPosition.size() == 2 && b.enPassantPosition[0] == curX + 1 && b.enPassantPosition[1] == curY) {
+                b.removePieceSetup(curX + 1, curY);
+                b.movePiece(curX, curY, newX, newY);
+                b.enPassantPosition.clear();
+                turn++;
+                return;
+            }
+        }
+    }
+    // check if black
 
     // cout << "The move coordinates are: (" << m.oldX << "," << m.oldY << ") -> (" << m.newX << "," << m.newY << ")" << endl;
 
     if (m.valid) {
 
         // pawn promotion
+        b.enPassantPosition.clear();
+        
+        if (tolower(m.piece->getType()) == 'p' && m.valid && abs(newY - curY) == 2) {
+            b.enPassantPosition.push_back(newX);
+            b.enPassantPosition.push_back(newY);
+        }
+
         if (m.piece->getType() == 'p' && newY == 7) { // pawn promotion on the 8th
             // ask for a value here...
             // delete the pawn and ask for a new value here
@@ -385,7 +440,6 @@ void Game::move(Player* p, string iPos, string fPos, bool& isKingInCheck, string
             } else {
                 cout << "Not a valid promotion!" << endl;
             }
-
             return;
         } else if (m.piece->getType() == 'P' && newY == 0) {
             string promoteType;
@@ -545,11 +599,11 @@ void Game::play() {
                 blackScore += 0.5;
                 reset();
             } else if (isCheckmate("white")) {
-                cout << "Checkmate! White wins!" << endl;
+                cout << "Checkmate! Black wins!" << endl;
                 blackScore++;
                 reset();
             } else if (isCheckmate("black")) {
-                cout << "Checkmate! Black wins!" << endl;
+                cout << "Checkmate! White wins!" << endl;
                 whiteScore++;
                 reset();
             } else if (b.isCheck("white", whiteKingPos.first, whiteKingPos.second)) {
