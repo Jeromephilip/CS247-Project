@@ -329,6 +329,7 @@ void Game::move(Player* p, string iPos, string fPos, bool& isKingInCheck, string
 
     Move m = p->turnMove(curX, curY, newX, newY, b); 
     if (m.piece == nullptr) {
+        cout << "No piece was found at " << iPos << endl;
         return; 
     } else if (p->getColour() != m.piece->getColor()) {
         cout << "It is " << p->getColour() << " player's turn!"<< endl;
@@ -592,7 +593,7 @@ void Game::helpMenu() {
 }
 
 void Game::play() {
-    cout << "Welcome to our CS247 Project - Chess in C++ - Made by Jerome and Maahir. Use the" << endl;
+    cout << "Welcome to our CS247 Project - Chess in C++ - Made by Jerome and Maahir. Use the \"help\" command to list commands to start the game." << endl;
     bool isWhiteinCheck = false;
     bool isBlackinCheck = false;
     while (true) {

@@ -84,7 +84,7 @@ vector<pair<int, int>> King::getPossibleCaptures(Board& b, int x, int y) {
         int ty = y + dy[i];
         if (checkBounds(tx, ty, b)) {
             if (b.getSquare(tx, ty)->checkOccupied() == true && b.getPiece(tx, ty)->getColor() != getCurPiece->getColor() && tolower(b.getPiece(tx, ty)->getType()) != 'k') {
-                if (!b.isCheck(getCurPiece->getColor(), tx, ty) && b.checkAdjacentKings(tx, ty)) {
+                if (!b.isCheck(getCurPiece->getColor(), tx, ty) && !b.checkAdjacentKings(tx, ty)) {
                     possibleMoves.push_back({tx, ty});
                 }
             };
