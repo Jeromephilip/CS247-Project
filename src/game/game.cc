@@ -181,8 +181,6 @@ void Game::setup() {
                 cout << "The white king is not on the board" << endl;
             } else if (b.isCheck("black", bKingPos.first, bKingPos.second) || b.isCheck("white", wKingPos.first, wKingPos.second)) {
                 cout << "The black/white king is in check! Make sure all the pieces on the board are not in check before exiting setup mode." << endl;
-            } else if (isInsufficientMaterial()) {
-                cout << "Insufficient material to start a game! The pieces on the board result in a draw." << endl;
             } else {
                 cout << "Setup Mode Exited" << endl << endl;
                 break;
@@ -220,7 +218,11 @@ void Game::setup() {
                 } else if (arg2 == "B") {
                     b.setPiece(new Bishop("white"), x, y);
                 } else if (arg2 == "P") {
-                    b.setPiece(new Pawn("white"), x, y);
+                    if (y != 7 && y != 0) {
+                        b.setPiece(new Pawn("white"), x, y);
+                    } else {
+                        cout << "Pawn on illegal row!" << endl;
+                    }
                 } else if (arg2 == "k") {
                     if (b.checkAdjacentKings(x, y)) {
                         cout << "Cannot place a king there as the kings are beside each other!" << endl;
@@ -238,7 +240,11 @@ void Game::setup() {
                 } else if (arg2 == "b") {
                     b.setPiece(new Bishop("black"), x, y);
                 } else if (arg2 == "p") {
-                    b.setPiece(new Pawn("black"), x, y);
+                    if (y != 7 && y != 0) {
+                        b.setPiece(new Pawn("black"), x, y);
+                    } else {
+                        cout << "Pawn on illegal row!" << endl;
+                    }
                 } else {
                     inValid = true;
                 }
@@ -314,6 +320,8 @@ Piece* Game::pawnPromote(string type, string color) {
     out->setHasMoved(true);
     return out;
 }
+
+
 
 void Game::move(Player* p, string iPos, string fPos, bool& isKingInCheck, stringstream& ss) {
 
